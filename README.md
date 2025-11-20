@@ -1,6 +1,8 @@
 IntelligenceQuest
 
-A hobby project creating a from-scratch 2D video game engine. It's currently broken, likely would take some work to get it running again.
+A hobby project creating a from-scratch 2D video game engine. 
+
+Currently broken; would take some work to get it running again.
 
 Dependencies
  - GLAD/460
