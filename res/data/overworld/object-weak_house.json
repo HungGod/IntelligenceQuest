@@ -1,0 +1,39 @@
+[
+    {
+        "ParseJsonTemplate":{
+            "template": "res/data/templates/object.tmpl",
+            "args": {
+                "GROUP_ID": "Overworld",
+                "OBJECT_ID": "Roof_4",
+                "TILEMAP_ID": "Outside",
+                "POS_ID": 8,
+                "POS_NUM": 4,
+                "SRC_ID":  "roof.png",
+                "OBJECT_SCALE": 2.0,
+                "SPRITESHEET_ID": "Outside"
+            }
+        }
+    },
+    {
+        "ParseJsonTemplate":{
+            "template": "res/data/templates/object.tmpl",
+            "args": {
+                "GROUP_ID": "Overworld",
+                "OBJECT_ID": "Weak",
+                "TILEMAP_ID": "Outside",
+                "POS_ID": 9,
+                "POS_NUM": 4,
+                "OBJECT_SCALE": 2.0,
+                "SRC_ID": "house.png",
+                "COLLIDER_JSON": [
+                    {
+                        "type": "GJK::AABB",
+                        "parameters": {"x": 0, "y": -16, "w": 256, "h": 112}
+                    }
+                ], 
+                "SPRITESHEET_ID": "Outside"
+            }
+        }
+    }
+]
+

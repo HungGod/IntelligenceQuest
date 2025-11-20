@@ -1,0 +1,193 @@
+[
+    
+    {
+        "DelayNext": {
+            "CreateComponents":{
+                "path": ["Combat", "Weak"],
+                "components": [
+                    {
+                        "type": "Position",
+                        "name": "position",
+                        "parameters": {
+                            "x": 608,
+                            "y": 0
+                        }
+                    },
+                    {
+                        "type": "Float",
+                        "name": "height",
+                        "parameters": 128
+                    },
+                    {
+                        "type": "Float",
+                        "name": "width",
+                        "parameters": 64
+                    },
+                    {
+                        "type": "Float",
+                        "name": "scale",
+                        "parameters": 3.0
+                    },
+                    {
+                        "type": "Hitboxes",
+                        "name": "impulse"                
+                    },
+                    {
+                        "type": "Float",
+                        "name": "speed",
+                        "parameters": 240
+                    },
+                    {
+                        "type": "Float",
+                        "name": "animation_speed",
+                        "parameters": 8
+                    },
+                    {
+                        "type" : "AnimationMap",
+                        "name" : "animation_map",
+                        "parameters" : {
+                            "path" : ["Combat", "Spritesheet", "Combat"],
+                            "animations": {
+                                "idle_down" : "weak_idle_down.png",
+                                "idle_up" : "weak_idle_down.png",
+                                "idle_right" : "weak_idle_right.png",
+                                "idle_down_right" : "weak_idle_right.png",
+                                "idle_up_right" : "weak_idle_right.png",
+                                "idle_left" : "weak_idle_left.png",
+                                "idle_down_left" : "weak_idle_left.png",
+                                "idle_up_left" : "weak_idle_left.png",
+                                
+                                "walk_down" : ["weak_walk_right_0.png", "weak_walk_right_0.png"],
+                                "walk_up" : ["weak_walk_right_0.png", "weak_walk_right_0.png"],
+                                "walk_right" : ["weak_walk_right_0.png", "weak_walk_right_1.png"],
+                                "walk_down_right" : ["weak_walk_right_0.png", "weak_walk_right_1.png"],
+                                "walk_up_right" : ["weak_walk_right_0.png", "weak_walk_right_1.png"],
+                                "walk_left" : ["weak_walk_left_0.png", "weak_walk_left_1.png"],
+                                "walk_down_left" : ["weak_walk_left_0.png", "weak_walk_left_1.png"],
+                                "walk_up_left" : ["weak_walk_left_0.png", "weak_walk_left_1.png"]
+                            }
+                        }
+                    },
+                    {
+                        "type" : "Src::Transform",
+                        "name" : "src_temp",
+                        "parameters": {
+                            "path": ["Combat", "Spritesheet", "Combat", "weak_idle_down.png"]
+                        }
+                    },
+                    {
+                        "type" : "Animation",
+                        "name" : "animation",
+                        "parameters": {
+                            "animation_map": [ "Combat", "Weak", "animation_map"],
+                            "id": "idle_down"
+                        }
+                    },
+                    {
+                        "type" : "Direction",
+                        "name" : "direction",
+                        "parameters": {"x": 0, "y": 0}
+                    },
+                    {
+                        "type": "Direction",
+                        "name": "prev_direction",
+                        "parameters": {"x": 0, "y": 1}
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "DelayNext": {
+            "CreateComponents": {
+                "path": ["Combat", "Weak", "Update"],
+                "components": [
+                    {
+                        "type" : "System::Animate",
+                        "name" : "system-animate",
+                        "parameters" : {
+                            "animation" : [ "Combat", "Weak", "animation" ],
+                            "src_temp" : [ "Combat", "Weak", "src_temp" ],
+                            "speed" : [ "Combat", "Weak", "animation_speed" ]
+                        } 
+                    },
+                    {
+                        "type": "System::CombatController",
+                        "name": "system-combat_controller",
+                        "parameters": {
+                            "controller" : [ "Controller", "debug" ],
+                            "direction" : [ "Combat", "Weak", "direction" ]
+                        }
+                    },
+                    {
+                        "type" : "System::AnimateMove",
+                        "name" : "system-animate_move",
+                        "parameters" : {
+                            "direction" : [ "Combat", "Weak", "direction" ],
+                            "prev_direction" : [ "Combat", "Weak", "prev_direction" ],
+                            "animation_map": [ "Combat", "Weak", "animation_map" ],
+                            "animation" : [ "Combat", "Weak", "animation" ]
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "DelayNext": [
+            {
+                "CreateComponents": {
+                    "path": ["Colliders"],
+                    "components": [
+                        {
+                            "type" : "GJK::Ellipse",
+                            "name" : "ellipse-rx32ry64cx32cy64",
+                            "parameters" : {
+                                "rx" : 32,
+                                "ry" : 64,
+                                "cx": 32, 
+                                "cy": 64
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "CreateComponents": {
+                    "path": ["Combat", "Weak"],
+                    "components": 
+                    {
+                        "type": "Collider",
+                        "name": "collider",
+                        "parameters": {
+                            "shape": ["Colliders", "ellipse-rx32ry64cx32cy64"],
+                            "kind": "physical",
+                            "position": ["Combat", "Weak", "position"],
+                            "scale": ["Combat", "Weak", "scale"]
+                        }
+                    }
+                }
+            }
+        ]
+            
+    }, 
+    {
+        "DelayNext":{
+            "CreateComponents":{
+                "path": ["Combat", "Weak", "Render"],
+                "components": {
+                    "type": "System::ZoomCameraDraw",
+                    "name": "system-zoom_camera_draw",
+                    "parameters": {
+                        "camera_position": ["Combat", "Camera", "position"],
+                        "camera_zoom": ["Combat", "Camera", "zoom"],
+                        "src": ["Combat", "Weak", "src_temp"],
+                        "position": ["Combat", "Weak", "position"],
+                        "scale": ["Combat", "Weak", "scale"],
+                        "material" : [ "Combat", "Spritesheet", "Combat", "material" ]
+                    }
+                }
+            }
+        }
+    }
+]

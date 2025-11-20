@@ -1,0 +1,31 @@
+{
+    "ParseJsonTemplate": 
+    {
+        "template": "res/data/templates/textbox.tmpl",
+        "args": {
+            "TEXTBOX_ID": "Speech_Bubble",
+            "TILE_SIZE": 16,
+            "TEXTBOX_WIDTH": 8,
+            "TEXTBOX_HEIGHT": 5,
+            "SPRITESHEET": "Spritesheet",
+            "TEXTBOX_PARAMS": [
+                "textbox_top_left_corner_1.png", "textbox_top_left_corner_2.png", "textbox_top_left_corner_3.png", "textbox_top_side.png", "textbox_top_side.png", "textbox_top_right_corner_0.png", "textbox_top_right_corner_1.png", "textbox_top_right_corner_2.png",
+                "textbox_top_left_corner_0.png", "textbox_center.png", "textbox_center.png", "textbox_center.png", "textbox_center.png", "textbox_center.png",  "textbox_center.png", "textbox_top_right_corner_3.png",
+                "textbox_left_side.png", "textbox_center.png", "textbox_center.png", "textbox_center.png", "textbox_center.png", "textbox_center.png",  "textbox_center.png", "textbox_right_side.png",
+                "textbox_bot_left_corner_0.png", "textbox_center.png", "textbox_center.png", "textbox_center.png", "textbox_center.png", "textbox_center.png",  "textbox_center.png", "textbox_bot_right_corner_3.png"
+            ],
+            "NO_SPEECH_ARROW": [
+                "textbox_bot_left_corner_1.png", "textbox_bot_left_corner_2.png", "textbox_bot_left_corner_3.png", "textbox_bot_side.png", "textbox_bot_side.png", "textbox_bot_right_corner_0.png", "textbox_bot_right_corner_1.png", "textbox_bot_right_corner_2.png"
+            ],
+            "LEFT_SPEECH_ARROW": [
+                "textbox_bot_left_corner_1.png", "textbox_bot_left_corner_2.png", "textbox_speech_arrow_left_0.png", "textbox_bot_side.png", "textbox_bot_side.png", "textbox_bot_right_corner_0.png", "textbox_bot_right_corner_1.png", "textbox_bot_right_corner_2.png",
+                null, null, "textbox_speech_arrow_left_1.png", null, null, null, null 
+            ],
+            "RIGHT_SPEECH_ARROW": [
+                "textbox_bot_left_corner_1.png", "textbox_bot_left_corner_2.png", "textbox_bot_left_corner_3.png", "textbox_bot_side.png", "textbox_bot_side.png", "textbox_speech_arrow_right_0.png", "textbox_bot_right_corner_1.png", "textbox_bot_right_corner_2.png",
+                null, null, null, null, null, "textbox_speech_arrow_right_1.png", null, null
+            ]
+        }
+    }
+}
+

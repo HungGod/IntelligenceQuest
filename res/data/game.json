@@ -1,0 +1,132 @@
+[
+    {
+        "CreateComponents": [
+            {
+                "type": "Float",
+                "name": "width",
+                "parameters": 800
+            },
+            {
+                "type": "JsonMap",
+                "name": "json_map"
+            },
+            {
+                "type": "JsonTemplateMap",
+                "name": "json_template_map",
+                "parameters": [
+                    "res/data/templates/npc.tmpl",
+                    "res/data/templates/object.tmpl",
+                    "res/data/templates/spritesheet.tmpl",
+                    "res/data/templates/tilemap.tmpl",
+                    "res/data/templates/tileset.tmpl",
+                    "res/data/templates/save.tmpl",
+                    "res/data/templates/warp.tmpl",
+                    "res/data/templates/gamestate.tmpl",
+                    "res/data/templates/font.tmpl",
+                    "res/data/templates/textbox.tmpl",
+                    "res/data/templates/overworld/overworld.tmpl",
+                    "res/data/templates/load_textbox.tmpl"
+                ]
+            },
+            {
+                "type": "Float",    
+                "name": "height",
+                "parameters": 640
+            },
+            {
+                "type": "Float",
+                "name": "delta_time",
+                "parameters": 0
+            },
+            {
+                "type": "Bool",
+                "name": "exit",
+                "parameters": false
+            },
+            {
+                "type": "Int",
+                "name": "material_id",
+                "parameters": 0
+            },
+            {
+                "type": "SystemVector",
+                "name": "render"
+            },
+            {
+                "type": "SystemVector",
+                "name": "update"
+            },
+            {
+                "type": "KeyboardArray",
+                "name": "keys"
+            },
+            {
+                "type": "Json",
+                "name": "curr_state"
+            },
+            {
+                "type": "String",
+                "name": "window_title",
+                "parameters": "IntelligenceQuest"
+            },
+            {
+                "type": "LoadMap",
+                "name": "load_map"
+            }
+        ]
+    },
+    {
+        "DelayNext" : [
+            {
+                "CreateComponents" :  {
+                    "type" : "Renderer",
+                    "name" : "renderer",
+                    "parameters" : {"attributes": [2,2], "max_sprites": 256} 
+                }
+            },
+            {
+                "LoadFiles": [
+                    "res/data/shader.json",
+                    "res/data/camera.json",
+                    "res/data/cache.json",
+                    "res/data/collision.json",
+                    "res/data/controller.json",
+                    "res/data/spritesheet.json",
+                    "res/data/textbox/prompt_16x7x5.json",
+                    "res/data/textbox/speech_bubble_16x7x5.json",
+                    "res/data/textbox/menu_prompt_16x5x7.json",
+                    "res/data/textbox/thought_bubble_16x8x5.json"
+                ]
+            },
+            {
+                "DelayNext" : [
+                    {
+                        "LoadFiles": [
+                            "res/data/fonts/gilsans_packed_text_with_outline_2.json",
+                            "res/data/player.json" 
+                        ]
+                    },
+                    {
+                        "DelayNext": {
+                            "LoadFiles" : [                        
+                                "res/data/blocks/sign.json",  
+                                "res/data/blocks/speech.json",
+                                "res/data/blocks/thoughts.json",
+                                "res/data/blocks/menu/main.json",
+                                "res/data/blocks/menu/inventory.json"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "DelayCycles": {
+                    "cycles" : 4,
+                    "next" :{
+                        "LoadFiles": "res/data/save.json"
+                    }
+                }
+            }
+        ]
+    }
+]

@@ -1,0 +1,42 @@
+[
+    {
+        "Pause": {
+            "pause_render": true,
+            "pause_update": true
+        }
+    },
+    {
+        "GameState": {
+            "gamestate": $GAMESTATE_PATH,
+            "layer": $GAMESTATE_NUM
+        }
+    },
+    {
+        "DelayCycles": {
+            "cycles": 4,
+            "next": [
+                {
+                    "CreateComponents": {
+                        "path": "Player",
+                        "components": [
+                            {
+                                "name": "position",
+                                "parameters": {
+                                    "position_map": [$GROUP_ID, $TILEMAP_ID, "position_map"],
+                                    "id": 17,
+                                    "num": $POSITION_NUM,
+                                    "scale": ["Player", "scale"],
+                                    "src_temp": ["Player", "src_temp"]
+                                }
+                            },
+                            {
+                                "name": "direction",
+                                "parameters": $PLAYER_DIR
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+]

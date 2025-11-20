@@ -1,0 +1,139 @@
+[
+    {
+        "CreateComponents":{
+            "path": ["Combat", "Player"],
+            "components": [
+                {
+                    "type": "Position",
+                    "name": "position",
+                    "parameters": {
+                        "x": -32,
+                        "y": 480
+                    }
+                },
+                {
+                    "type": "Float",
+                    "name": "height",
+                    "parameters": 64
+                },
+                {
+                    "type": "Float",
+                    "name": "width",
+                    "parameters": 64
+                },
+                {
+                    "type": "Float",
+                    "name": "scale",
+                    "parameters": 3.0
+                },
+                {
+                    "type": "Float",
+                    "name": "speed",
+                    "parameters": 360
+                },
+                {
+                    "type": "Float",
+                    "name": "animation_speed",
+                    "parameters": 8
+                },
+                {
+                    "type": "Collider",
+                    "name": "collider",
+                    "parameters": {
+                        "shape": {
+                            "type": "GJK::Circle",
+                            "parameters": {
+                                "radius": 32,
+                                "center": {
+                                    "x": 32,
+                                    "y": 32
+                                }
+                            }
+                        },
+                        "kind": "physical",
+                        "position": ["Combat", "Player", "position"],
+                        "scale": ["Combat", "Player", "scale"]
+                    }
+                },
+                {
+                    "type" : "Src::Transform",
+                    "name" : "src_temp",
+                    "parameters": {
+                        "path": ["Spritesheet", "flesh_idle_up.png"]
+                    }
+                },
+                {
+                    "type" : "Animation",
+                    "name" : "animation",
+                    "parameters": {
+                        "animation_map": [ "Player", "animation_map"],
+                        "id": "idle_down"
+                    }
+                },
+                {
+                    "type" : "Direction",
+                    "name" : "direction",
+                    "parameters": {"x": 0, "y": 0}
+                },
+                {
+                    "type": "Direction",
+                    "name": "prev_direction",
+                    "parameters": {"x": 0, "y": 1}
+                }
+            ]
+        }
+    },
+    {
+        "CreateComponents": {
+            "path": ["Combat", "Player", "Update"],
+            "components": [
+                {
+                    "type" : "System::Animate",
+                    "name" : "system-animate",
+                    "parameters" : {
+                        "animation" : [ "Combat", "Player", "animation" ],
+                        "src_temp" : [ "Combat", "Player", "src_temp" ],
+                        "speed" : [ "Combat", "Player", "animation_speed" ]
+                    } 
+                },
+                {
+                    "type": "System::CombatController",
+                    "name": "system-combat_controller",
+                    "parameters": {
+                        "controller" : [ "Controller", "controller" ],
+                        "direction" : [ "Combat", "Player", "direction" ]
+                    }
+                },
+                {
+                    "type" : "System::AnimateMove",
+                    "name" : "system-animate_move",
+                    "parameters" : {
+                        "direction" : [ "Combat", "Player", "direction" ],
+                        "prev_direction" : [ "Combat", "Player", "prev_direction" ],
+                        "animation_map": [ "Player", "animation_map" ],
+                        "animation" : [ "Combat", "Player", "animation" ]
+                    }
+                }
+            ]
+        }
+    }, 
+    {
+        "DelayNext":{
+            "CreateComponents":{
+                "path": ["Combat", "Player", "Render"],
+                "components": {
+                    "type": "System::ZoomCameraDraw",
+                    "name": "system-zoom_camera_draw",
+                    "parameters": {
+                        "camera_position": ["Combat", "Camera", "position"],
+                        "camera_zoom": ["Combat", "Camera", "zoom"],
+                        "src": ["Combat", "Player", "src_temp"],
+                        "position": ["Combat", "Player", "position"],
+                        "scale": ["Combat", "Player", "scale"],
+                        "material" : [ "Spritesheet", "material" ]
+                    }
+                }
+            }
+        }
+    }
+]

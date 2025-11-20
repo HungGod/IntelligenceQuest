@@ -1,0 +1,23 @@
+{
+    "CreateComponents": {
+        "path" : "Shaders",   
+        "components" : [
+            {
+                "type": "Shader",
+                "name": "sprite",
+                "parameters": {
+                    "vs": "res/shaders/sprite.vs",
+                    "fs": "res/shaders/sprite.fs"
+                }
+            },
+            {
+                "type": "Shader",
+                "name": "color",
+                "parameters": {
+                    "vs": "res/shaders/color.vs",
+                    "fs": "res/shaders/color.fs"
+                }
+            }
+        ]
+    }
+}

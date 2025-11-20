@@ -1,0 +1,173 @@
+[
+    {
+        "CreateComponents" :{
+            "path": [$GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID],
+            "components": [
+                {
+                    "type": "Float",
+                    "name": "speed",
+                    "parameters": $NPC_SPEED
+                },
+                {
+                    "type": "Float",
+                    "name": "scale",
+                    "parameters": $NPC_SCALE
+                },
+                <IF WIDTH>
+                    {
+                        "type": "Float",
+                        "name": "width",
+                        "parameters": $WIDTH
+                    },
+                </IF>
+                <IF HEIGHT>
+                    {
+                        "type": "Float",
+                        "name": "height",
+                        "parameters": $HEIGHT
+                    },
+                </IF>
+                <IF COUNT>
+                    {
+                        "type": "Int",
+                        "name": "count",
+                        "parameters": $COUNT
+                    },
+                </IF>
+                <IF NPC_RADIUS>
+                    {
+                        "type": "Float",
+                        "name": "radius",
+                        "parameters": $NPC_RADIUS
+                    },
+                </IF>
+                {
+                    "type": "SrcTemplate",
+                    "name": "src_temp",
+                    "parameters": [$GROUP_ID, "Spritesheet", $SPRITESHEET_ID, $SRC_ID]
+                },
+                {
+                    "type": "Position",
+                    "name": "position",
+                    "parameters": {
+                        "position_map": [$GROUP_ID, $TILEMAP_ID, "position_map"],
+                        "id": $POS_ID,
+                        <IF POS_NUM>
+                            "num": $POS_NUM,
+                        </IF>
+                        "scale": [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "scale"],
+                        "src_temp": [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "src_temp"]
+                    }
+                },
+                {
+                    "type" : "AnimationMap",
+                    "name" : "animation_map",
+                    "parameters" : {
+                        "path": [$GROUP_ID, "Spritesheet", $SPRITESHEET_ID],
+                        "animations": $NPC_ANIMATIONS
+                    }
+                },
+                {
+                    "type" : "Animation",
+                    "name" : "animation",
+                    "parameters": {
+                        "animation_map": [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "animation_map"],
+                        "id": "idle_down"
+                    }
+                },
+                {
+                    "type" : "Float",
+                    "name" : "animation_speed",
+                    "parameters": $NPC_ANIMATION_SPEED
+                },
+                {
+                    "type" : "Direction",
+                    "name" : "direction"
+                },
+                {
+                    "type" : "Direction",
+                    "name" : "prev_direction"
+                }
+            ]
+        }
+    },
+    {
+        "CreateComponents": {
+            "path": [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "Colliders"],
+            "components": $NPC_COLLIDER
+        }
+    },
+    {
+        "UpdateComponents": {
+            "path": [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "Colliders"],
+            "update":  {"scale": [$GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "scale"]}
+        }
+    }, 
+    {
+        "DelayNext": [
+            {
+                "CreateComponents": {
+                    "path": [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "Render" ],
+                    "components": {
+                        "type": "System::CameraDraw",
+                        "name": "camera_draw",
+                        "parameters": {
+                            "src_temp" : [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "src_temp" ],
+                            "position" : [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "position" ],
+                            "material" : [ $GROUP_ID, "Spritesheet", $SPRITESHEET_ID, "material"],
+                            "camera" : [ "Camera", "position" ],
+                            "scale": [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID , "scale"]
+                        }
+                    }
+                }
+            },
+            {
+                "CreateComponents": {
+                    "path": [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "Update" ],
+                    "components": [
+                        {
+                            "type" : "System::CheckCollision",
+                            "name" : "system-check_collision",
+                            "parameters" : {
+                                "colliders" : [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "Colliders" ],
+                                "position" : [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "position" ],
+                                "quadtree": [ "Collision", "QuadTree", "root" ]
+                            }
+                        },
+                        {
+                            "type" : "System::AnimateMove",
+                            "name" : "system-animate_move",
+                            "parameters" : {
+                                "direction" : [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "direction" ],
+                                "prev_direction" : [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "prev_direction" ],
+                                "animation_map": [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "animation_map" ],
+                                "animation" : [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "animation" ]
+                            }
+                        },
+                        {
+                            "type": "System::NPCMove",
+                            "name": "system-npc_move",
+                            "parameters": {
+                                <IF NPC_RADIUS>
+                                    "radius" : [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "radius"],
+                                </IF>
+                                "position": [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "position" ],
+                                "direction": [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "direction"],
+                                "speed" : [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "speed" ]
+                            }
+                        },
+                        {
+                            "type" : "System::Animate",
+                            "name" : "system-animate",
+                            "parameters" : {
+                                "animation" : [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "animation" ],
+                                "src_temp" : [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "src_temp" ],
+                                "speed" : [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "animation_speed" ]
+                            } 
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+]

@@ -1,0 +1,9 @@
+{
+    "name": "textbox",
+    "layers": {
+        "ChangeState": {
+            "render": ["CURRENT", "Textbox"],
+            "update": ["Textbox"]
+        }
+    }
+}

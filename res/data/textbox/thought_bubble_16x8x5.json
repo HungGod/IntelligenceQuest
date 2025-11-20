@@ -1,0 +1,30 @@
+{
+    "ParseJsonTemplate": 
+    {
+        "template": "res/data/templates/textbox.tmpl",
+        "args": {
+            "TEXTBOX_ID": "Thought_Bubble",
+            "TILE_SIZE": 16,
+            "TEXTBOX_WIDTH": 8,
+            "TEXTBOX_HEIGHT": 5,
+            "SPRITESHEET": "Spritesheet",
+            "TEXTBOX_PARAMS": [
+                null, "thought_bubble_top_left_corner_2.png", "thought_bubble_top_left_corner_3.png", "thought_bubble_top_side_0.png", "thought_bubble_top_side_1.png", "thought_bubble_top_right_corner_0.png", "thought_bubble_top_right_corner_1.png", null,
+                "thought_bubble_top_left_corner_0.png", "thought_bubble_top_left_corner_1.png", "thought_bubble_center.png", "thought_bubble_center.png", "thought_bubble_center.png", "thought_bubble_center.png", "thought_bubble_top_right_corner_2.png", "thought_bubble_top_right_corner_3.png",
+                "thought_bubble_left_side.png", "thought_bubble_center.png", "thought_bubble_center.png", "thought_bubble_center.png", "thought_bubble_center.png", "thought_bubble_center.png", "thought_bubble_center.png", "thought_bubble_right_side.png",
+                "thought_bubble_bot_left_corner_0.png", "thought_bubble_bot_left_corner_1.png", "thought_bubble_center.png", "thought_bubble_center.png", "thought_bubble_center.png", "thought_bubble_center.png", "thought_bubble_bot_right_corner_0.png", "thought_bubble_bot_right_corner_1.png"
+            ],
+            "NO_SPEECH_ARROW": [
+                "thought_bubble_bot_left_corner_2.png", "thought_bubble_bot_left_corner_3.png", "thought_bubble_bot_left_corner_4.png", "thought_bubble_bot_side_0.png", "thought_bubble_bot_side_1.png", "thought_bubble_bot_right_corner_2.png", "thought_bubble_bot_right_corner_3.png", null
+            ],
+            "LEFT_SPEECH_ARROW": [
+                "thought_bubble_bot_left_corner_2.png", "thought_bubble_speech_arrow_left_0.png", "thought_bubble_bot_left_corner_4.png", "thought_bubble_bot_side_0.png", "thought_bubble_bot_side_1.png", "thought_bubble_bot_right_corner_2.png", "thought_bubble_bot_right_corner_3.png", null,
+                null, "thought_bubble_speech_arrow_left_1.png", null, null, null, null, null, null
+            ],
+            "RIGHT_SPEECH_ARROW": [
+                "thought_bubble_bot_left_corner_2.png", "thought_bubble_bot_left_corner_3.png", "thought_bubble_bot_left_corner_4.png", "thought_bubble_bot_side_0.png", "thought_bubble_bot_side_1.png", "thought_bubble_speech_arrow_right_0.png", "thought_bubble_bot_right_corner_3.png", null,
+                null, null, null, null, null, "thought_bubble_speech_arrow_right_1.png", null, null
+            ]
+        }
+    }
+}

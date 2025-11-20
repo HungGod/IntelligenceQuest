@@ -1,0 +1,70 @@
+{
+    "ParseJsonTemplate":{
+        "template": "res/data/templates/object.tmpl",
+        "args": {
+            "GROUP_ID": "House",
+            "OBJECT_ID": "Up_Stairs",
+            "TILEMAP_ID": "Girlfriend_0",
+            "POS_ID": 0,
+            "OBJECT_SCALE": 2.0,
+            "SPRITESHEET_ID": "Inside",
+            "SRC_ID": "upstairs.png",
+            "COLLIDER_JSON": [
+                {
+                    "points": [
+                        {
+                            "x":108,
+                            "y":16.3333333333333
+                        }, 
+                        {
+                            "x":33.6666666666667,
+                            "y":107.666666666667
+                        }, 
+                        {
+                            "x":22.3333333333333,
+                            "y":93.6666666666667
+                        }, 
+                        {
+                            "x":48,
+                            "y":64.6666666666667
+                        }, 
+                        {
+                            "x":20.3333333333333,
+                            "y":45.6666666666667
+                        }, 
+                        {
+                            "x":59,
+                            "y":-0.333333333333333
+                        }, 
+                        {
+                            "x":108,
+                            "y":16.3333333333333
+                        } 
+                    ]
+                },
+                {
+                    "type": "GJK::Circle",
+                    "parameters": {
+                        "x": 8, "y": 54, "radius": 16,
+                        "state": "action_space",
+                        "data":  {
+                            "commands": {
+                                "ParseJsonTemplate": {
+                                    "template": "res/data/templates/warp.tmpl",
+                                    "args": {
+                                        "GAMESTATE_PATH": "res/data/gamestates/house/girlfriend.json",
+                                        "GAMESTATE_NUM": 1,
+                                        "POSITION_NUM": 0,
+                                        "TILEMAP_ID": "Girlfriend_1",
+                                        "GROUP_ID": "House",
+                                        "PLAYER_DIR": {"x": 1, "y": 0}
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

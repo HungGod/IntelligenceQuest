@@ -1,0 +1,137 @@
+[
+    {
+        "CreateComponents": {
+            "path": ["Blocks", "Inventory"],
+            "components":
+            [
+                {
+                    "type": "Position",
+                    "name": "position"
+                },
+                {
+                    "type": "Float",
+                    "name": "box_scale",
+                    "parameters": 3.0
+                },
+                {
+                    "type": "Float",
+                    "name": "text_scale",
+                    "parameters": 1.0
+                },
+                {
+                    "type": "Float",
+                    "name": "width",
+                    "parameters": 80
+                },
+                {
+                    "type": "Float",
+                    "name": "height",
+                    "parameters": 128
+                },
+                {
+                    "type": "Int",
+                    "name": "nav_pos",
+                    "parameters": 0
+                },
+                {
+                    "type": "Block::Box",
+                    "name": "block-box",
+                    "parameters": {
+                        "box": ["Textbox", "MenuPrompt", "box"],
+                        "scale": ["Blocks", "Inventory", "box_scale"]
+                    }
+                },
+                {
+                    "type": "Options::Vertical",
+                    "name": "block-options-vertical",
+                    "parameters": {
+                        "block_width": ["Blocks", "Inventory", "width"],
+                        "block_height": ["Blocks",  "Inventory", "height"],
+                        "block_scale": ["Blocks",  "Inventory", "box_scale"],
+                        "text_scale": ["Blocks", "Inventory", "text_scale"],
+                        "nav_pos": ["Blocks", "Inventory", "nav_pos"],
+                        "cursor_src": ["Spritesheet", "cursor_box.png"],
+                        "cursor_material": ["Spritesheet", "material"],
+                        "cursor_scale": 1.0,
+                        "font": ["Font", "Gilsans_PWO2"]
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "DelayNext" : [
+            {
+                "CreateComponents": {
+                    "path": ["Blocks",  "Inventory", "Render"],
+                    "components": [
+                        {
+                            "type": "System::StaticBlockDraw",
+                            "name": "system-static_block_draw",
+                            "parameters": {
+                                "position": ["Blocks", "Inventory", "position"],
+                                "blocks": [ ["Blocks", "Inventory", "block-box"],  ["Blocks", "Inventory", "block-options-vertical"]]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "CreateComponents": {
+                    "path": ["Blocks", "Inventory", "Update"],
+                    "components": [
+                        {
+                            "type": "Navigate::Vertical",
+                            "name": "navigate",
+                            "parameters" : {
+                                "controller": ["Controller", "controller"],
+                                "step": 0.2,
+                                "nav_pos": ["Blocks",  "Inventory", "nav_pos"]
+                            }
+                        },
+                        {
+                            "type": "System::ExecuteJson",
+                            "name": "system-backtrack",
+                            "parameters" : {
+                                "controller": ["Controller", "controller"],
+                                "commands": {"Backtrack": {}}
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "DelayCycles": {
+            "cycles": 2,
+            "next": [
+                {
+                    "UpdateOptions": {
+                        "options_path": ["Blocks",  "Inventory", "block-options-vertical"],
+                        "options": ["Bannana", "Gummy Ball", "Book of Life", "Lemony Scent"]
+                    }
+                },
+                {
+                    "UpdateNavigate": {
+                        "navigate": ["Blocks",  "Inventory", "Update", "navigate"],
+                        "commands": [
+                            {
+                                "Backtrack": {}
+                            },
+                            {
+                                "Backtrack": {}
+                            },
+                            {
+                                "Backtrack": {}
+                            },
+                            {
+                                "Backtrack": {}
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+]

@@ -1,0 +1,96 @@
+[
+    {
+        "CreateComponents": {
+            "path": ["Blocks", "Thoughts"],
+            "components":
+            [
+                {
+                    "type": "Position",
+                    "name": "position"
+                },
+                {
+                    "type": "Float",
+                    "name": "box_scale",
+                    "parameters": 3.0
+                },
+                {
+                    "type": "Float",
+                    "name": "text_scale",
+                    "parameters": 1.0
+                },
+                {
+                    "type": "Float",
+                    "name": "width",
+                    "parameters": 128
+                },
+                {
+                    "type": "Float",
+                    "name": "height",
+                    "parameters": 80
+                },
+                {
+                    "type": "Int",
+                    "name": "nav_pos",
+                    "parameters": 0
+                },
+                {
+                    "type": "Block::Box",
+                    "name": "block-box",
+                    "parameters": {
+                        "box": ["Textbox", "Thought_Bubble", "box"],
+                        "scale": ["Blocks", "Thoughts", "box_scale"]
+                    }
+                },
+                {
+                    "type": "Options::Horizontal",
+                    "name": "block-options-horizontal",
+                    "parameters": {
+                        "block_width": ["Blocks", "Thoughts", "width"],
+                        "block_height": ["Blocks", "Thoughts", "height"],
+                        "block_scale": ["Blocks", "Thoughts", "box_scale"],
+                        "text_scale": ["Blocks", "Thoughts", "text_scale"],
+                        "nav_pos": ["Blocks", "Thoughts", "nav_pos"],
+                        "cursor_src": ["Spritesheet", "cursor_box.png"],
+                        "cursor_material": ["Spritesheet", "material"],
+                        "cursor_scale": 1.0,
+                        "font": ["Font", "Gilsans_PWO2"]
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "DelayNext" : [
+            {
+                "CreateComponents": {
+                    "path": ["Blocks", "Thoughts", "Render"],
+                    "components": [
+                        {
+                            "type": "System::CameraBlockDraw",
+                            "name": "system-camera_block_draw",
+                            "parameters": {
+                                "position": ["Blocks", "Thoughts", "position"],
+                                "camera": ["Camera", "position"],
+                                "blocks": [ ["Blocks", "Thoughts", "block-box"],  ["Blocks", "Thoughts", "block-options-horizontal"] ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "CreateComponents": {
+                    "path": ["Blocks", "Thoughts", "Update"],
+                    "components": {
+                        "type": "Navigate::Horizontal",
+                        "name": "navigate",
+                        "parameters" : {
+                            "controller": ["Controller", "controller"],
+                            "step": 0.2,
+                            "nav_pos": ["Blocks", "Thoughts", "nav_pos"]
+                        }
+                    }
+                }
+            }
+        ]
+    }
+]

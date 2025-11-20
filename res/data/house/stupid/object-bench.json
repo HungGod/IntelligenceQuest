@@ -1,0 +1,18 @@
+{
+    "ParseJsonTemplate":{
+        "template": "res/data/templates/object.tmpl",
+        "args": {
+            "GROUP_ID": "House",
+            "OBJECT_ID": "Bench",
+            "TILEMAP_ID": "Stupid",
+            "POS_ID": 21,
+            "OBJECT_SCALE": 1.0,
+            "SPRITESHEET_ID": "Inside",
+            "SRC_ID": "bench.png",
+            "COLLIDER_JSON": {
+                "type": "GJK::AABB",
+                "parameters": { "h":116, "w":52, "x":0, "y":0 }
+            }
+        }
+    }
+}

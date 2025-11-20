@@ -1,0 +1,28 @@
+{
+    "ParseJsonTemplate":{
+        "template": "res/data/templates/object.tmpl",
+        "args": {
+            "GROUP_ID": "House",
+            "OBJECT_ID": "Smiley_Face",
+            "TILEMAP_ID": "Evil",
+            "POS_ID": 15,
+            "OBJECT_SCALE": 1.25,
+            "SRC_ID": "smiley_face.png",
+            "COLLIDER_JSON": {
+                "type": "GJK::Circle",
+                "parameters": {
+                    "x":32, "y": 106, "radius": 32, 
+                    "state":"both",
+                    "data": {
+                        "commands": {
+                            "AddIntelligence": {
+                                "IQ": -7, "id": "smiley_face"
+                            }
+                        }             
+                    } 
+                }
+            },
+            "SPRITESHEET_ID": "Inside"
+        }
+    }
+}

@@ -1,0 +1,81 @@
+[
+    {
+        "UpdateSpeechArrow": {
+            "player": ["Player", "position"],
+            "obj": [$GAMESTATE_ID, $TILEMAP_ID, $ENTITY_ID, $NAME, "position"],
+            "box": ["Blocks", $BLOCK_ID, "block-box"],
+            "no_speech_arrow": $NO_SPEECH_ARROW
+        }
+    },
+    {
+        "CreateComponents": {
+            "path": ["Blocks", $BLOCK_ID],
+            "components": [
+                {
+                    "name": "position",
+                    "parameters": {
+                        "obj": [$GAMESTATE_ID, $TILEMAP_ID, $ENTITY_ID, $NAME, "position"],
+                        "obj_width": [$GAMESTATE_ID, $TILEMAP_ID, $ENTITY_ID, $NAME, "width"],
+                        "obj_scale": [$GAMESTATE_ID, $TILEMAP_ID, $ENTITY_ID, $NAME, "scale"],
+                        "box": ["Blocks", $BLOCK_ID, "block-box"]
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "Pause": {
+            <IF CACHE>
+                "cache": true,
+            </IF> 
+            "pause_update": true,
+            "render": [["Blocks", $BLOCK_ID]],
+            "update": [["Blocks", $BLOCK_ID]]
+        }
+    },
+    {
+        "CreateComponents": {
+            "path": [ "Camera", "Update" ],
+            "components": {
+                "type": "System::Camera",
+                "name": "camera",
+                "parameters": {
+                    "camera": [ "Camera", "position" ],
+                    "scale": ["Blocks", $BLOCK_ID, "box_scale"],
+                    "follower_position": [ "Blocks", $BLOCK_ID, "position" ],
+                    "follower_width": ["Blocks", $BLOCK_ID, "width"],
+                    "follower_height": ["Blocks", $BLOCK_ID, "height"] 
+                }
+            }
+        }
+    },
+    {
+        "UpdateNavigate": {
+            "navigate": ["Blocks", $BLOCK_ID, "Update", "navigate"],
+            "commands": [
+                <FOREACH MESSAGES>
+                    {
+                        "UpdateMessage": {
+                            "textbox": ["Blocks", $BLOCK_ID],
+                            "message": $FOREACH_VAL      
+                        }
+                    },
+                </FOREACH>
+                [
+                    {
+                        "LoadFiles": {
+                            "gamestate": $GAMESTATE_PATH
+                        }
+                    }
+                    <IF INT_ID>                
+                        ,{
+                            "AddIntelligence" : {
+                                "id" : $INT_ID, "IQ": $IQ
+                            }
+                        }
+                    </IF>
+                ]
+            ]
+        }
+    }
+]

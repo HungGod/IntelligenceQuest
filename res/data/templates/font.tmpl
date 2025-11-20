@@ -1,0 +1,72 @@
+[
+    {
+        "CreateComponents": {
+            "path": [$GROUP_ID, $FONT_ID, "Textures"],
+            "components": {
+                "type": "Texture",
+                "name": $TEX_NAME,
+                "parameters": $TEX_PATH
+            }
+        }
+    },
+    {
+        "CreateComponents": {
+            "path": [$GROUP_ID, $FONT_ID],
+            "components": {
+                "type": "BMFont",
+                "parameters": $BMFONT
+            }
+        }
+    },
+    {
+      "NormalizeSrcs": {
+        "path": [$GROUP_ID, $FONT_ID],
+        "texture": [$GROUP_ID, $FONT_ID, "Textures", $TEX_NAME]
+      }
+    },
+    {
+      "CreateComponents": {
+        "path":[$GROUP_ID, $FONT_ID],
+        "components":[
+            {
+                "type": "Int",
+                "name": "font_size",
+                "parameters": $FONT_SIZE
+            },
+            {
+                "type": "Int",
+                "name": "space",
+                "parameters": $SPACE
+            },
+            {
+                "type": "Int",
+                "name": "line_h",
+                "parameters": $LINE_H
+            },
+            <IF MATERIAL_TYPE>
+                {
+                    "type": $MATERIAL_TYPE,
+                    "name": "material",
+                    "parameters": $MATERIAL_PARAMS
+                }
+            <ELSE>
+                {
+                    "type": "Material",
+                    "name": "material",
+                    "parameters": {
+                        "texture": [$GROUP_ID, $FONT_ID, "Textures", $TEX_NAME],
+                        "shader": ["Shaders", $SHADER_ID],
+                        "tex_unit": $TEX_UNIT
+                    }
+                }
+            </IF>
+            ]
+        }
+    },
+    {
+        "AddKerning": {
+            "path": [$GROUP_ID, $FONT_ID],
+            "kerning": $KERNING
+        }
+    }
+]

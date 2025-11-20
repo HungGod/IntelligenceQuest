@@ -1,0 +1,15 @@
+{
+    "ParseJsonTemplate":{
+        "template": "res/data/templates/object.tmpl",
+        "args": {
+            "GROUP_ID": "House",
+            "OBJECT_ID": "Gaming_Chair",
+            "TILEMAP_ID": "Evil",
+            "POS_ID": 2,
+            "OBJECT_SCALE": 1.5,
+            "SPRITESHEET_ID": "Inside",
+            "SRC_ID": "chair.png",
+            "DISPLACEMENT": {"x": 0, "y": 64}
+        }
+    }
+}

@@ -1,0 +1,50 @@
+{
+    "ParseJsonTemplate":{
+        "template": "res/data/templates/npc.tmpl",
+        "args": {
+            "GROUP_ID": "House",
+            "NPC_ID": "Main_Character",
+            "NPC_RADIUS": 20,
+            "TILEMAP_ID": "Stupid",
+            "POS_ID": 6,
+            "NPC_SCALE": 2.0,
+            "SRC_ID": "main_character_idle_0.png",
+            "NPC_SPEED": 160,
+            "NPC_ANIMATION_SPEED": 4, 
+            "SPRITESHEET_ID": "Inside",
+            "NPC_ANIMATIONS": {
+                "idle_down" : ["main_character_idle_0.png", "main_character_idle_1.png"],
+                "idle_up" : ["main_character_idle_0.png", "main_character_idle_1.png"],
+                "idle_right" : ["main_character_idle_0.png", "main_character_idle_1.png"],
+                "idle_down_right" : ["main_character_idle_0.png", "main_character_idle_1.png"],
+                "idle_up_right" : ["main_character_idle_0.png", "main_character_idle_1.png"],
+                "idle_left" : ["main_character_idle_0.png", "main_character_idle_1.png"],
+                "idle_down_left" : ["main_character_idle_0.png", "main_character_idle_1.png"],
+                "idle_up_left" : ["main_character_idle_0.png", "main_character_idle_1.png"],
+                
+                "walk_down" : ["main_character_walk_0.png", "main_character_walk_1.png"],
+                "walk_up" : ["main_character_walk_0.png", "main_character_walk_1.png"],
+                "walk_right" : ["main_character_walk_0.png", "main_character_walk_1.png"],
+                "walk_down_right" : ["main_character_walk_0.png", "main_character_walk_1.png"],
+                "walk_up_right" : ["main_character_walk_0.png", "main_character_walk_1.png"],
+                "walk_left" : ["main_character_walk_0.png", "main_character_walk_1.png"],
+                "walk_down_left" : ["main_character_walk_0.png", "main_character_walk_1.png"],
+                "walk_up_left" : ["main_character_walk_0.png", "main_character_walk_1.png"]
+            },
+            "NPC_COLLIDER": {
+                "type": "GJK::Circle",
+                "parameters": { 
+                    "x": 4, "y": 2, "radius": 10, 
+                    "state":"both",
+                    "data" : {
+                        "commands" : {
+                            "AddIntelligence" : {
+                                "id" : "main_character", "IQ": 1
+                            }
+                        }
+                    }
+                }  
+            }
+        }
+    }
+}

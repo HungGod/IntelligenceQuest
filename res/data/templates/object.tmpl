@@ -1,0 +1,170 @@
+[
+    {
+        "CreateComponents" : {
+            "path" : [$GROUP_ID, <IF TILEMAP_ID> $TILEMAP_ID, </IF> "Object", $OBJECT_ID],
+            "components" : [
+                <IF OBJECT_SCALE>
+                    {
+                        "type": "Float",
+                        "name": "scale",
+                        "parameters": $OBJECT_SCALE
+                    },
+                </IF>
+                <IF WIDTH>
+                    {
+                        "type": "Float",
+                        "name": "width",
+                        "parameters": $WIDTH
+                    },
+                </IF>
+                <IF HEIGHT>
+                    {
+                        "type": "Float",
+                        "name": "height",
+                        "parameters": $HEIGHT
+                    },
+                </IF>
+                <IF SPRITESHEET_ID>
+                    {
+                        "type" : "SrcTemplate",
+                        "name" : "src_temp",
+                        "parameters": {
+                            "path": [ $GROUP_ID, "Spritesheet", $SPRITESHEET_ID, $SRC_ID]
+                        }
+                    }
+                </IF>
+                <IF POS_ID>
+                    ,{
+                        "type": "Position",
+                        "name": "position",
+                        "parameters": {
+                            "position_map": [$GROUP_ID, <IF TILEMAP_ID> $TILEMAP_ID, </IF> "position_map"],
+                            "id": $POS_ID,
+                            <IF POS_NUM>
+                                "num": $POS_NUM,
+                            </IF>
+                            "scale": [ $GROUP_ID, <IF TILEMAP_ID> $TILEMAP_ID, </IF> "Object", $OBJECT_ID, "scale"],
+                            "src_temp": [ $GROUP_ID, <IF TILEMAP_ID> $TILEMAP_ID, </IF> "Object", $OBJECT_ID, "src_temp"]
+                        }
+                    }
+                </IF>
+                <IF ANIMATIONS>
+                    ,{
+                        "type" : "AnimationMap",
+                        "name" : "animation_map",
+                        "parameters" : {
+                            "path": [$GROUP_ID, "Spritesheet", $SPRITESHEET_ID],
+                            "animations": $ANIMATIONS
+                        }
+                    },
+                    {
+                        "type": "Animation",
+                        "name": "animation",
+                        "parameters": {
+                            "animation_map": [ $GROUP_ID, <IF TILEMAP_ID> $TILEMAP_ID, </IF> "Object", $OBJECT_ID, "animation_map"],
+                            "id": $ANIMATION_ID
+                        }
+                    }, 
+                    {
+                        "type": "Float",
+                        "name": "animation_speed",
+                        "parameters": $ANIMATION_SPEED
+                    }
+                </IF>
+                <IF DISPLACEMENT>
+                    ,{
+                        "name" : "position",
+                        "parameters": {
+                            "displace": $DISPLACEMENT
+                        }
+                    }
+                </IF>
+            ]
+        }
+    },
+    <IF COMMANDS>
+        ,$COMMANDS
+    </IF>
+    <IF COLLIDER_JSON>
+        {
+            "CreateComponents": {
+                "path": [ $GROUP_ID, $TILEMAP_ID, "Object", $OBJECT_ID, "Colliders"],
+                "components": $COLLIDER_JSON
+            }
+        },
+        {
+            "UpdateComponents": {
+                "path": [ $GROUP_ID, $TILEMAP_ID, "Object", $OBJECT_ID, "Colliders"],
+                "update": {"scale": [ $GROUP_ID, $TILEMAP_ID, "Object", $OBJECT_ID, "scale"]}
+            }
+        }, 
+    </IF>
+   { 
+        "DelayNext": [
+            <IF COLLIDER_JSON> 
+                { 
+                    "CreateComponents": {
+                        "path": [ $GROUP_ID, $TILEMAP_ID, "Object", $OBJECT_ID, "Update"],
+                        "components": {
+                            "type" : "System::AddColliders",
+                            "name" : "system-add_colliders",
+                            "parameters" : {
+                                "colliders" : [ $GROUP_ID, $TILEMAP_ID, "Object", $OBJECT_ID, "Colliders"],
+                                "quadtree" : [ "Collision", "QuadTree", "root"],
+                                "position" : [$GROUP_ID, $TILEMAP_ID, "Object", $OBJECT_ID, "position"]
+                            }
+                        }
+                    }
+                },
+            </IF>
+
+            <IF ANIMATIONS> 
+                { 
+                    "CreateComponents": {
+                        "path": [ $GROUP_ID, <IF TILEMAP_ID> $TILEMAP_ID, </IF> "Object", $OBJECT_ID, "Update"],
+                        "components": {
+                            "type" : "System::Animate",
+                            "name" : "system-animate",
+                            "parameters" : {
+                                "animation" : [ $GROUP_ID, <IF TILEMAP_ID> $TILEMAP_ID, </IF> "Object", $OBJECT_ID, "animation" ],
+                                "src_temp" : [ $GROUP_ID, <IF TILEMAP_ID> $TILEMAP_ID, </IF> "Object", $OBJECT_ID, "src_temp" ],
+                                "speed" : [ $GROUP_ID, <IF TILEMAP_ID> $TILEMAP_ID, </IF> "Object", $OBJECT_ID, "animation_speed"]
+                            } 
+                        }
+                    }
+                },
+            </IF>
+
+            <IF TILEMAP_ID>         
+                {
+                    "CreateComponents": {
+                        "path": [ $GROUP_ID, <IF TILEMAP_ID> $TILEMAP_ID, </IF> "Object", $OBJECT_ID, "Render"],
+                        "components": {
+                            "type": "System::CameraDraw",
+                            "name": "camera_draw",
+                            "parameters": {
+                                "src_temp" : [ $GROUP_ID, <IF TILEMAP_ID> $TILEMAP_ID, </IF> "Object", $OBJECT_ID, "src_temp" ],
+                                "position" : [ $GROUP_ID, <IF TILEMAP_ID> $TILEMAP_ID, </IF> "Object", $OBJECT_ID, "position" ],
+                                "material" : [ $GROUP_ID, "Spritesheet", $SPRITESHEET_ID, "material" ],
+                                "camera" : [ "Camera", "position" ],
+                                "scale": [ $GROUP_ID, <IF TILEMAP_ID> $TILEMAP_ID, </IF> "Object", $OBJECT_ID, "scale"]
+                            }
+                        }
+                    }
+                }
+            </IF>
+            <IF STATIC_DRAW>
+                {
+                    "CreateComponents": {
+                        "path": [ $GROUP_ID, <IF TILEMAP_ID> $TILEMAP_ID, </IF> "Object", $OBJECT_ID, "Render"],
+                        "components": {
+                            "type": "System::StaticDraw",
+                            "name": "static_draw",
+                            "parameters": $STATIC_DRAW
+                        }
+                    }
+                }
+            </IF>
+        ]
+    }
+]

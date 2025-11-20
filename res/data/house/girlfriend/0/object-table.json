@@ -1,0 +1,18 @@
+{
+    "ParseJsonTemplate":{
+        "template": "res/data/templates/object.tmpl",
+        "args": {
+            "GROUP_ID": "House",
+            "OBJECT_ID": "Table",
+            "TILEMAP_ID": "Girlfriend_0",
+            "POS_ID": 1,
+            "OBJECT_SCALE": 1.5,
+            "SRC_ID": "table.png",
+            "COLLIDER_JSON": {
+                "type": "GJK::AABB",
+                "parameters": {"x":0, "y":0, "w":128, "h":85}
+            },
+            "SPRITESHEET_ID": "Inside"
+        }
+    }
+}

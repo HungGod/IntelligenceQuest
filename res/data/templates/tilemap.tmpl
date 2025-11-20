@@ -1,0 +1,86 @@
+[
+    {
+        "CreateComponents": {
+            "path": [$GROUP_ID, $TILEMAP_ID],
+            "components": [
+                {
+                    "type": "Float",
+                    "name": "scale",
+                    "parameters": $TILEMAP_SCALE
+                },
+                {
+                    "type": "Position",
+                    "name": "position",
+                    "parameters": $TILEMAP_POS
+                },
+                {
+                    "type": "Tilemap",
+                    "name": "tilemap",
+                    "parameters": {
+                        "map": $TILEMAP_MAP,
+                        "width": $TILEMAP_WIDTH,
+                        "height": $TILEMAP_HEIGHT,
+                        "scale" : [$GROUP_ID, $TILEMAP_ID, "scale"],
+                        "tileset" : [$GROUP_ID, "Tileset", $TILESET_ID, "tileset"],
+                        "position": [$GROUP_ID, $TILEMAP_ID, "position"]
+                    }
+                },
+                {
+                    "type": "PositionMap",
+                    "name": "position_map",
+                    "parameters": 
+                    {
+                        "tilemap": [$GROUP_ID, $TILEMAP_ID, "tilemap"],
+                        "scale" : [$GROUP_ID, $TILEMAP_ID, "scale"],
+                        "map": $POSITION_MAP
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "CreateComponents": {
+            "path": [$GROUP_ID, $TILEMAP_ID, "Colliders"],
+            "components": $TILEMAP_OBSTACLES
+        }
+    },
+    {
+        "UpdateComponents": {
+            "path": [$GROUP_ID, $TILEMAP_ID, "Colliders"],
+            "update": {"scale": [$GROUP_ID, $TILEMAP_ID , "scale"]}
+        }
+    },  
+    {
+        "DelayNext":  [
+            {
+                "CreateComponents": {
+                    "path" : [ $GROUP_ID, $TILEMAP_ID, "Update"],
+                    "components": {
+                        "type" : "System::InsertColliders",
+                        "name" : "system-InsertColliders",
+                        "parameters": {
+                            "position": [$GROUP_ID, $TILEMAP_ID, "position"],
+                            "quadtree": ["Collision", "QuadTree", "root"],
+                            "colliders": [ $GROUP_ID, $TILEMAP_ID, "Colliders"]
+                        }
+                    }
+                }
+            },
+            {    
+                "CreateComponents": {
+                    "path": [ $GROUP_ID, $TILEMAP_ID, "Render" ],
+                    "components" : {
+                        "type": "System::TilemapDraw",
+                        "parameters": {
+                            "tilemap": [ $GROUP_ID, $TILEMAP_ID, "tilemap" ],
+                            "scale" : [$GROUP_ID, $TILEMAP_ID, "scale"],
+                            "tileset": [$GROUP_ID, "Tileset", $TILESET_ID, "tileset"],
+                            "material": [ $GROUP_ID, "Tileset", $TILESET_ID, "material" ],
+                            "camera": [ "Camera", "position" ]
+                        }
+                    }
+                }
+            }
+        ]
+    }
+]

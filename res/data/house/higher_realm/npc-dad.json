@@ -1,0 +1,40 @@
+{
+    "ParseJsonTemplate":{
+        "template": "res/data/templates/npc.tmpl",
+        "args": {
+            "GROUP_ID": "House",
+            "NPC_ID": "Dad",
+            "NPC_RADIUS": 30,
+            "TILEMAP_ID": "Higher_Realm",
+            "POS_ID": 5,
+            "NPC_SCALE": 1.0,
+            "SRC_ID": "dad_idle_down.png",
+            "NPC_SPEED": 160,    
+            "SPRITESHEET_ID": "Inside",
+            "NPC_ANIMATION_SPEED": 4,
+            "NPC_ANIMATIONS": {
+                "idle_down" : "dad_idle_down.png",
+                "idle_up" : "dad_idle_up.png",
+                "idle_right" : "dad_idle_right.png",
+                "idle_down_right" : "dad_idle_down_right.png",
+                "idle_up_right" : "dad_idle_up_right.png",
+                "idle_left" : "dad_idle_left.png",
+                "idle_down_left" : "dad_idle_down_left.png",
+                "idle_up_left" : "dad_idle_up_left.png",
+                
+                "walk_down" : ["dad_walk_down_0.png", "dad_walk_down_1.png"],
+                "walk_up" : ["dad_walk_up_0.png", "dad_walk_up_1.png"],
+                "walk_right" : ["dad_walk_right_0.png", "dad_walk_right_1.png"],
+                "walk_down_right" : ["dad_walk_down_right_0.png", "dad_walk_down_right_1.png"],
+                "walk_up_right" : ["dad_walk_up_right_0.png", "dad_walk_up_right_1.png"],
+                "walk_left" : ["dad_walk_left_0.png", "dad_walk_left_1.png"],
+                "walk_down_left" : ["dad_walk_down_left_0.png", "dad_walk_down_left_1.png"],
+                "walk_up_left" : ["dad_walk_up_left_0.png", "dad_walk_up_left_1.png"]
+            },
+            "NPC_COLLIDER": {
+                "type": "GJK::Circle",
+                "parameters": { "x": 0, "y": 80, "radius": 64 } 
+            }
+        }
+    }
+}

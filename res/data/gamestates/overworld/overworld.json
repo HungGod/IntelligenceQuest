@@ -1,0 +1,29 @@
+{
+    "ParseJsonTemplate": {
+        "template": "res/data/templates/gamestate.tmpl",
+        "args": {
+            "REQUIRED_FILES": [
+                "res/data/overworld/tileset-outside.json",
+                "res/data/overworld/spritesheet-outside.json",
+                "res/data/overworld/tilemap-outside.json",
+                "res/data/overworld/npc-fighter.json",
+                "res/data/overworld/npc-square.json",
+                "res/data/overworld/npc-weak.json",
+                "res/data/overworld/npc-brunis.json",
+                "res/data/overworld/npc-long_arms.json",
+                "res/data/overworld/object-evil_house.json",
+                "res/data/overworld/object-stupid_house.json",
+                "res/data/overworld/object-weak_house.json",
+                "res/data/overworld/object-higher_realm_house.json",
+                "res/data/overworld/object-girlfriend_house.json",
+                "res/data/overworld/object-sign_welcome.json",
+                "res/data/overworld/object-sign_house_appearing.json",
+                "res/data/overworld/object-mud.json"
+            ],
+            "GROUP_ID": "Overworld",
+            "TILEMAP_ID": "Outside",
+            "CAMERA": "",
+            "LOAD_TEMPLATE": "res/data/templates/overworld/overworld.tmpl"
+        }
+    }
+}

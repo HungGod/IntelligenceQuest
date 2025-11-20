@@ -1,0 +1,16 @@
+{
+    "CreateComponents": 
+    {
+        "path": "Cache",
+        "components": [
+            {
+                "type": "SystemCache",
+                "name": "render"
+            },
+            {
+                "type": "SystemCache",
+                "name": "update"
+            }
+        ]
+    }
+}

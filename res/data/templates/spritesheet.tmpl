@@ -1,0 +1,41 @@
+[
+    {
+        "CreateComponents": {
+            "path": [ <IF GROUP_ID> $GROUP_ID, "Spritesheet", </IF> $SPRITESHEET_ID, "Textures"],
+            "components" : {
+                "type": "Texture",
+                "name": $IMG_NAME,
+                "parameters": $IMG_SOURCE
+            }
+        }
+    },
+    {
+        "CreateComponents" : 
+        {
+            "path" : [ <IF GROUP_ID> $GROUP_ID, "Spritesheet", </IF> $SPRITESHEET_ID],
+            "components" : $SPRITESHEET_SRCS
+        }
+    },
+    {
+        "NormalizeSrcs": 
+        {
+            "path": [ <IF GROUP_ID> $GROUP_ID, "Spritesheet", </IF> $SPRITESHEET_ID],
+            "texture" : [ <IF GROUP_ID> $GROUP_ID, "Spritesheet", </IF> $SPRITESHEET_ID, "Textures", $IMG_NAME]
+        }
+    },
+    {
+        "CreateComponents":
+        {
+            "path" : [<IF GROUP_ID> $GROUP_ID, "Spritesheet", </IF> $SPRITESHEET_ID],
+            "components": {
+                "type" : "Material",
+                "name" : "material",
+                "parameters" : {
+                    "texture" : [ <IF GROUP_ID> $GROUP_ID, "Spritesheet",</IF> $SPRITESHEET_ID, "Textures", $IMG_NAME],
+                    "shader": ["Shaders", $SHADER_ID],
+                    "tex_unit": $TEX_UNIT
+                }
+            }
+        }
+    }
+]

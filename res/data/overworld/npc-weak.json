@@ -1,0 +1,228 @@
+{
+    "ParseJsonTemplate":{
+        "template": "res/data/templates/npc.tmpl",
+        "args": {
+            "GROUP_ID": "Overworld",
+            "NPC_ID": "Weak",
+            "NPC_RADIUS": 30,
+            "TILEMAP_ID": "Outside",
+            "POS_ID": 13,
+            "NPC_SCALE": 1.0,
+            "SRC_ID": "weak_idle_down.png",
+            "NPC_SPEED": 160,
+            "WIDTH": 64,
+            "HEIGHT": 128,
+            "NPC_ANIMATION_SPEED": 4,
+            "COUNT": 0,    
+            "SPRITESHEET_ID": "Outside",
+            "NPC_ANIMATIONS": {
+                "idle_down" : "weak_idle_down.png",
+                "idle_up" : "weak_idle_up.png",
+                "idle_right" : "weak_idle_right.png",
+                "idle_down_right" : "weak_idle_right.png",
+                "idle_up_right" : "weak_idle_right.png",
+                "idle_left" : "weak_idle_left.png",
+                "idle_down_left" : "weak_idle_left.png",
+                "idle_up_left" : "weak_idle_left.png",
+                
+                "walk_down" : ["weak_walk_down_0.png", "weak_walk_down_1.png"],
+                "walk_up" : ["weak_walk_up_0.png", "weak_walk_up_1.png"],
+                "walk_right" : ["weak_walk_right_0.png", "weak_walk_right_1.png"],
+                "walk_down_right" : ["weak_walk_right_0.png", "weak_walk_right_1.png"],
+                "walk_up_right" : ["weak_walk_right_0.png", "weak_walk_right_1.png"],
+                "walk_left" : ["weak_walk_left_0.png", "weak_walk_left_1.png"],
+                "walk_down_left" : ["weak_walk_left_0.png", "weak_walk_left_1.png"],
+                "walk_up_left" : ["weak_walk_left_0.png", "weak_walk_left_1.png"]
+            },
+            "NPC_COLLIDER": {
+                "type": "GJK::AABB",
+                "parameters": { 
+                    "x": 0, "y": 64, "w": 64, "h": 80,
+                    "state":"both",
+                    "position": ["Overworld", "NPC", "Weak", "position"],
+                    "data" : {
+                        "commands" : [
+                            {
+                                "RepeatedEvent": {
+                                    "counter": ["Overworld", "Outside", "NPC", "Weak", "count"],
+                                    "commands": [     
+                                        {
+                                            "ParseJsonTemplate": 
+                                            {
+                                                "template" : "res/data/templates/load_textbox.tmpl",
+                                                "args": {
+                                                    "CONTROLLER_ID": "controller",
+                                                    "MESSAGES": [
+                                                        "Don't Talk to me!"
+                                                    ],
+                                                    "BLOCK_ID": "Speech",
+                                                    "NO_SPEECH_ARROW": false,
+                                                    "ENTITY_ID": "NPC",
+                                                    "TILEMAP_ID": "Outside",
+                                                    "GAMESTATE_ID": "Overworld", 
+                                                    "NAME": "Weak",
+                                                    "GAMESTATE_TEMPLATE": "res/data/templates/overworld/overworld.tmpl",
+                                                    "GAMESTATE_PATH": "res/data/gamestates/overworld/overworld.json"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ParseJsonTemplate": 
+                                            {
+                                                "template" : "res/data/templates/load_textbox.tmpl",
+                                                "args": {
+                                                    "CONTROLLER_ID": "controller",
+                                                    "MESSAGES": [
+                                                        "Hey now, quit being a bother."
+                                                    ],
+                                                    "BLOCK_ID": "Speech",
+                                                    "NO_SPEECH_ARROW": false,
+                                                    "ENTITY_ID": "NPC",
+                                                    "TILEMAP_ID": "Outside",
+                                                    "GAMESTATE_ID": "Overworld", 
+                                                    "NAME": "Weak",
+                                                    "GAMESTATE_TEMPLATE": "res/data/templates/overworld/overworld.tmpl",
+                                                    "GAMESTATE_PATH": "res/data/gamestates/overworld/overworld.json"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ParseJsonTemplate": 
+                                            {
+                                                "template" : "res/data/templates/load_textbox.tmpl",
+                                                "args": {
+                                                    "CONTROLLER_ID": "controller",
+                                                    "MESSAGES": [
+                                                        "What do you think of me, you think I am some kind of weakling.",
+                                                        "Someone who folds at the sight of any confrontation."
+                                                    ],
+                                                    "BLOCK_ID": "Speech",
+                                                    "NO_SPEECH_ARROW": false,
+                                                    "ENTITY_ID": "NPC",
+                                                    "TILEMAP_ID": "Outside",
+                                                    "GAMESTATE_ID": "Overworld", 
+                                                    "NAME": "Weak",
+                                                    "GAMESTATE_TEMPLATE": "res/data/templates/overworld/overworld.tmpl",
+                                                    "GAMESTATE_PATH": "res/data/gamestates/overworld/overworld.json"
+                                                }
+                                            }
+                                        },
+                                        [
+                                            {
+                                                "UpdateSpeechArrow": {
+                                                    "player": ["Player", "position"],
+                                                    "obj": ["Player", "position"],
+                                                    "box": ["Blocks", "Thoughts", "block-box"],
+                                                    "no_speech_arrow": false
+                                                }
+                                            },
+                                            {
+                                                "CreateComponents": {
+                                                    "path": ["Blocks", "Thoughts"],
+                                                    "components": [
+                                                        {
+                                                            "name": "position",
+                                                            "parameters": {
+                                                                "obj": ["Overworld", "Outside", "NPC", "Weak", "position"],
+                                                                "obj_width": ["Overworld", "Outside", "NPC", "Weak", "width"],
+                                                                "obj_scale": ["Overworld", "Outside", "NPC", "Weak", "scale"],
+                                                                "box": ["Blocks", "Thoughts", "block-box"]
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "Pause": {
+                                                    "pause_update": true,
+                                                    "render": [["Blocks", "Thoughts"]],
+                                                    "update": [["Blocks", "Thoughts"]]
+                                                }
+                                            },
+                                            {
+                                                "CreateComponents": {
+                                                    "path": [ "Camera", "Update" ],
+                                                    "components": {
+                                                        "type": "System::Camera",
+                                                        "name": "camera",
+                                                        "parameters": {
+                                                            "camera": [ "Camera", "position" ],
+                                                            "scale": ["Blocks", "Thoughts", "box_scale"],
+                                                            "follower_position": [ "Blocks", "Thoughts", "position" ],
+                                                            "follower_width": ["Blocks", "Thoughts", "width"],
+                                                            "follower_height": ["Blocks", "Thoughts", "height"] 
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "UpdateOptions": {
+                                                    "options_path": ["Blocks", "Thoughts", "block-options-horizontal"],
+                                                    "options": ["Spit in his face", "Apologize"]
+                                                }
+                                            },
+                                            {
+                                                "UpdateNavigate": {
+                                                    "navigate": ["Blocks", "Thoughts", "Update", "navigate"],
+                                                    "commands": [
+                                                        [
+                                                            {
+                                                                "GameState": {
+                                                                    "gamestate": "res/data/gamestates/combat/combat.json"
+                                                                }
+                                                            },
+                                                            {
+                                                                "CreateComponents": {
+                                                                    "path": ["Overworld", "Outside", "NPC", "Weak"],
+                                                                    "components": {
+                                                                        "name": "count",
+                                                                        "parameters": 0
+                                                                    }
+                                                                }
+                                                            }
+                                                        ],
+                                                        [
+                                                            {
+                                                                "ParseJsonTemplate": 
+                                                                {
+                                                                    "template" : "res/data/templates/load_textbox.tmpl",
+                                                                    "args": {
+                                                                        "CONTROLLER_ID": "controller",
+                                                                        "MESSAGES": [
+                                                                            "I accept your apology, please don't talk to me ever again!"
+                                                                        ],
+                                                                        "BLOCK_ID": "Speech",
+                                                                        "NO_SPEECH_ARROW": true,
+                                                                        "ENTITY_ID": "NPC",
+                                                                        "TILEMAP_ID": "Outside",
+                                                                        "GAMESTATE_ID": "Overworld", 
+                                                                        "NAME": "Weak",
+                                                                        "GAMESTATE_TEMPLATE": "res/data/templates/overworld/overworld.tmpl",
+                                                                        "GAMESTATE_PATH": "res/data/gamestates/overworld/overworld.json"
+                                                                    }
+                                                                }
+                                                            },
+                                                            {
+                                                                "CreateComponents": {
+                                                                    "path": ["Overworld", "Outside", "NPC", "Weak"],
+                                                                    "components": {
+                                                                        "name": "count",
+                                                                        "parameters": 0
+                                                                    }
+                                                                }
+                                                            }
+                                                        ]
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    ]
+                                }   
+                            }
+                        ]
+                    }  
+                } 
+            }
+        }
+    }
+}

@@ -1,0 +1,179 @@
+{
+    "Series": [
+        {
+            "ChangeState": {
+                "render": [ 
+                    ["Combat", "Background", "Wacky"],
+                    ["Combat", "Player"],
+                    ["Combat", "Weak"]
+                ],
+                "update": [
+                    ["Combat", "Background", "Wacky"]
+                ]
+            }
+        },
+        {
+            "Simultaneous": [
+                {
+                    "StaticMove": {
+                        "position": ["Combat", "Weak", "position"],
+                        "end_position": {"x": 800, "y": 0},
+                        "move_speed": 240
+                    }
+                },
+                {
+                    "StaticMove": {
+                        "position": ["Combat", "Player", "position"],
+                        "end_position": {"x": -192, "y": 480},
+                        "move_speed": 240
+                    }
+                }
+            ]
+        },
+        {
+            "ChangeState": {
+                "render": [ 
+                    ["Combat", "Background", "Wacky"],
+                    ["Combat", "Player"],
+                    ["Combat", "Weak"]
+                ],
+                "update": []
+            }
+        },
+        {
+            "PlayAnimation": {
+                "animation_map": ["Combat", "Background", "Wacky", "animation_map"],
+                "animation_id": "wacky_transition",
+                "src_temp": ["Combat", "Background", "Wacky", "src_temp"],
+                "play_speed": 12
+            }   
+        },
+        {
+            "Simultaneous": [
+                {
+                    "CreateComponents": {
+                        "path": ["Combat", "Player"],
+                        "components": [
+                            {
+                                "name": "position",
+                                "parameters": {
+                                    "x": -64,
+                                    "y": 544
+                                }
+                            },
+                            {
+                                "name": "scale",
+                                "parameters": 1.5
+                            }
+                        ]
+                    }
+                },
+                {
+                    "CreateComponents": {
+                        "path": ["Combat", "Weak"],
+                        "components": [
+                            {
+                                "name": "position",
+                                "parameters": {
+                                    "x": 800,
+                                    "y": 448
+                                }
+                            },
+                            {
+                                "name": "scale",
+                                "parameters": 1.5
+                            }
+                        ]
+                    }
+                },
+                {
+                    "CreateComponents": {
+                        "path": ["Combat", "Background", "Wacky"],
+                        "components": [
+                            {
+                                "name": "position",
+                                "parameters": {
+                                    "x": 0,
+                                    "y": 0
+                                }
+                            },
+                            {
+                                "name": "scale",
+                                "parameters": 1.0
+                            } 
+                        ]
+                    }
+                },
+                {
+                    "PlayAnimation": {
+                        "animation_map": ["Combat", "Background", "Wacky", "animation_map"],
+                        "animation_id": "background",
+                        "src_temp": ["Combat", "Background", "Wacky", "src_temp"],
+                        "play_speed": 24
+                    }   
+                }
+            ]
+        },
+        {
+            "DelayTime": 0.5
+        },
+        {
+            "Simultaneous": [
+                {
+                    "Move": {
+                        "position": ["Combat", "Weak", "position"],
+                        "animation_map": ["Combat", "Weak", "animation_map"],
+                        "src_temp": ["Combat", "Weak", "src_temp"],
+                        "end_direction": "idle_down",
+                        "end_position": {"x": 464, "y": 448},
+                        "anim_speed": 6,
+                        "move_speed": 240
+                    }
+                },
+                {
+                    "Move": {
+                        "position": ["Combat", "Player", "position"],
+                        "animation_map": ["Player", "animation_map"],
+                        "src_temp": ["Combat", "Player", "src_temp"],
+                        "end_direction": "idle_down",
+                        "end_position": {"x": 336, "y": 544},
+                        "anim_speed": 6,
+                        "move_speed": 240
+                    }
+                },
+                {
+                    "DelayTime": {
+                        "time": 0.5,
+                        "next": 
+                        {
+                            "ChangeState": {
+                                "render": [ 
+                                    ["Combat", "Background", "Wacky"],
+                                    ["Combat", "Player"],
+                                    ["Combat", "Weak"]
+                                ],
+                                "update": [
+                                    ["Combat", "Violence"]
+                                ]
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "ChangeState": {
+                "render": [ 
+                    ["Combat", "Background", "Wacky"],
+                    ["Combat", "Player"],
+                    ["Combat", "Weak"]
+                ],
+                "update": [
+                    ["Combat", "Violence"],
+                    ["Combat", "Player"],
+                    ["Combat", "Weak"]
+                ]
+            }
+        }
+    ]
+}

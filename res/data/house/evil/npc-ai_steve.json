@@ -1,0 +1,50 @@
+{
+    "ParseJsonTemplate": {
+        "template": "res/data/templates/npc.tmpl",
+        "args": {
+            "GROUP_ID": "House",
+            "NPC_ID": "AI_Steve",
+            "NPC_RADIUS": 30,
+            "TILEMAP_ID": "Evil",
+            "POS_ID": 22,
+            "NPC_SCALE": 1.5,
+            "SRC_ID": "AI_STEVE_idle_down_0.png",
+            "NPC_SPEED": 160,
+            "NPC_ANIMATION_SPEED": 4, 
+            "SPRITESHEET_ID": "Inside",
+            "NPC_ANIMATIONS": {
+                "idle_down" : ["AI_STEVE_idle_down_0.png", "AI_STEVE_idle_down_1.png"],
+                "idle_up" : ["AI_STEVE_idle_up_0.png", "AI_STEVE_idle_up_1.png"],
+                "idle_right" : ["AI_STEVE_idle_right_1.png","AI_STEVE_idle_right_0.png"],
+                "idle_down_right" : ["AI_STEVE_idle_right_1.png","AI_STEVE_idle_right_0.png"],
+                "idle_up_right" : ["AI_STEVE_idle_up_0.png", "AI_STEVE_idle_up_1.png"],
+                "idle_left" : ["AI_STEVE_idle_left_0.png", "AI_STEVE_idle_left_1.png"],
+                "idle_down_left" : ["AI_STEVE_idle_down_0.png", "AI_STEVE_idle_down_1.png"],
+                "idle_up_left" : ["AI_STEVE_idle_left_0.png", "AI_STEVE_idle_left_1.png"],
+                
+                "walk_down" : ["AI_STEVE_walk_down_0.png", "AI_STEVE_walk_down_1.png"],
+                "walk_up" : ["AI_STEVE_walk_up_0.png", "AI_STEVE_walk_up_1.png"],
+                "walk_right" : ["AI_STEVE_walk_right_0.png", "AI_STEVE_walk_right_1.png"],
+                "walk_down_right" : ["AI_STEVE_walk_right_0.png", "AI_STEVE_walk_right_1.png"],
+                "walk_up_right" : ["AI_STEVE_walk_right_0.png", "AI_STEVE_walk_right_1.png"],
+                "walk_left" : ["AI_STEVE_walk_left_0.png", "AI_STEVE_walk_left_1.png"],
+                "walk_down_left" : ["AI_STEVE_walk_left_0.png", "AI_STEVE_walk_left_1.png"],
+                "walk_up_left" : ["AI_STEVE_walk_left_0.png", "AI_STEVE_walk_left_1.png"]
+            },
+            "NPC_COLLIDER": {
+                "type": "GJK::AABB",
+                "parameters": { 
+                    "x": 0, "y": 64, "w": 64, "h": 80, 
+                    "state":"both",
+                    "data": {
+                        "commands": {
+                            "AddIntelligence": {
+                                "IQ": -14, "id": "ai_steve"
+                            }
+                        }             
+                    }   
+                } 
+            }
+        }
+    }
+}

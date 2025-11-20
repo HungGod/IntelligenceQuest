@@ -1,0 +1,141 @@
+[
+    {
+        "CreateComponents": {
+            "path": ["Combat", "Blocks", "Menu"],
+            "components":
+            [
+                {
+                    "type": "Position",
+                    "name": "position",
+                    "parameters":{
+                        "x": 4,
+                        "y": 4
+                    }
+                },
+                {
+                    "type": "Float",
+                    "name": "box_scale",
+                    "parameters": 3.0
+                },
+                {
+                    "type": "Float",
+                    "name": "text_scale",
+                    "parameters": 1.0
+                },
+                {
+                    "type": "Float",
+                    "name": "width",
+                    "parameters": 80
+                },
+                {
+                    "type": "Float",
+                    "name": "height",
+                    "parameters": 128
+                },
+                {
+                    "type": "Int",
+                    "name": "nav_pos",
+                    "parameters": 0
+                },
+                {
+                    "type": "Block::Box",
+                    "name": "block-box",
+                    "parameters": {
+                        "box": ["Textbox", "MenuPrompt", "box"],
+                        "scale": ["Combat", "Blocks", "Menu", "box_scale"]
+                    }
+                },
+                {
+                    "type": "Options::Vertical",
+                    "name": "block-options-vertical",
+                    "parameters": {
+                        "block_width": ["Combat", "Blocks", "Menu", "width"],
+                        "block_height": ["Combat", "Blocks", "Menu", "height"],
+                        "block_scale": ["Combat", "Blocks", "Menu", "box_scale"],
+                        "text_scale": ["Combat", "Blocks", "Menu", "text_scale"],
+                        "nav_pos": ["Combat", "Blocks", "Menu", "nav_pos"],
+                        "cursor_src": ["Spritesheet", "cursor_box.png"],
+                        "cursor_material": ["Spritesheet", "material"],
+                        "cursor_scale": 1.0,
+                        "font": ["Font", "Gilsans_PWO2"]
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "DelayNext" : [
+            {
+                "CreateComponents": {
+                    "path": ["Combat", "Blocks", "Menu", "Render"],
+                    "components": [
+                        {
+                            "type": "System::StaticBlockDraw",
+                            "name": "system-static_block_draw",
+                            "parameters": {
+                                "position": ["Combat", "Blocks", "Menu", "position"],
+                                "blocks": [ ["Combat", "Blocks", "Menu", "block-box"],  ["Combat", "Blocks", "Menu", "block-options-vertical"]]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "CreateComponents": {
+                    "path": ["Combat", "Blocks", "Menu", "Update"],
+                    "components": [
+                        {
+                            "type": "Navigate::Vertical",
+                            "name": "navigate",
+                            "parameters" : {
+                                "controller": ["Controller", "controller"],
+                                "step": 0.2,
+                                "nav_pos": ["Combat", "Blocks", "Menu", "nav_pos"]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "DelayCycles": {
+            "cycles": 2,
+            "next": [
+                {
+                    "UpdateOptions": {
+                        "options_path": ["Combat", "Blocks", "Menu", "block-options-vertical"],
+                        "options": ["Talk", "Intelligence", "Violence", "Item", "Run Away"]
+                    }
+                },
+                {
+                    "UpdateNavigate": {
+                        "navigate": ["Combat", "Blocks", "Menu", "Update", "navigate"],
+                        "commands": [
+                            {},
+                            {
+                            },
+                            {
+                                "LoadFiles": ["res/data/gamestates/combat/violence_transition.json"]
+                            },
+                            {},
+                            {
+                                "ParseJsonTemplate": {
+                                    "template": "res/data/templates/warp.tmpl",
+                                    "args": {
+                                        "GAMESTATE_PATH": "res/data/gamestates/overworld/overworld.json",
+                                        "GAMESTATE_NUM": 0,
+                                        "POSITION_NUM": 0,
+                                        "TILEMAP_ID": "Outside",
+                                        "GROUP_ID": "Overworld",
+                                        "PLAYER_DIR": {"x": 0, "y": 1}
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+]

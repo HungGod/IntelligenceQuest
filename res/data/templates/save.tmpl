@@ -1,0 +1,30 @@
+[    
+    {
+        "CreateComponents" : {
+            "path" : ["Player"],
+            "components": [
+                {
+                    "name" : "position",
+                    "parameters": $PLAYER_POS
+                },
+                {
+                    "name": "intelligence",
+                    "parameters": $PLAYER_INT
+                },
+                {
+                    "name": "flags",
+                    "parameters": $PLAYER_FLAGS
+                }
+            ]
+        }
+    },
+    {
+        "AddIntelligence": {}
+    },
+    {
+        "GameState": {
+            "gamestate": $GAMESTATE,
+            "layer": $GAMESTATE_POS
+        }
+    }
+]

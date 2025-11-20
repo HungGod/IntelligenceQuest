@@ -1,0 +1,158 @@
+[
+    {
+        "CreateComponents": {
+            "path": ["Blocks", "Menu"],
+            "components":
+            [
+                {
+                    "type": "Position",
+                    "name": "position"
+                },
+                {
+                    "type": "Float",
+                    "name": "box_scale",
+                    "parameters": 3.0
+                },
+                {
+                    "type": "Float",
+                    "name": "text_scale",
+                    "parameters": 1.0
+                },
+                {
+                    "type": "Float",
+                    "name": "width",
+                    "parameters": 80
+                },
+                {
+                    "type": "Float",
+                    "name": "height",
+                    "parameters": 128
+                },
+                {
+                    "type": "Int",
+                    "name": "nav_pos",
+                    "parameters": 0
+                },
+                {
+                    "type": "Block::Box",
+                    "name": "block-box",
+                    "parameters": {
+                        "box": ["Textbox", "MenuPrompt", "box"],
+                        "scale": ["Blocks", "Menu", "box_scale"]
+                    }
+                },
+                {
+                    "type": "Options::Vertical",
+                    "name": "block-options-vertical",
+                    "parameters": {
+                        "block_width": ["Blocks", "Menu", "width"],
+                        "block_height": ["Blocks", "Menu", "height"],
+                        "block_scale": ["Blocks", "Menu", "box_scale"],
+                        "text_scale": ["Blocks", "Menu", "text_scale"],
+                        "nav_pos": ["Blocks", "Menu", "nav_pos"],
+                        "cursor_src": ["Spritesheet", "cursor_box.png"],
+                        "cursor_material": ["Spritesheet", "material"],
+                        "cursor_scale": 1.0,
+                        "font": ["Font", "Gilsans_PWO2"]
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "DelayNext" : [
+            {
+                "CreateComponents": {
+                    "path": ["Blocks", "Menu", "Render"],
+                    "components": [
+                        {
+                            "type": "System::StaticBlockDraw",
+                            "name": "system-static_block_draw",
+                            "parameters": {
+                                "position": ["Blocks", "Menu", "position"],
+                                "blocks": [ ["Blocks", "Menu", "block-box"],  ["Blocks", "Menu", "block-options-vertical"]]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "CreateComponents": {
+                    "path": ["Blocks", "Menu", "Update"],
+                    "components": [
+                        {
+                            "type": "Navigate::Vertical",
+                            "name": "navigate",
+                            "parameters" : {
+                                "controller": ["Controller", "controller"],
+                                "step": 0.2,
+                                "nav_pos": ["Blocks", "Menu", "nav_pos"]
+                            }
+                        },
+                        {
+                            "type": "System::ExecuteJson",
+                            "name": "system-backtrack",
+                            "parameters" : {
+                                "controller": ["Controller", "controller"],
+                                "commands": {"Backtrack": {}}
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "DelayCycles": {
+            "cycles": 2,
+            "next": [
+                {
+                    "UpdateOptions": {
+                        "options_path": ["Blocks", "Menu", "block-options-vertical"],
+                        "options": ["Return", "Save Game", "Inventory", "Exit Game"]
+                    }
+                },
+                {
+                    "UpdateNavigate": {
+                        "navigate": ["Blocks", "Menu", "Update", "navigate"],
+                        "commands": [
+                            {
+                                "Backtrack": {}
+                            },
+                            {
+                                "SaveState":{}
+                            },
+                            [
+                                {
+                                    "CreateComponents": {
+                                        "path": ["Blocks", "Inventory"],
+                                        "components": [
+                                            {
+                                                "name": "position",
+                                                "parameters": {
+                                                    "x": 368,
+                                                    "y": 160
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "Pause": {
+                                        "cache": true,
+                                        "pause_update": true,
+                                        "render": [["Blocks", "Inventory"]],
+                                        "update": [["Blocks", "Inventory"]]
+                                    }
+                                }
+                            ],
+                            {
+                                "ExitGame": {}
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+]

@@ -1,0 +1,30 @@
+{
+    "ParseJsonTemplate": 
+    {
+        "template": "res/data/templates/textbox.tmpl",
+        "args": {
+            "TEXTBOX_ID": "MenuPrompt",
+            "TILE_SIZE": 16,
+            "TEXTBOX_WIDTH": 5,
+            "TEXTBOX_HEIGHT": 7,
+            "SPRITESHEET": "Spritesheet",
+            "TEXTBOX_PARAMS": [
+                    "prompt_special_top_left_corner.png", "prompt_top_side.png", "prompt_special_top_side.png", "prompt_top_side.png", "prompt_special_top_right_corner.png",
+                    "prompt_left_side.png", "prompt_center.png", "prompt_center.png", "prompt_center.png", "prompt_right_side.png",
+                    "prompt_left_side.png", "prompt_center.png", "prompt_center.png", "prompt_center.png", "prompt_right_side.png",
+                    "prompt_special_left_side.png", "prompt_center.png", "prompt_center.png", "prompt_center.png", "prompt_special_right_side.png",
+                    "prompt_left_side.png", "prompt_center.png", "prompt_center.png", "prompt_center.png", "prompt_right_side.png",
+                    "prompt_left_side.png", "prompt_center.png", "prompt_center.png", "prompt_center.png", "prompt_right_side.png"
+                ],
+            "NO_SPEECH_ARROW": [
+                "prompt_special_bot_left_corner.png", "prompt_bot_side.png", "prompt_special_bot_side.png", "prompt_bot_side.png", "prompt_special_bot_right_corner.png"
+            ],
+            "RIGHT_SPEECH_ARROW": [
+                "prompt_special_bot_left_corner.png", "prompt_bot_side.png", "prompt_bot_side.png", "prompt_speech_arrow_right.png", "prompt_special_bot_right_corner.png"
+            ],
+            "LEFT_SPEECH_ARROW": [
+                "prompt_special_bot_left_corner.png", "prompt_speech_arrow_left.png", "prompt_bot_side.png", "prompt_bot_side.png", "prompt_special_bot_right_corner.png"
+            ]
+        }
+    }
+}

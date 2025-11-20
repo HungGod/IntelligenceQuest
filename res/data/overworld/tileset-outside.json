@@ -1,0 +1,16 @@
+{
+    "ParseJsonTemplate":{
+        "template": "res/data/templates/tileset.tmpl",
+        "args": {
+            "GROUP_ID": "Overworld",
+            "IMG_NAME": "outside",
+            "IMG_SOURCE": "res/images/tileset/outside.png",
+            "TILESET_ID": "Outside",
+            "SHADER_ID": "sprite",
+            "TEX_UNIT": 2,
+            "TILE_SIZE": 32,
+            "MARGIN": 0,
+            "SPACING": 0
+        }
+    }
+}

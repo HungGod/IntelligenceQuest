@@ -1,0 +1,50 @@
+{
+    "ParseJsonTemplate":{
+        "template": "res/data/templates/npc.tmpl",
+        "args": {
+            "GROUP_ID": "Overworld",
+            "NPC_ID": "Fighter",
+            "TILEMAP_ID": "Outside",
+            "POS_ID": 11,
+            "NPC_SCALE": 1.0,
+            "NPC_SPEED": 160,
+            "SRC_ID": "fighter_idle_0.png",
+            "NPC_ANIMATION_SPEED": 4, 
+            "SPRITESHEET_ID": "Outside",
+            "NPC_ANIMATIONS": {
+                "idle_down" : ["fighter_idle_0.png", "fighter_idle_1.png", "fighter_idle_2.png"],
+                "idle_up" : ["fighter_idle_0.png", "fighter_idle_1.png", "fighter_idle_2.png"],
+                "idle_right" : ["fighter_idle_0.png", "fighter_idle_1.png", "fighter_idle_2.png"],
+                "idle_down_right" : ["fighter_idle_0.png", "fighter_idle_1.png", "fighter_idle_2.png"],
+                "idle_up_right" : ["fighter_idle_0.png", "fighter_idle_1.png", "fighter_idle_2.png"],
+                "idle_left" : ["fighter_idle_0.png", "fighter_idle_1.png", "fighter_idle_2.png"],
+                "idle_down_left" : ["fighter_idle_0.png", "fighter_idle_1.png", "fighter_idle_2.png"],
+                "idle_up_left" : ["fighter_idle_0.png", "fighter_idle_1.png", "fighter_idle_2.png"],
+                
+                "walk_down" : ["fighter_walk_left_0.png", "fighter_walk_left_1.png", "fighter_walk_left_2.png"],
+                "walk_up" : ["fighter_walk_right_0.png", "fighter_walk_right_1.png", "fighter_walk_right_2.png"],
+                "walk_right" : ["fighter_walk_right_0.png", "fighter_walk_right_1.png", "fighter_walk_right_2.png"],
+                "walk_down_right" : ["fighter_walk_right_0.png", "fighter_walk_right_1.png", "fighter_walk_right_2.png"],
+                "walk_up_right" : ["fighter_walk_right_0.png", "fighter_walk_right_1.png", "fighter_walk_right_2.png"],
+                "walk_left" : ["fighter_walk_left_0.png", "fighter_walk_left_1.png", "fighter_walk_left_2.png"],
+                "walk_down_left" : ["fighter_walk_left_0.png", "fighter_walk_left_1.png", "fighter_walk_left_2.png"],
+                "walk_up_left" : ["fighter_walk_left_0.png", "fighter_walk_left_1.png", "fighter_walk_left_2.png"]
+            },
+            "NPC_COLLIDER": {
+                "type": "GJK::AABB",
+                "parameters": { 
+                    "x": 32, "y": 64, "w": 96, "h": 80,
+                    "state":"both",
+                    "position": ["Overworld", "NPC", "Fighter", "position"],
+                    "data" : {
+                        "commands" : {
+                            "AddIntelligence" : {
+                                "id" : "fighter", "IQ": 6
+                            }
+                        }
+                    } 
+                } 
+            }
+        }
+    }
+}

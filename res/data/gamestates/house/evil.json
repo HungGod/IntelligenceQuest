@@ -1,0 +1,44 @@
+{
+    "ParseJsonTemplate": {
+        "template": "res/data/templates/gamestate.tmpl",
+        "args": {
+            "REQUIRED_FILES": [
+                "res/data/house/spritesheet-inside.json",
+                "res/data/house/tileset-inside.json",
+                "res/data/house/evil/tilemap-evil.json",
+                "res/data/house/evil/npc-ai_steve.json",
+                "res/data/house/evil/object-smiley_face.json",
+                "res/data/house/evil/object-sign_evil.json",
+                "res/data/house/evil/object-door.json",
+                "res/data/house/evil/object-monitor.json",
+                "res/data/house/evil/object-gaming_chair.json",
+                "res/data/house/evil/object-table.json"
+            ],
+            "GROUP_ID": "House",
+            "TILEMAP_ID": "Evil",
+            "CAMERA": null,
+            "CHANGE_STATE": {
+                "render" : [ 
+                    ["House", "Evil"], 
+                    ["House", "Evil", "NPC", "AI_Steve"],
+                    ["House", "Evil", "Object", "Smiley_Face"], 
+                    ["House", "Evil", "Object", "Monitor"], 
+                    ["House", "Evil", "Object", "Table"],
+                    "Player", 
+                    ["House", "Evil", "Object", "Gaming_Chair"],
+                    ["House", "Evil", "Object", "Door"]
+                ],
+                "update" : [ 
+                    "Collision", 
+                    "Camera", 
+                    "Player", 
+                    ["House", "Evil", "NPC", "AI_Steve"],
+                    ["House", "Evil", "Object", "Smiley_Face"], 
+                    ["House", "Evil"],
+                    ["House", "Evil", "Object", "Door"], 
+                    ["House", "Evil", "Object", "Table"]
+                ] 
+            }
+        }
+    }
+}

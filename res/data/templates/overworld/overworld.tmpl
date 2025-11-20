@@ -1,0 +1,53 @@
+{
+    "ChangeState": {
+        "render" : [ 
+            ["Overworld", "Outside"],
+            ["Overworld", "Outside", "Object", "Roof_0"], 
+            ["Overworld", "Outside", "Object", "Roof_1"], 
+            ["Overworld", "Outside", "Object", "Roof_2"],
+            <IF HOUSE_APPEARING>
+                ["Overworld", "Outside", "Object", "Roof_3"], 
+            </IF> 
+            ["Overworld", "Outside", "Object", "Roof_4"],
+            ["Overworld", "Outside", "NPC", "Square"], 
+            ["Overworld", "Outside", "NPC", "Brunis"], 
+            ["Overworld", "Outside", "NPC", "Long_Arms"], 
+            ["Overworld", "Outside", "NPC", "Weak"], 
+            ["Overworld", "Outside", "NPC", "Fighter"], 
+            "Player",  
+            ["Overworld", "Outside", "Object", "Stupid"], 
+            ["Overworld", "Outside", "Object", "Evil"], 
+            ["Overworld", "Outside", "Object", "Girlfriend"], 
+            ["Overworld", "Outside", "Object", "Weak"], 
+            ["Overworld", "Outside", "Object", "Sign_Welcome"], 
+            ["Overworld", "Outside", "Object", "Sign_House_Appearing"],
+            <IF HOUSE_APPEARING> 
+                ["Overworld", "Outside", "Object", "Higher_Realm"]
+            <ELSE> 
+                ["Overworld", "Outside", "Object", "Mud"] 
+            </IF>
+        ],
+        "update" : [
+            "Collision", 
+            "Camera", 
+            "Player", 
+            ["Overworld", "Outside", "NPC", "Fighter"], 
+            ["Overworld", "Outside", "NPC", "Square"], 
+            ["Overworld", "Outside", "NPC", "Brunis"], 
+            ["Overworld", "Outside", "NPC", "Weak"], 
+            ["Overworld", "Outside", "NPC", "Long_Arms"], 
+            ["Overworld", "Outside", "Object", "Sign_Welcome"], 
+            ["Overworld", "Outside"], 
+            ["Overworld", "Outside", "Object", "Stupid"], 
+            ["Overworld", "Outside", "Object", "Evil"], 
+            ["Overworld", "Outside", "Object", "Girlfriend"], 
+            ["Overworld", "Outside", "Object", "Weak"], 
+            ["Overworld", "Outside", "Object", "Sign_House_Appearing"], 
+            <IF HOUSE_APPEARING> 
+                ["Overworld", "Outside", "Object", "Higher_Realm"] 
+            <ELSE> 
+                ["Overworld", "Outside", "Object", "Mud"] 
+            </IF>
+        ] 
+    }
+} 

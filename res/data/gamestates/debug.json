@@ -1,0 +1,34 @@
+{
+    "DelayNext": {
+        "cycles": 3,
+        "next": [
+            {
+            "CreateComponents": {
+                "path": [ "Camera", "Update" ],
+                "components": {
+                    "type": "System::Camera",
+                    "name": "camera",
+                    "parameters": {
+                        "camera": [ "Camera", "position" ],
+                        "scale": ["Player", "scale"],
+                        "follower_position": [ "Player", "position" ],
+                        "follower_width": ["Player", "width"],
+                        "follower_height": ["Player", "height"]            
+                    }
+                }
+            }
+        },
+        {
+            "ChangeState": {
+                "render" : [ 
+                    "Player"
+                ],
+                "update" : [
+                    "Camera", 
+                    "Player"
+                ] 
+            }
+        }
+        ]
+    }
+}

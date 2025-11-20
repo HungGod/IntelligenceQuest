@@ -1,0 +1,51 @@
+{
+    "ParseJsonTemplate":{
+        "template": "res/data/templates/npc.tmpl",
+        "args": {
+            "GROUP_ID": "Overworld",
+            "NPC_ID": "Brunis",
+            "NPC_RADIUS": 10,
+            "TILEMAP_ID": "Outside",
+            "POS_ID": 10,
+            "NPC_SCALE": 1.0,
+            "NPC_SPEED": 160,
+            "SRC_ID": "brunis_idle_0.png",
+            "NPC_ANIMATION_SPEED": 4,
+            "SPRITESHEET_ID": "Outside",
+            "NPC_ANIMATIONS": {
+                "idle_down" : ["brunis_idle_0.png", "brunis_idle_1.png", "brunis_idle_2.png"],
+                "idle_up" : ["brunis_idle_0.png", "brunis_idle_1.png", "brunis_idle_2.png"],
+                "idle_right" : ["brunis_idle_0.png", "brunis_idle_1.png", "brunis_idle_2.png"],
+                "idle_down_right" : ["brunis_idle_0.png", "brunis_idle_1.png", "brunis_idle_2.png"],
+                "idle_up_right" : ["brunis_idle_0.png", "brunis_idle_1.png", "brunis_idle_2.png"],
+                "idle_left" : ["brunis_idle_0.png", "brunis_idle_1.png", "brunis_idle_2.png"],
+                "idle_down_left" : ["brunis_idle_0.png", "brunis_idle_1.png", "brunis_idle_2.png"],
+                "idle_up_left" : ["brunis_idle_0.png", "brunis_idle_1.png", "brunis_idle_2.png"],
+                
+                "walk_down" : ["brunis_walk_left_0.png", "brunis_walk_left_1.png"],
+                "walk_up" : ["brunis_walk_right_0.png", "brunis_walk_right_1.png"],
+                "walk_right" : ["brunis_walk_right_0.png", "brunis_walk_right_1.png"],
+                "walk_down_right" : ["brunis_walk_right_0.png", "brunis_walk_right_1.png"],
+                "walk_up_right" : ["brunis_walk_right_0.png", "brunis_walk_right_1.png"],
+                "walk_left" : ["brunis_walk_left_0.png", "brunis_walk_left_1.png"],
+                "walk_down_left" : ["brunis_walk_left_0.png", "brunis_walk_left_1.png"],
+                "walk_up_left" : ["brunis_walk_left_0.png", "brunis_walk_left_1.png"]
+            },
+            "NPC_COLLIDER": {
+                "type": "GJK::AABB",
+                "parameters": { 
+                    "x": 0, "y": 64, "w": 73, "h": 80,
+                    "state": "both",
+                    "position": ["Overworld", "NPC", "Brunis", "position"],
+                    "data": {
+                        "commands": {
+                            "AddIntelligence": {
+                                "id" : "brunis", "IQ": 10
+                            }
+                        }
+                    }
+                } 
+            }
+        }
+    }
+}

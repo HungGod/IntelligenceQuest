@@ -1,0 +1,22 @@
+[
+    {
+        "CreateComponents": {
+            "path" : ["Combat", "Camera"],
+            "components": [
+                {
+                    "type": "Float",
+                    "name": "zoom",
+                    "parameters": 1.0
+                },
+                {
+                    "type": "Position",
+                    "name": "position",
+                    "parameters": {
+                        "x": 0,
+                        "y": 0
+                    }
+                }
+            ]
+        }
+    }
+]

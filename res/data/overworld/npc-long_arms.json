@@ -1,0 +1,51 @@
+{
+    "ParseJsonTemplate":{
+        "template": "res/data/templates/npc.tmpl",
+        "args": {
+            "GROUP_ID": "Overworld",
+            "NPC_ID": "Long_Arms",
+            "NPC_RADIUS":20,
+            "TILEMAP_ID": "Outside",
+            "POS_ID": 12,
+            "NPC_SCALE": 1.0,
+            "NPC_SPEED": 160,
+            "NPC_ANIMATION_SPEED": 4, 
+            "SRC_ID": "long_arms_idle_0.png",
+            "SPRITESHEET_ID": "Outside",
+            "NPC_ANIMATIONS": {
+                "idle_down" : ["long_arms_idle_0.png", "long_arms_idle_1.png", "long_arms_idle_2.png"],
+                "idle_up" : ["long_arms_idle_0.png", "long_arms_idle_1.png", "long_arms_idle_2.png"],
+                "idle_right" : ["long_arms_idle_0.png", "long_arms_idle_1.png", "long_arms_idle_2.png"],
+                "idle_down_right" : ["long_arms_idle_0.png", "long_arms_idle_1.png", "long_arms_idle_2.png"],
+                "idle_up_right" : ["long_arms_idle_0.png", "long_arms_idle_1.png", "long_arms_idle_2.png"],
+                "idle_left" : ["long_arms_idle_0.png", "long_arms_idle_1.png", "long_arms_idle_2.png"],
+                "idle_down_left" : ["long_arms_idle_0.png", "long_arms_idle_1.png", "long_arms_idle_2.png"],
+                "idle_up_left" : ["long_arms_idle_0.png", "long_arms_idle_1.png", "long_arms_idle_2.png"],
+                
+                "walk_down" : ["long_arms_walk_left_0.png", "long_arms_walk_left_1.png", "long_arms_walk_left_2.png"],
+                "walk_up" : ["long_arms_walk_right_0.png", "long_arms_walk_right_1.png", "long_arms_walk_right_2.png"],
+                "walk_right" : ["long_arms_walk_right_0.png", "long_arms_walk_right_1.png", "long_arms_walk_right_2.png"],
+                "walk_down_right" : ["long_arms_walk_right_0.png", "long_arms_walk_right_1.png", "long_arms_walk_right_2.png"],
+                "walk_up_right" : ["long_arms_walk_right_0.png", "long_arms_walk_right_1.png", "long_arms_walk_right_2.png"],
+                "walk_left" : ["long_arms_walk_left_0.png", "long_arms_walk_left_1.png", "long_arms_walk_left_2.png"],
+                "walk_down_left" : ["long_arms_walk_left_0.png", "long_arms_walk_left_1.png", "long_arms_walk_left_2.png"],
+                "walk_up_left" : ["long_arms_walk_left_0.png", "long_arms_walk_left_1.png", "long_arms_walk_left_2.png"]
+            },
+            "NPC_COLLIDER": {
+                "type": "GJK::AABB",
+                "parameters": { 
+                    "x": 0, "y": 64, "w": 80, "h": 80,
+                    "state":"both",
+                    "position": ["Overworld", "NPC", "Long_Arms", "position"],
+                    "data" : {
+                        "commands" : {
+                            "AddIntelligence" : {
+                                "id" : "long_arms", "IQ": 8
+                            }
+                        }
+                    }  
+                } 
+            }
+        }
+    }
+}

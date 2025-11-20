@@ -1,0 +1,60 @@
+{
+    "DelayNext": {
+        "CreateComponents": {
+            "path": ["Combat", "Violence", "Update"],
+            "components": [
+                {
+                    "type": "System::CombatTransformations",
+                    "name": "system_combat_transformations",
+                    "parameters": {
+                        "camera_position": ["Combat", "Camera", "position"],
+                        "camera_zoom":     ["Combat", "Camera", "zoom"],
+                        "min_zoom": 1.0,
+                        "max_zoom": 2.0,
+                        "lag_frames": 8.0,
+                        "zoom_in_percent": 0.64,
+                        "zoom_out_percent": 0.82,
+            
+                        "combatants": [
+                            {
+                                "position":  ["Combat", "Player", "position"],
+                                "direction": ["Combat", "Player", "direction"],
+                                "width":     ["Combat", "Player", "width"],
+                                "height":    ["Combat", "Player", "height"],
+                                "speed":     ["Combat", "Player", "speed"]
+                            },
+                            {
+                                "position":  ["Combat", "Weak", "position"],
+                                "direction": ["Combat", "Weak", "direction"],
+                                "width":     ["Combat", "Weak", "width"],
+                                "height":    ["Combat", "Weak", "height"],
+                                "speed":     ["Combat", "Weak", "speed"]
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "System::CombatCollisions",
+                    "name": "system-combat_collisions",
+                    "parameters": {
+                        "fighters": [
+                            {
+                                "position": ["Combat", "Player", "position"],
+                                "physical_hitboxes": ["Combat", "Player", "physical_hitboxes"],
+                                "attacking_hitboxes": ["Combat", "Player", "attacking_hitboxes"],
+                                "id": ["Combat", "Player"]
+                            },
+                            {
+                                "position": ["Combat", "Weak", "position"],
+                                "physical_hitboxes": ["Combat", "Weak", "physical_hitboxes"],
+                                "attacking_hitboxes": ["Combat", "Weak", "attacking_hitboxes"],
+                                "id": ["Combat", "Weak"]
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}
+  

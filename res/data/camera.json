@@ -1,0 +1,9 @@
+{
+    "CreateComponents": {
+        "path": "Camera",
+        "components": {
+            "type": "Position",
+            "name": "position"
+        }
+    }
+}

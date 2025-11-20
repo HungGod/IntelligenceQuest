@@ -1,0 +1,19 @@
+{
+	"ParseJsonTemplate": {
+		"args": {
+			"GAMESTATE": "res/data/gamestates/combat/combat.json",
+			"GAMESTATE_POS": 0,
+			"PLAYER_FLAGS": {},
+			"PLAYER_INT": {
+				"davids_blessing": 99,
+				"sign_house_appearing": 15,
+				"weak": 14
+			},
+			"PLAYER_POS": {
+				"x": 3312.742431640625,
+				"y": 3421.39892578125
+			}
+		},
+		"template": "res/data/templates/save.tmpl"
+	}
+}

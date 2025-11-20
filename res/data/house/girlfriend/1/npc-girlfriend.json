@@ -1,0 +1,50 @@
+{
+    "ParseJsonTemplate":{
+        "template": "res/data/templates/npc.tmpl",
+        "args": {
+            "GROUP_ID": "House",
+            "NPC_ID": "Girlfriend",
+            "NPC_RADIUS": 30,
+            "TILEMAP_ID": "Girlfriend_1",
+            "POS_ID": 24,
+            "NPC_SCALE": 1.0,
+            "SRC_ID": "flesh_girlfriend_idle_down.png",
+            "NPC_SPEED": 160,    
+            "SPRITESHEET_ID": "Inside",
+            "NPC_ANIMATION_SPEED": 4,
+            "NPC_ANIMATIONS": {
+                "idle_down" : "flesh_girlfriend_idle_down.png",
+                "idle_up" : "flesh_girlfriend_idle_up.png",
+                "idle_right" : "flesh_girlfriend_idle_right.png",
+                "idle_down_right" : "flesh_girlfriend_idle_down_right.png",
+                "idle_up_right" : "flesh_girlfriend_idle_up_right.png",
+                "idle_left" : "flesh_girlfriend_idle_left.png",
+                "idle_down_left" : "flesh_girlfriend_idle_down_left.png",
+                "idle_up_left" : "flesh_girlfriend_idle_up_left.png",
+                
+                "walk_down" : ["flesh_girlfriend_walk_down_0.png", "flesh_girlfriend_walk_down_1.png"],
+                "walk_up" : ["flesh_girlfriend_walk_up_0.png", "flesh_girlfriend_walk_up_1.png"],
+                "walk_right" : ["flesh_girlfriend_walk_right_0.png", "flesh_girlfriend_walk_right_1.png"],
+                "walk_down_right" : ["flesh_girlfriend_walk_down_right_0.png", "flesh_girlfriend_walk_down_right_1.png"],
+                "walk_up_right" : ["flesh_girlfriend_walk_up_right_0.png", "flesh_girlfriend_walk_up_right_1.png"],
+                "walk_left" : ["flesh_girlfriend_walk_left_0.png", "flesh_girlfriend_walk_left_1.png"],
+                "walk_down_left" : ["flesh_girlfriend_walk_down_left_0.png", "flesh_girlfriend_walk_down_left_1.png"],
+                "walk_up_left" : ["flesh_girlfriend_walk_up_left_0.png", "flesh_girlfriend_walk_up_left_1.png"]
+            },
+            "NPC_COLLIDER": {
+                "type": "GJK::Circle",
+                "parameters": { 
+                    "x": 32, "y": 16, "radius": 48, 
+                    "state":"both",
+                    "data": {
+                        "commands": {
+                            "AddIntelligence": {
+                                "IQ": 10, "id": "girlfriend"
+                            }
+                        }             
+                    }  
+                } 
+            }
+        }
+    }
+}

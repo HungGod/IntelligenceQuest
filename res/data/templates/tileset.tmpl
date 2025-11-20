@@ -1,0 +1,38 @@
+[
+    {
+        "CreateComponents": {
+            "path": [$GROUP_ID, "Tileset", $TILESET_ID, "Textures"],
+            "components" : {
+                "type" : "Texture",
+                "name" : $IMG_NAME,
+                "parameters": $IMG_SOURCE
+            }   
+        }
+    },
+    {
+        "CreateComponents": {
+            "path": [$GROUP_ID, "Tileset", $TILESET_ID],
+            "components" : [
+                {
+                    "type": "Material",
+                    "name": "material",
+                    "parameters": {
+                        "texture" : [ $GROUP_ID, "Tileset", $TILESET_ID, "Textures", $IMG_NAME ],
+                        "shader": ["Shaders", $SHADER_ID],
+                        "tex_unit": $TEX_UNIT
+                    }
+                },
+                {
+                    "type": "Tileset",
+                    "name": "tileset",
+                    "parameters": {
+                        "texture" : [ $GROUP_ID, "Tileset", $TILESET_ID, "Textures", $IMG_NAME ],
+                        "tile_size": $TILE_SIZE,
+                        "margin": $MARGIN,
+                        "spacing": $SPACING
+                    }
+                }
+            ]
+        }
+    }
+]

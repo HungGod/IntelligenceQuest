@@ -1,0 +1,30 @@
+{
+    "ParseJsonTemplate":{
+        "template": "res/data/templates/object.tmpl",
+        "args": {
+            "GROUP_ID": "Overworld",
+            "OBJECT_ID": "Sign_House_Appearing",
+            "TILEMAP_ID": "Outside",
+            "POS_ID": 16,
+            "POS_NUM": 1,
+            "OBJECT_SCALE": 1.0,
+            "SRC_ID": "sign.png",
+            "COLLIDER_JSON": [{
+                "type": "GJK::AABB",
+                "parameters": {
+                    "x":0, "y":-16, "w":64, "h":80, 
+                    "state":"both",
+                    "data" : {
+                        "commands" : {
+                            "AddIntelligence" : {
+                                "id" : "sign_house_appearing", "IQ": 15
+                            }
+                        }
+                    } 
+                }
+            }
+        ],
+            "SPRITESHEET_ID": "Outside"
+        }
+    }
+}

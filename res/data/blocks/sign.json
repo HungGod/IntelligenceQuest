@@ -1,0 +1,83 @@
+[
+    {
+        "CreateComponents": {
+            "path": ["Blocks", "Sign"],
+            "components":
+            [
+                {
+                    "type": "Position",
+                    "name": "position"
+                },
+                {
+                    "type": "Float",
+                    "name": "box_scale",
+                    "parameters": 3.0
+                },
+                {
+                    "type": "Float",
+                    "name": "text_scale",
+                    "parameters": 1.0
+                },
+                {
+                    "type": "Float",
+                    "name": "width",
+                    "parameters": 112
+                },
+                {
+                    "type": "Float",
+                    "name": "height",
+                    "parameters": 80
+                },
+                {
+                    "type": "Block::Box",
+                    "name": "block-box",
+                    "parameters": {
+                        "box": ["Textbox", "Prompt", "box"],
+                        "scale": ["Blocks", "Sign", "box_scale"]
+                    }
+                },
+                {
+                    "type": "Block::Text",
+                    "name": "block-text",
+                    "parameters": {
+                        "scale": ["Blocks", "Sign", "text_scale"],
+                        "offset": {"x": 42, "y": 30},
+                        "font": ["Font", "Gilsans_PWO2"]
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "DelayNext" : [
+            {
+                "CreateComponents": {
+                    "path": ["Blocks", "Sign", "Render"],
+                    "components": [
+                        {
+                            "type": "System::CameraBlockDraw",
+                            "name": "system-camera_block_draw",
+                            "parameters": {
+                                "position": ["Blocks", "Sign", "position"],
+                                "camera": ["Camera", "position"],
+                                "blocks": [ ["Blocks", "Sign", "block-box"],  ["Blocks", "Sign", "block-text"]]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "CreateComponents": {
+                    "path": ["Blocks", "Sign", "Update"],
+                    "components": {
+                        "type": "Navigate::Message",
+                        "name": "navigate",
+                        "parameters" : {
+                            "controller": ["Controller", "controller"]
+                        }
+                    }
+                }
+            }
+        ]
+    }
+]

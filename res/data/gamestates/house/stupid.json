@@ -1,0 +1,39 @@
+{
+    "ParseJsonTemplate": {
+        "template": "res/data/templates/gamestate.tmpl",
+        "args": {
+            "REQUIRED_FILES": [
+                "res/data/house/spritesheet-inside.json",
+                "res/data/house/tileset-inside.json",
+                "res/data/house/stupid/tilemap-stupid.json",
+                "res/data/house/stupid/object-sign_stupid.json",
+                "res/data/house/stupid/object-bench.json",
+                "res/data/house/stupid/object-door.json",
+                "res/data/house/stupid/npc-main_character.json"
+            ],
+            "GROUP_ID": "House",
+            "TILEMAP_ID": "Stupid",
+            "CAMERA": "",
+            "CHANGE_STATE": {
+                "render" : [ 
+                    ["House", "Stupid"], 
+                    "Player", 
+                    ["House", "Stupid", "NPC", "Main_Character"], 
+                    ["House", "Stupid", "Object", "Bench"], 
+                    ["House", "Stupid", "Object", "Door"], 
+                    ["House", "Stupid", "Object", "Sign_Stupid"]
+                ],
+                "update" : [
+                    "Collision", 
+                    "Camera", 
+                    "Player", 
+                    ["House", "Stupid", "Object", "Bench"], 
+                    ["House", "Stupid", "Object", "Door"], 
+                    ["House", "Stupid", "Object", "Sign_Stupid"],
+                    ["House", "Stupid", "NPC", "Main_Character"],
+                    ["House", "Stupid"]
+                ] 
+            }
+        }
+    }
+}

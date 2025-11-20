@@ -1,0 +1,50 @@
+{
+    "ParseJsonTemplate":{
+        "template": "res/data/templates/npc.tmpl",
+        "args": {
+            "GROUP_ID": "Overworld",
+            "NPC_ID": "Square",
+            "TILEMAP_ID": "Outside",
+            "POS_ID": 7,
+            "NPC_SCALE": 1.0,
+            "SRC_ID": "square_idle_0.png",
+            "NPC_SPEED": 160,
+            "NPC_ANIMATION_SPEED": 4, 
+            "SPRITESHEET_ID": "Outside",
+            "NPC_ANIMATIONS": {
+                "idle_down" : ["square_idle_0.png", "square_idle_1.png", "square_idle_2.png"],
+                "idle_up" : ["square_idle_0.png", "square_idle_1.png", "square_idle_2.png"],
+                "idle_right" : ["square_idle_0.png", "square_idle_1.png", "square_idle_2.png"],
+                "idle_down_right" : ["square_idle_0.png", "square_idle_1.png", "square_idle_2.png"],
+                "idle_up_right" : ["square_idle_0.png", "square_idle_1.png", "square_idle_2.png"],
+                "idle_left" : ["square_idle_0.png", "square_idle_1.png", "square_idle_2.png"],
+                "idle_down_left" : ["square_idle_0.png", "square_idle_1.png", "square_idle_2.png"],
+                "idle_up_left" : ["square_idle_0.png", "square_idle_1.png", "square_idle_2.png"],
+                
+                "walk_down" : ["square_walk_left_0.png", "square_walk_left_1.png", "square_walk_left_2.png"],
+                "walk_up" : ["square_walk_right_0.png", "square_walk_right_1.png", "square_walk_right_2.png"],
+                "walk_right" : ["square_walk_right_0.png", "square_walk_right_1.png", "square_walk_right_2.png"],
+                "walk_down_right" : ["square_walk_right_0.png", "square_walk_right_1.png", "square_walk_right_2.png"],
+                "walk_up_right" : ["square_walk_right_0.png", "square_walk_right_1.png", "square_walk_right_2.png"],
+                "walk_left" : ["square_walk_left_0.png", "square_walk_left_1.png", "square_walk_left_2.png"],
+                "walk_down_left" : ["square_walk_left_0.png", "square_walk_left_1.png", "square_walk_left_2.png"],
+                "walk_up_left" : ["square_walk_left_0.png", "square_walk_left_1.png", "square_walk_left_2.png"]
+            },
+            "NPC_COLLIDER": {
+                "type": "GJK::AABB",
+                "parameters": { 
+                    "x": 0, "y": 64, "w": 118, "h": 80,
+                    "state":"both",
+                    "position": ["Overworld", "NPC", "Square", "position"],
+                    "data" : {
+                        "commands" : {
+                            "AddIntelligence" : {
+                                "id" : "square", "IQ": 4
+                            }
+                        }
+                    } 
+                } 
+            }
+        }
+    }
+}

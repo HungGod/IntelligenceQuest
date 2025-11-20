@@ -1,0 +1,59 @@
+[
+    {
+        "LoadFiles": $REQUIRED_FILES
+    },    
+    {
+        "DelayNext": {
+            "cycles": 3,
+            "next": {
+                "Series" :  [
+                    <IF PRELOAD>
+                        $PRELOAD ,
+                    </IF>
+                    <IF TILEMAP_ID>
+                        {
+                            "InitQuadTree": {
+                                "quadtree": ["Collision", "QuadTree", "root"],
+                                "tilemap": [ $GROUP_ID, $TILEMAP_ID, "tilemap"],
+                                "position": [$GROUP_ID,  $TILEMAP_ID, "position"],
+                                "scale": [$GROUP_ID,  $TILEMAP_ID, "scale"]
+                            }
+                        },
+                        {
+                            "CreateComponents": {
+                                "path": [ "Camera", "Update" ],
+                                "components": {
+                                    "type": "System::Camera",
+                                    "name": "camera",
+                                    "parameters": {
+                                        "camera": [ "Camera", "position" ],
+                                        "scale": ["Player", "scale"],
+                                        "follower_position": [ "Player", "position" ],
+                                        "follower_width": ["Player", "width"],
+                                        "follower_height": ["Player", "height"]
+                                        <IF CAMERA>     
+                                            ,"tilemap": [ $GROUP_ID, $TILEMAP_ID, "tilemap"], 
+                                            "tilemap_scale" : [ $GROUP_ID,  $TILEMAP_ID, "scale"]
+                                        </IF>               
+                                    }
+                                }
+                            }
+                        },
+                    </IF>
+                    <IF LOAD_TEMPLATE>
+                        {
+                            "ParseJsonTemplate": {
+                                "template": $LOAD_TEMPLATE,
+                                "get": ["Player", "flags"]
+                            }
+                        }
+                    <ELSE>
+                        {
+                            "ChangeState": $CHANGE_STATE
+                        }
+                    </IF>
+                ]
+            }
+        } 
+    }
+]

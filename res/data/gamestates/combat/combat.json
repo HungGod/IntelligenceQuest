@@ -1,0 +1,31 @@
+[
+    {
+        "ParseJsonTemplate": {
+            "template": "res/data/templates/gamestate.tmpl",
+            "args": {
+                "REQUIRED_FILES": [
+                    "res/data/combat/camera.json",
+                    "res/data/combat/spritesheet-combat.json",
+                    "res/data/combat/player.json",
+                    "res/data/combat/weak.json",
+                    "res/data/combat/wacky.json",
+                    "res/data/combat/blocks/combat_menu.json",
+                    "res/data/combat/violence.json"
+                ],
+                "CHANGE_STATE": {
+                    "render" : [ 
+                        ["Combat", "Background", "Wacky"],
+                        ["Combat", "Player"],
+                        ["Combat", "Weak"],
+                        ["Combat", "Blocks", "Menu"]
+                    ],
+                    "update" : [
+                        ["Combat", "Background", "Wacky"],
+                        ["Combat", "Blocks", "Menu"]
+                    ] 
+                }
+            }
+        }
+    }
+    
+]

@@ -1,0 +1,28 @@
+{
+    "ParseJsonTemplate":{
+        "template": "res/data/templates/object.tmpl",
+        "args": {
+            "GROUP_ID": "House",
+            "OBJECT_ID": "Diamond_Head",
+            "TILEMAP_ID": "Girlfriend_0",
+            "POS_ID": 14,
+            "OBJECT_SCALE": 1.5,
+            "SRC_ID": "diamond_head.png",
+            "COLLIDER_JSON": {
+                "type": "GJK::Circle",
+                "parameters": {
+                    "x":32, "y": 106, "radius": 32, 
+                    "state":"both",
+                    "data": {
+                        "commands": {
+                            "AddIntelligence": {
+                                "IQ": 7, "id": "diamond_head"
+                            }
+                        }             
+                    } 
+                }
+            },
+            "SPRITESHEET_ID": "Inside"
+        }
+    }
+}

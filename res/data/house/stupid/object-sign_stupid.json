@@ -1,0 +1,30 @@
+{
+    "ParseJsonTemplate":{
+        "template": "res/data/templates/object.tmpl",
+        "args": {
+            "GROUP_ID": "House",
+            "OBJECT_ID": "Sign_Stupid",
+            "TILEMAP_ID": "Stupid",
+            "POS_ID": 16,
+            "OBJECT_SCALE": 1.0,
+            "SRC_ID": "sign.png",
+            "COLLIDER_JSON": [
+                {
+                    "type": "GJK::AABB",
+                    "parameters": {
+                        "x":0, "y":-16, "w":64, "h":80, 
+                        "state":"both",
+                        "data" : {
+                            "commands" : {
+                                "AddIntelligence" : {
+                                    "id" : "sign_stupid", "IQ": 10
+                                }
+                            }
+                        } 
+                    }
+                }
+            ],
+            "SPRITESHEET_ID": "Inside"
+        }
+    }
+}

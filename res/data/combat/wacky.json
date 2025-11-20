@@ -1,0 +1,99 @@
+{
+    "DelayNext": [
+        {
+            "CreateComponents": {
+                "path": ["Combat", "Background", "Wacky"],
+                "components": [
+                    {
+                        "type": "Float",
+                        "name": "scale",
+                        "parameters": 3.5556
+                    },
+                    {
+                        "type": "Float",
+                        "name": "width",
+                        "parameters": 800
+                    },
+                    {
+                        "type": "Float",
+                        "name": "height",
+                        "parameters": 640
+                    },
+                    {
+                        "type": "Position",
+                        "name": "position",
+                        "parameters": {
+                            "x": -168.9,
+                            "y": 0
+                        }
+                    },
+                    {
+                        "type" : "SrcTemplate",
+                        "name" : "src_temp",
+                        "parameters": {
+                            "path": [ "Combat", "Spritesheet", "Combat", "wacky_0.png"]
+                        }
+                    },
+                    {
+                        "type" : "AnimationMap",
+                        "name" : "animation_map",
+                        "parameters" : {
+                            "path": ["Combat", "Spritesheet", "Combat"],
+                            "animations": {
+                                "wacky": ["wacky_0.png", "wacky_1.png", "wacky_2.png", "wacky_3.png", "wacky_4.png"],
+                                "wacky_transition": ["wacky_4.png", "wacky_transition_1.jpg", "wacky_transition_2.jpg", "wacky_transition_3.jpg", "wacky_transition_4.jpg", "wacky_transition_5.jpg"],
+                                "background": ["background.png"]
+                            }
+                        }
+                    },
+                    {
+                        "type": "Animation",
+                        "name": "animation",
+                        "parameters": {
+                            "animation_map": [ "Combat", "Background", "Wacky", "animation_map"],
+                            "id": "wacky"
+                        }
+                    }, 
+                    {
+                        "type": "Float",
+                        "name": "animation_speed",
+                        "parameters": 6
+                    }
+                ]
+            }
+        },
+        { 
+            "CreateComponents": {
+                "path": [ "Combat", "Background", "Wacky", "Update"],
+                "components": {
+                    "type" : "System::Animate",
+                    "name" : "system-animate",
+                    "parameters" : {
+                        "animation" : ["Combat", "Background", "Wacky", "animation" ],
+                        "src_temp" : ["Combat", "Background", "Wacky", "src_temp" ],
+                        "speed" : ["Combat", "Background", "Wacky","animation_speed"]
+                    } 
+                }
+            }
+        },
+        {
+            "DelayNext":{
+                "CreateComponents":{
+                    "path": ["Combat", "Background", "Wacky", "Render"],
+                    "components": {
+                        "type": "System::ZoomCameraDraw",
+                        "name": "system-zoom_camera_draw",
+                        "parameters": {
+                            "camera_position": ["Combat", "Camera", "position"],
+                            "camera_zoom": ["Combat", "Camera", "zoom"],
+                            "src": ["Combat", "Background", "Wacky", "src_temp"],
+                            "scale": ["Combat", "Background", "Wacky", "scale"],
+                            "position": ["Combat", "Background", "Wacky", "position"],
+                            "material": ["Combat", "Spritesheet", "Combat", "material"]
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}

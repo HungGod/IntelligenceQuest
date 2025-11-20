@@ -1,0 +1,54 @@
+{
+    "ParseJsonTemplate":{
+        "template": "res/data/templates/object.tmpl",
+        "args": {
+            "GROUP_ID": "Overworld",
+            "OBJECT_ID": "Sign_Welcome",
+            "TILEMAP_ID": "Outside",
+            "POS_ID": 16,
+            "OBJECT_SCALE": 1.0,
+            "SRC_ID": "sign.png",
+            "WIDTH": 64,
+            "HEIGHT": 64,
+            "SPRITESHEET_ID": "Outside",
+            "COLLIDER_JSON": [
+                {
+                    "type": "GJK::AABB",
+                    "parameters": {
+                        "x":0, "y":-16, "w":64, "h":80, 
+                        "state": "both",
+                        "data" : {
+                            "commands" : 
+                            {
+                                "ParseJsonTemplate": 
+                                {
+                                    "template" : "res/data/templates/load_textbox.tmpl",
+                                    "args": {
+                                        "CONTROLLER_ID": "controller",
+                                        "MESSAGES": [
+                                            "Welcome to the town of IQ!",
+                                            "Here in our small town the residents practice the art of intelligence.",
+                                            "By talking to scholars and visiting our libraries join our residents in raising your smarts as high as possible.",
+                                            "Take the path of learning and begin your ascent to heaven and lord over those with lower intellects with your crafty wit.",
+                                            "Take the path of stupidity and be smitten by the highest order.\n\n-Lord Bill, Chair of the Sky Quarter"
+                                        ],
+                                        "BLOCK_ID": "Sign",
+                                        "INT_ID":"welcome_sign",
+                                        "IQ": 20,
+                                        "NO_SPEECH_ARROW": true,
+                                        "ENTITY_ID": "Object",
+                                        "TILEMAP_ID": "Outside",
+                                        "GAMESTATE_ID": "Overworld", 
+                                        "NAME": "Sign_Welcome",
+                                        "GAMESTATE_TEMPLATE": "res/data/templates/overworld/overworld.tmpl",
+                                        "GAMESTATE_PATH": "res/data/gamestates/overworld/overworld.json"
+                                    }
+                                }
+                            }
+                        } 
+                    }
+                }
+            ]
+        }
+    }
+}
