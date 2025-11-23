@@ -6,7 +6,7 @@
 #include "templates.h"
 #include <sstream>
 #include "ec/entity.h"
-#include "ec/component/collider/component-collider.h"
+#include "ec/component/component-collider.h"
 
 namespace Component
 {

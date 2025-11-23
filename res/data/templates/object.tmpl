@@ -82,14 +82,14 @@
             ]
         }
     },
-    <IF COMMANDS>
-        ,$COMMANDS
-    </IF>
-    <IF COLLIDER_JSON>
+    <IF COLLIDERS>
         {
             "CreateComponents": {
                 "path": [ $GROUP_ID, $TILEMAP_ID, "Object", $OBJECT_ID, "Colliders"],
-                "components": $COLLIDER_JSON
+                "components": 
+                <FOREACH COLLIDERS>
+
+                </FOREACH>
             }
         },
         {
@@ -101,7 +101,7 @@
     </IF>
    { 
         "DelayNext": [
-            <IF COLLIDER_JSON> 
+            <IF COLLIDERS> 
                 { 
                     "CreateComponents": {
                         "path": [ $GROUP_ID, $TILEMAP_ID, "Object", $OBJECT_ID, "Update"],

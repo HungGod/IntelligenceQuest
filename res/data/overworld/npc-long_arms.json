@@ -31,21 +31,22 @@
                 "walk_down_left" : ["long_arms_walk_left_0.png", "long_arms_walk_left_1.png", "long_arms_walk_left_2.png"],
                 "walk_up_left" : ["long_arms_walk_left_0.png", "long_arms_walk_left_1.png", "long_arms_walk_left_2.png"]
             },
-            "NPC_COLLIDER": {
-                "type": "GJK::AABB",
-                "parameters": { 
-                    "x": 0, "y": 64, "w": 80, "h": 80,
-                    "state":"both",
-                    "position": ["Overworld", "NPC", "Long_Arms", "position"],
-                    "data" : {
-                        "commands" : {
-                            "AddIntelligence" : {
+            "COLLIDERS": [
+                {
+                    "GJK_TYPE": "GJK::AABB",
+                    "GJK_PARAMS": { "x": 0, "y": 64, "w": 80, "h": 80 },
+                    "MASK": "both",
+                    "POS": ["Overworld", "NPC", "Long_Arms", "position"],
+                    "SCALE": ["Overworld", "NPC", "Long_Arms", "scale"],
+                    "DATA": {
+                        "commands": {
+                            "AddIntelligence": {
                                 "id" : "long_arms", "IQ": 8
                             }
                         }
-                    }  
-                } 
-            }
+                    }
+                }
+            ]
         }
     }
 }

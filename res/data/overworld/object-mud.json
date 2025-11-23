@@ -8,7 +8,7 @@
             "POS_ID": 19,
             "OBJECT_SCALE": 2.0,
             "SRC_ID": "iq_mud_0.png",
-            "COLLIDER_JSON": [
+            "COLLIDERS": [
                 {
                     "type": "GJK::AABB",
                     "parameters": {

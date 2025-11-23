@@ -30,21 +30,22 @@
                 "walk_down_left" : ["fighter_walk_left_0.png", "fighter_walk_left_1.png", "fighter_walk_left_2.png"],
                 "walk_up_left" : ["fighter_walk_left_0.png", "fighter_walk_left_1.png", "fighter_walk_left_2.png"]
             },
-            "NPC_COLLIDER": {
-                "type": "GJK::AABB",
-                "parameters": { 
-                    "x": 32, "y": 64, "w": 96, "h": 80,
-                    "state":"both",
-                    "position": ["Overworld", "NPC", "Fighter", "position"],
-                    "data" : {
-                        "commands" : {
-                            "AddIntelligence" : {
+            "COLLIDERS": [
+                {
+                    "GJK_TYPE": "GJK::AABB",
+                    "GJK_PARAMS": { "x": 32, "y": 64, "w": 96, "h": 80 },
+                    "MASK": "both",
+                    "POS": ["Overworld", "NPC", "Fighter", "position"],
+                    "SCALE": ["Overworld", "NPC", "Fighter", "scale"],
+                    "DATA": {
+                        "commands": {
+                            "AddIntelligence": {
                                 "id" : "fighter", "IQ": 6
                             }
                         }
-                    } 
-                } 
-            }
+                    }
+                }
+            ]
         }
     }
 }

@@ -1,4 +1,4 @@
-#include "ec/component/collider/component-collider.h"
+#include "ec/component/component-collider.h"
 #include "ec/component/factory/component-factory-create_component_map.h"
 #include <sstream>
 
@@ -21,7 +21,7 @@ void Component::Collider::init(nlohmann::json j, Entity* g)
         shape = colliders->get_component<IGJK>(gjk_name);
  
     moveable = j.value("movable", false);
-    kind = mask->get_kind_from_string(j.value("type", "physical"));
+    kind = mask->get_kind_from_string(j.value("mask", "physical"));
     data = j.value("data", nlohmann::json{});
     position = g->get_nested_component<Component::Position>(j["position"]);
     scale = g->get_nested_component<Component::Float>(j["scale"]);

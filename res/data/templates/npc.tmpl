@@ -94,7 +94,34 @@
     {
         "CreateComponents": {
             "path": [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "Colliders"],
-            "components": $NPC_COLLIDER
+            "components": [
+            <FOREACH COLLIDERS>
+                {
+                    "type" : "Collider",
+                    <IF NAME>
+                        "name": $NAME,
+                    </IF>
+                    "parameters": {
+                        "shape": {
+                            "type": $GJK_TYPE,
+                            "parameters: $GJK_PARAMS
+                        },
+                        <IF MOVEABLE>
+                            "moveable": $MOVEABLE,
+                        </IF>
+                        <IF MASK>
+                            "mask": $MASK,
+                        </IF>
+                        <IF DATA>
+                            "data": $DATA,
+                        </IF>
+                        "SCALE": $SCALE,
+                        "POSITION": $POSITION,
+                    }
+                },
+            </FOREACH>
+                {}
+            ]
         }
     },
     {

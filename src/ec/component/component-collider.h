@@ -1,7 +1,7 @@
 ﻿#pragma once  
 #include "ec/component/gjk/component-gjk.h"  
 #include <string>  
-#include "ec/component/collider_mask/component-collider_mask.h"  
+#include "ec/component/component-collider_mask.h"  
 #include "ec/component/component-pathway.h"
 
 /*────────────────────────────   3.  Component::Collider  ───────────────────*/  
