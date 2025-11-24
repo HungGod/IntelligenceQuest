@@ -1,4 +1,4 @@
-IntelligenceQuest - latest working demo (https://wadsey.itch.io/intelligencequest)
+Latest working demo (https://wadsey.itch.io/intelligencequest)
 
 A video game where the protagonist gets more intelligent.
 
