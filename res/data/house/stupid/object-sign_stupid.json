@@ -8,20 +8,18 @@
             "POS_ID": 16,
             "OBJECT_SCALE": 1.0,
             "SRC_ID": "sign.png",
-            "COLLIDER_JSON": [
+            "COLLIDERS": [
                 {
-                    "type": "GJK::AABB",
-                    "parameters": {
-                        "x":0, "y":-16, "w":64, "h":80, 
-                        "state":"both",
-                        "data" : {
-                            "commands" : {
-                                "AddIntelligence" : {
-                                    "id" : "sign_stupid", "IQ": 10
-                                }
+                    "GJK_TYPE": "GJK::AABB",
+                    "GJK_PARAMS": { "x":0, "y":-16, "w":64, "h":80 }, 
+                    "MASK":"both",
+                    "DATA" : {
+                        "commands" : {
+                            "AddIntelligence" : {
+                                "id" : "sign_stupid", "IQ": 10
                             }
-                        } 
-                    }
+                        }
+                    } 
                 }
             ],
             "SPRITESHEET_ID": "Inside"

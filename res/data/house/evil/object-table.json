@@ -1,5 +1,5 @@
 {
-    "ParseJsonTemplate":{
+    "ParseJsonTemplate": {
         "template": "res/data/templates/object.tmpl",
         "args": {
             "GROUP_ID": "House",
@@ -8,10 +8,17 @@
             "POS_ID": 1,
             "OBJECT_SCALE": 1.5,
             "SRC_ID": "table.png",
-            "COLLIDER_JSON": {
-                "type": "GJK::AABB",
-                "parameters": {"x":-8, "y":17, "w":152, "h":68}
-            },
+            "COLLIDERS": [
+                {
+                    "GJK_TYPE": "GJK::AABB",
+                    "GJK_PARAMS": {
+                        "x": -8,
+                        "y": 17,
+                        "w": 152,
+                        "h": 68
+                    }
+                }
+            ],
             "SPRITESHEET_ID": "Inside"
         }
     }

@@ -1,6 +1,6 @@
 #pragma once
 #pragma once
-#include "ec/component/system-navigate/component-system-navigate.h"
+#include "ec/component/system/update/component-system-navigate.h"
 #include "ec/component/controller/component-controller.h"
 #include "ec/component/component-pathway.h"
 

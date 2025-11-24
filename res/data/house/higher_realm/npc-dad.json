@@ -31,10 +31,16 @@
                 "walk_down_left" : ["dad_walk_down_left_0.png", "dad_walk_down_left_1.png"],
                 "walk_up_left" : ["dad_walk_up_left_0.png", "dad_walk_up_left_1.png"]
             },
-            "NPC_COLLIDER": {
-                "type": "GJK::Circle",
-                "parameters": { "x": 0, "y": 80, "radius": 64 } 
-            }
+            "COLLIDERS": [
+                {
+                    "GJK_TYPE": "GJK::Circle",
+                    "GJK_PARAMS": {
+                        "x": 0,
+                        "y": 80,
+                        "radius": 64
+                    }
+                }
+            ]
         }
     }
 }

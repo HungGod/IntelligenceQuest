@@ -32,8 +32,11 @@
                 "name" : "material",
                 "parameters" : {
                     "texture" : [ <IF GROUP_ID> $GROUP_ID, "Spritesheet",</IF> $SPRITESHEET_ID, "Textures", $IMG_NAME],
-                    "shader": ["Shaders", $SHADER_ID],
-                    "tex_unit": $TEX_UNIT
+                    "shader": ["Shaders", $SHADER_ID]
+                    <IF TEX_UNIT>
+                        ,
+                        "tex_unit": $TEX_UNIT
+                    </IF>
                 }
             }
         }

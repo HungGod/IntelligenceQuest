@@ -2,7 +2,7 @@
 #include "command/command.h"
 #include "ec/component/component-animation_map.h"
 #include "ec/component/component-animation.h"
-#include "ec/component/src-transform/component-src-transform.h"
+#include "ec/component/src/component-src-transform.h"
 #include "ec/component/component-pathway.h"
 #include "ec/entity.h"
 #include <GLFW/glfw3.h>

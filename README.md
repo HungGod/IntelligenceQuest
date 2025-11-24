@@ -1,15 +1,16 @@
 IntelligenceQuest - latest working demo (https://wadsey.itch.io/intelligencequest)
 
+A video game where the protagonist gets more intelligent.
 
-A hobby project creating a from-scratch 2D video game engine. 
+## System Requirements
+- **OpenGL 4.6** required (Linux and Windows distributions updated post 2014 should be compatible. MacOS is not.)
 
-Currently broken; would take some work to get it running again.
+To check your OpenGL version, download the [OpenGL Extensions Viewer](https://www.realtech-vr.com/home/glview)
 
-
-Dependencies
- - GLAD/460
- - glfw/latest
- - glm
- - miniaudio
- - nlohmann::json
- - stb_image
+## Dependencies Included
+- GLAD (OpenGL 4.6)
+- GLFW (latest)
+- GLM
+- miniaudio
+- nlohmann::json
+- stb_image

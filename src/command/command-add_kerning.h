@@ -1,6 +1,6 @@
 #pragma once
 #include "command/command.h"
-#include "ec/component/src-bm_font/component-src-bm_font.h"
+#include "ec/component/src/component-src-bm_font.h"
 
 namespace Command
 {

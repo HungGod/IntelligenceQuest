@@ -4,6 +4,8 @@
 #include "ec/component/gjk/component-gjk.h"
 #include "ec/component/controller/component-controller.h"
 #include "ec/component/component-intelligence.h"
+#include "ec/component/component-collider.h"
+#include "ec/component/component-collider_mask.h"
 
 namespace System
 {
@@ -14,10 +16,11 @@ namespace System
 		IController* controller_;
 		Component::Position* position_;
 		Component::Pathway* pathway_;
+		Component::ColliderMask* mask_;
 	public:
 
 		CheckAction()
-			: action_collider_(nullptr), quadtree_(nullptr), controller_(nullptr)
+			: action_collider_(nullptr), quadtree_(nullptr), controller_(nullptr), mask_(nullptr)
 		{}
 
 		void init(nlohmann::json json, Entity* game) override
@@ -27,6 +30,7 @@ namespace System
 			controller_ = game->get_nested_component<IController>(json["controller"]);
 			position_ = game->get_nested_component<Component::Position>(json["position"]);
 			pathway_ = game->get_component<Component::Pathway>("pathway");
+			mask_ = game->get_child("Colliders")->get_component<Component::ColliderMask>("mask");
 		}
 
 		void execute() override
@@ -37,7 +41,7 @@ namespace System
 				
 				for (auto col_b : retrieved_cols)
 				{
-					if (action_collider_->collide(col_b))
+					if (action_collider_->is_colliding(col_b, mask_))
 						pathway_->message(col_b->data["commands"]);
 				}
 			}

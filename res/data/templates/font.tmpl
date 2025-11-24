@@ -55,8 +55,11 @@
                     "name": "material",
                     "parameters": {
                         "texture": [$GROUP_ID, $FONT_ID, "Textures", $TEX_NAME],
-                        "shader": ["Shaders", $SHADER_ID],
-                        "tex_unit": $TEX_UNIT
+                        "shader": ["Shaders", $SHADER_ID]
+                        <IF TEX_UNIT>
+                            ,
+                            "tex_unit": $TEX_UNIT
+                        </IF>
                     }
                 }
             </IF>

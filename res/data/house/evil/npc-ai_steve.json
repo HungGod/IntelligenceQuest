@@ -31,20 +31,21 @@
                 "walk_down_left" : ["AI_STEVE_walk_left_0.png", "AI_STEVE_walk_left_1.png"],
                 "walk_up_left" : ["AI_STEVE_walk_left_0.png", "AI_STEVE_walk_left_1.png"]
             },
-            "NPC_COLLIDER": {
-                "type": "GJK::AABB",
-                "parameters": { 
-                    "x": 0, "y": 64, "w": 64, "h": 80, 
-                    "state":"both",
-                    "data": {
+            "COLLIDERS": [
+                {
+                    "GJK_TYPE": "GJK::AABB",
+                    "GJK_PARAMS": { "x": 0, "y": 64, "w": 64, "h": 80 },
+                    "MASK":"both",
+                    "MOVEABLE": true,
+                    "DATA": {
                         "commands": {
                             "AddIntelligence": {
                                 "IQ": -14, "id": "ai_steve"
                             }
                         }             
-                    }   
-                } 
-            }
+                    }
+                }
+            ]
         }
     }
 }

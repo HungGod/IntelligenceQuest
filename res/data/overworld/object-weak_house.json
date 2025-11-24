@@ -25,10 +25,10 @@
                 "POS_NUM": 4,
                 "OBJECT_SCALE": 2.0,
                 "SRC_ID": "house.png",
-                "COLLIDER_JSON": [
+                "COLLIDERS": [
                     {
-                        "type": "GJK::AABB",
-                        "parameters": {"x": 0, "y": -16, "w": 256, "h": 112}
+                        "GJK_TYPE": "GJK::AABB",
+                        "GJK_PARAMS": {"x": 0, "y": -16, "w": 256, "h": 112}
                     }
                 ], 
                 "SPRITESHEET_ID": "Outside"

@@ -50,6 +50,18 @@ target_include_directories(miniaudio INTERFACE
         include/miniaudio
 )
 
+# 2‑E  nlohmann/json — single‑header library
+add_library(nlohmann INTERFACE)
+target_include_directories(nlohmann INTERFACE
+        include/nlohmann
+)
+
+# 2‑F  stb_image — single‑header library
+add_library(stb_image INTERFACE)
+target_include_directories(stb_image INTERFACE
+        include/stb_image
+)
+
 #####################################################################
 # 3. Your own code
 #####################################################################
@@ -63,5 +75,7 @@ if(TARGET IntelligenceQuest)
             glad
             glm
             miniaudio
+            nlohmann
+            stb_image
     )
 endif()

@@ -31,7 +31,7 @@ namespace Component
 					indx_file.close();
 				}
 				catch (std::exception e) {
-					Logger::error("Failed to read template file! path = " + temp, Logger::HIGH);
+					Logger::error("Failed to read template file! path = " + filename, Logger::HIGH);
 				}
 				auto json_template = new JsonTemplate();
 				json_template->create_template(template_stream.str());

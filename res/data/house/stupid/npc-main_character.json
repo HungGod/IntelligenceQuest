@@ -31,20 +31,25 @@
                 "walk_down_left" : ["main_character_walk_0.png", "main_character_walk_1.png"],
                 "walk_up_left" : ["main_character_walk_0.png", "main_character_walk_1.png"]
             },
-            "NPC_COLLIDER": {
-                "type": "GJK::Circle",
-                "parameters": { 
-                    "x": 4, "y": 2, "radius": 10, 
-                    "state":"both",
-                    "data" : {
-                        "commands" : {
-                            "AddIntelligence" : {
-                                "id" : "main_character", "IQ": 1
+            "COLLIDERS": [
+                {
+                    "GJK_TYPE": "GJK::Circle",
+                    "GJK_PARAMS": {
+                        "x": 4,
+                        "y": 2,
+                        "radius": 10
+                    },
+                    "MASK": "both",
+                    "DATA": {
+                        "commands": {
+                            "AddIntelligence": {
+                                "id": "main_character",
+                                "IQ": 1
                             }
                         }
                     }
-                }  
-            }
+                }
+            ]
         }
     }
 }

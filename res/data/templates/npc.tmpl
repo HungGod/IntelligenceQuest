@@ -98,13 +98,13 @@
             <FOREACH COLLIDERS>
                 {
                     "type" : "Collider",
-                    <IF NAME>
-                        "name": $NAME,
+                    <IF COLLIDER_NAME>
+                        "name": $COLLIDER_NAME,
                     </IF>
                     "parameters": {
                         "shape": {
                             "type": $GJK_TYPE,
-                            "parameters: $GJK_PARAMS
+                            "parameters": $GJK_PARAMS
                         },
                         <IF MOVEABLE>
                             "moveable": $MOVEABLE,
@@ -115,8 +115,8 @@
                         <IF DATA>
                             "data": $DATA,
                         </IF>
-                        "SCALE": $SCALE,
-                        "POSITION": $POSITION,
+                        "scale": [$GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "scale"],
+                        "position": [$GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "position"],
                     }
                 },
             </FOREACH>

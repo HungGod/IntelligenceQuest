@@ -1,8 +1,8 @@
 #pragma once
-#include "ec/component/system-navigate/component-system-navigate.h"
+#include "ec/component/system/update/component-system-navigate.h"
 #include "ec/component/controller/component-controller.h"
 #include "ec/component/component-pathway.h"
-#include "ec/component/block-options/component-block-options.h"
+#include "ec/component/block/component-block-options.h"
 
 
 namespace Navigate

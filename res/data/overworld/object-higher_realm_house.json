@@ -28,9 +28,7 @@
                 "COLLIDER_JSON": [
                     {
                         "GJK_TYPE": "GJK::AABB",
-                        "GJK_PARAMS": {"x": 0, "y": -16, "w": 256, "h": 112 },
-                        "POS": ["Overworld", "Object", "Higher_Realm", "position"],
-                        "SCALE": ["Overworld", "Object", "Higher_Realm", "scale"]
+                        "GJK_PARAMS": {"x": 0, "y": -16, "w": 256, "h": 112 }
                     },
                     {
                         "GJK_TYPE": "GJK::Circle",
@@ -50,9 +48,7 @@
                                     }
                                 }
                             } 
-                        },
-                        "POS": ["Overworld", "Object", "Higher_Realm", "position"],
-                        "SCALE": ["Overworld", "Object", "Higher_Realm", "scale"]
+                        }
                     }
                 ], 
                 "SPRITESHEET_ID": "Outside"

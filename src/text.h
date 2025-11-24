@@ -1,5 +1,5 @@
 #pragma once
-#include "ec/component/src-bm_font/component-src-bm_font.h"
+#include "ec/component/src/component-src-bm_font.h"
 #include "ec/component/component-template.h"
 #include "templates.h"
 #include "ec/entity.h"

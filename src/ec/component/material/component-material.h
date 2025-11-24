@@ -27,7 +27,7 @@ public:
 	{
 		texture = game->get_nested_component<Component::Texture>(json["texture"]);
 		shader = game->get_nested_component<Component::Shader>(json["shader"]);
-		tex_unit_ = json["tex_unit"];
+		tex_unit_ = json.value("tex_unit", 0);
 		id = game->get_component<Component::Int>("material_id")->val++;
 	}
 

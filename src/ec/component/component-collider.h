@@ -4,7 +4,6 @@
 #include "ec/component/component-collider_mask.h"  
 #include "ec/component/component-pathway.h"
 
-/*────────────────────────────   3.  Component::Collider  ───────────────────*/  
 namespace Component {  
    class Collider : public IComponent  
    {    
@@ -15,8 +14,8 @@ namespace Component {
        nlohmann::json data{};
        Component::Position* position{};
        Component::Float* scale{};
-       /* ------------------------ init ------------------------ */  
-       void init(nlohmann::json j, Entity* g) override;  
+       
+       void init(nlohmann::json json, Entity* game) override;  
 
        bool is_colliding(Component::Collider* other, Component::ColliderMask* mask)  
        {  
@@ -51,4 +50,4 @@ namespace Component {
 
        std::string get_id() override { return "collider"; }
    };  
-} // namespace Component
+}

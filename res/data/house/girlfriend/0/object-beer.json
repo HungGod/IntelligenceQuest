@@ -9,13 +9,21 @@
             "OBJECT_SCALE": 1.5,
             "SPRITESHEET_ID": "Inside",
             "SRC_ID": "beer.png",
-            "DISPLACEMENT": {"x":0, "y": 16},
-            "COLLIDER_JSON": {
-                "type": "GJK::AABB",
-                "parameters": {
-                    "x":-16, "y":10, "w":70, "h":60
+            "DISPLACEMENT": {
+                "x": 0,
+                "y": 16
+            },
+            "COLLIDERS": [
+                {
+                    "GJK_TYPE": "GJK::AABB",
+                    "GJK_PARAMS": {
+                        "x": -16,
+                        "y": 10,
+                        "w": 70,
+                        "h": 60
+                    }
                 }
-            }
+            ]
         }
     }
 }

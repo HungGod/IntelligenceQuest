@@ -5,7 +5,7 @@
 #include "templates.h"
 #include "ec/component/component-tilemap.h"
 #include "ec/component/component-vec2.h"
-#include "ec/component/collider/component-collider.h"
+#include "ec/component/component-collider.h"
 
 namespace System
 {

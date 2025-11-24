@@ -31,20 +31,25 @@
                 "walk_down_left" : ["flesh_girlfriend_walk_down_left_0.png", "flesh_girlfriend_walk_down_left_1.png"],
                 "walk_up_left" : ["flesh_girlfriend_walk_up_left_0.png", "flesh_girlfriend_walk_up_left_1.png"]
             },
-            "NPC_COLLIDER": {
-                "type": "GJK::Circle",
-                "parameters": { 
-                    "x": 32, "y": 16, "radius": 48, 
-                    "state":"both",
-                    "data": {
+            "COLLIDERS": [
+                {
+                    "GJK_TYPE": "GJK::Circle",
+                    "GJK_PARAMS": {
+                        "x": 32,
+                        "y": 16,
+                        "radius": 48
+                    },
+                    "MASK": "both",
+                    "DATA": {
                         "commands": {
                             "AddIntelligence": {
-                                "IQ": 10, "id": "girlfriend"
+                                "IQ": 10,
+                                "id": "girlfriend"
                             }
-                        }             
-                    }  
-                } 
-            }
+                        }
+                    }
+                }
+            ]
         }
     }
 }

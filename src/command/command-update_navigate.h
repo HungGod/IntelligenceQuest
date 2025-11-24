@@ -1,6 +1,6 @@
 #pragma once
 #include "command/command.h"
-#include "ec/component/system-navigate/component-system-navigate.h"
+#include "ec/component/system/update/component-system-navigate.h"
 
 
 namespace Command

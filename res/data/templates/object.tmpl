@@ -3,13 +3,15 @@
         "CreateComponents" : {
             "path" : [$GROUP_ID, <IF TILEMAP_ID> $TILEMAP_ID, </IF> "Object", $OBJECT_ID],
             "components" : [
-                <IF OBJECT_SCALE>
                     {
                         "type": "Float",
                         "name": "scale",
-                        "parameters": $OBJECT_SCALE
+                        <IF OBJECT_SCALE>
+                            "parameters": $OBJECT_SCALE    
+                        <ELSE>
+                            "parameters": 1.0
+                        </IF>
                     },
-                </IF>
                 <IF WIDTH>
                     {
                         "type": "Float",
@@ -86,10 +88,34 @@
         {
             "CreateComponents": {
                 "path": [ $GROUP_ID, $TILEMAP_ID, "Object", $OBJECT_ID, "Colliders"],
-                "components": 
+                "components": [
                 <FOREACH COLLIDERS>
-
+                    {
+                        "type" : "Collider",
+                        <IF COLLIDER_NAME>
+                            "name": $COLLIDER_NAME,
+                        </IF>
+                        "parameters": {
+                            "shape": {
+                                "type": $GJK_TYPE,
+                                "parameters": $GJK_PARAMS
+                            },
+                            <IF MOVEABLE>
+                                "moveable": $MOVEABLE,
+                            </IF>
+                            <IF MASK>
+                                "mask": $MASK,
+                            </IF>
+                            <IF DATA>
+                                "data": $DATA,
+                            </IF>
+                            "scale": [ $GROUP_ID, $TILEMAP_ID, "Object", $OBJECT_ID, "scale"],
+                            "position": [ $GROUP_ID, $TILEMAP_ID, "Object", $OBJECT_ID, "position"],
+                        }
+                    },
                 </FOREACH>
+                {}
+                ]
             }
         },
         {

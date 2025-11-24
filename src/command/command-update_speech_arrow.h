@@ -1,7 +1,7 @@
 #pragma once
 #include "command/command.h"
 #include "ec/component/component-vec2.h"
-#include "ec/component/block-box/component-block-box.h"
+#include "ec/component/block/component-block-box.h"
 
 namespace Command
 {

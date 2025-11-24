@@ -5,10 +5,10 @@
 #include "ec/component/component-vec2.h"
 #include "ec/component/component-pathway.h"
 #include <GLFW/glfw3.h>
-#include "ec/component/src-transform/component-src-transform.h"
+#include "ec/component/src/component-src-transform.h"
 #include <glm/vec2.hpp>
 #include <glm/geometric.hpp>
-#include "ec/component/system-camera/component-system-camera.h"
+#include "ec/component/system/update/component-system-camera.h"
 
 namespace Command
 {

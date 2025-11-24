@@ -35,8 +35,7 @@
                     "GJK_TYPE": "GJK::AABB",
                     "GJK_PARAMS": { "x": 32, "y": 64, "w": 96, "h": 80 },
                     "MASK": "both",
-                    "POS": ["Overworld", "NPC", "Fighter", "position"],
-                    "SCALE": ["Overworld", "NPC", "Fighter", "scale"],
+                    "MOVEABLE": true,
                     "DATA": {
                         "commands": {
                             "AddIntelligence": {

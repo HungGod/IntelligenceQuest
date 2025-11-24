@@ -1,6 +1,6 @@
 #include "ec/component/component-texture.h"
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include <stb_image.h>
 #include <iostream>
 
 void Component::Texture::load(std::string tex_file_name)

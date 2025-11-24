@@ -1,6 +1,6 @@
 #pragma once
 #include <sstream>
-#include "json.hpp"
+#include <json.hpp>
 #include <fstream>
 #include <iostream>
 
@@ -212,6 +212,7 @@ public:
 		catch (std::exception e)
 		{
 			Logger::error("template parse error " + ss.str(), Logger::HIGH);
+			return nlohmann::json{};
 		}
 	}
 };

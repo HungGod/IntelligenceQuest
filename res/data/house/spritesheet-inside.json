@@ -648,8 +648,7 @@
                     "sourceSize": {"w":128,"h":128}
                 }
             ],
-            "SHADER_ID": "sprite",
-            "TEX_UNIT": 2
+            "SHADER_ID": "sprite"
         }
     }
 }

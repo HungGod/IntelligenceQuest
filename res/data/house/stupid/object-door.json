@@ -1,20 +1,24 @@
-{"ParseJsonTemplate":{
-    "template": "res/data/templates/object.tmpl",
-    "args": {
-        "GROUP_ID": "House",
-        "OBJECT_ID": "Door",
-        "TILEMAP_ID": "Stupid",
-        "POS_ID": 18,
-        "OBJECT_SCALE": 2.0,
-        "SPRITESHEET_ID": "Inside",
-        "SRC_ID": "door.png",
-        "COLLIDER_JSON": [
-            {
-                "type": "GJK::Circle",
-                "parameters": {
-                    "x": 32, "y": 160, "radius": 32,
-                    "state": "action_space",
-                    "data": {
+{
+    "ParseJsonTemplate": {
+        "template": "res/data/templates/object.tmpl",
+        "args": {
+            "GROUP_ID": "House",
+            "OBJECT_ID": "Door",
+            "TILEMAP_ID": "Stupid",
+            "POS_ID": 18,
+            "OBJECT_SCALE": 2.0,
+            "SPRITESHEET_ID": "Inside",
+            "SRC_ID": "door.png",
+            "COLLIDERS": [
+                {
+                    "GJK_TYPE": "GJK::Circle",
+                    "GJK_PARAMS": {
+                        "x": 32,
+                        "y": 160,
+                        "radius": 32
+                    },
+                    "MASK": "action_space",
+                    "DATA": {
                         "commands": {
                             "ParseJsonTemplate": {
                                 "template": "res/data/templates/warp.tmpl",
@@ -24,13 +28,16 @@
                                     "POSITION_NUM": 1,
                                     "TILEMAP_ID": "Outside",
                                     "GROUP_ID": "Overworld",
-                                    "PLAYER_DIR": {"x": 0, "y": 1}
+                                    "PLAYER_DIR": {
+                                        "x": 0,
+                                        "y": 1
+                                    }
                                 }
                             }
                         }
-                    } 
+                    }
                 }
-            }
-        ]
+            ]
+        }
     }
-}}
+}

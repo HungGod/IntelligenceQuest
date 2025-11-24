@@ -137,30 +137,21 @@
         "DelayNext": [
             {
                 "CreateComponents": {
-                    "path": ["Colliders"],
-                    "components": [
-                        {
-                            "type" : "GJK::Ellipse",
-                            "name" : "ellipse-rx32ry64cx32cy64",
-                            "parameters" : {
-                                "rx" : 32,
-                                "ry" : 64,
-                                "cx": 32, 
-                                "cy": 64
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "CreateComponents": {
                     "path": ["Combat", "Weak"],
                     "components": 
                     {
                         "type": "Collider",
                         "name": "collider",
                         "parameters": {
-                            "shape": ["Colliders", "ellipse-rx32ry64cx32cy64"],
+                            "shape": {
+                                "type" : "GJK::Ellipse",
+                                "parameters" : {
+                                    "rx" : 32,
+                                    "ry" : 64,
+                                    "cx": 32, 
+                                    "cy": 64
+                                }
+                            },
                             "kind": "physical",
                             "position": ["Combat", "Weak", "position"],
                             "scale": ["Combat", "Weak", "scale"]

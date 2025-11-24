@@ -2,7 +2,7 @@
 #include "ec/component/block/component-block.h"
 #include "ec/component/material/component-material.h"
 #include "text.h"
-#include "ec/component/src-bm_font/component-src-bm_font.h"
+#include "ec/component/src/component-src-bm_font.h"
 
 namespace Block
 {

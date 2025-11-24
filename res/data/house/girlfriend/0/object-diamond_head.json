@@ -1,5 +1,5 @@
 {
-    "ParseJsonTemplate":{
+    "ParseJsonTemplate": {
         "template": "res/data/templates/object.tmpl",
         "args": {
             "GROUP_ID": "House",
@@ -8,20 +8,25 @@
             "POS_ID": 14,
             "OBJECT_SCALE": 1.5,
             "SRC_ID": "diamond_head.png",
-            "COLLIDER_JSON": {
-                "type": "GJK::Circle",
-                "parameters": {
-                    "x":32, "y": 106, "radius": 32, 
-                    "state":"both",
-                    "data": {
+            "COLLIDERS": [
+                {
+                    "GJK_TYPE": "GJK::Circle",
+                    "GJK_PARAMS": {
+                        "x": 32,
+                        "y": 106,
+                        "radius": 32
+                    },
+                    "MASK": "both",
+                    "DATA": {
                         "commands": {
                             "AddIntelligence": {
-                                "IQ": 7, "id": "diamond_head"
+                                "IQ": 7,
+                                "id": "diamond_head"
                             }
-                        }             
-                    } 
+                        }
+                    }
                 }
-            },
+            ],
             "SPRITESHEET_ID": "Inside"
         }
     }

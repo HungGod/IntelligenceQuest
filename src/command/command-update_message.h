@@ -3,7 +3,7 @@
 #include "ec/component/component-box.h"
 #include "ec/component/component-template.h"
 #include "templates.h"
-#include "ec/component/block-text/component-block-text.h"
+#include "ec/component/block/component-block-text.h"
 
 namespace Command
 {

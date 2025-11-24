@@ -8,7 +8,6 @@
             "TEX_PATH": "res/images/gilsans_packed_text_with_outline.png",
             "FONT_SIZE": 32,
             "SHADER_ID": "sprite",
-            "TEX_UNIT": 1,
             "SPACE": 10,
             "LINE_H": 31,
             "BMFONT": [

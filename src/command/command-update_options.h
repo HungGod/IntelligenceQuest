@@ -1,6 +1,6 @@
 #pragma once
 #include "command/command.h"
-#include "ec/component/block-options/component-block-options.h"
+#include "ec/component/block/component-block-options.h"
 
 
 namespace Command

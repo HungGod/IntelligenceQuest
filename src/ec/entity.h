@@ -3,7 +3,7 @@
 #include "ec/component/component.h"
 #include "logger.h"
 #include <string>
-#include "json.hpp"
+#include <json.hpp>
 
 /*
 storage class for components and other entities beneath it

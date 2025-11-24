@@ -1,7 +1,7 @@
 #pragma once
 #include "ec/component/component-intelligence.h"
 #include "command/command.h"
-#include "ec/component/system-text_draw/component-system-text_draw.h"
+#include "ec/component/system/render/component-system-text_draw.h"
 
 namespace Command
 {

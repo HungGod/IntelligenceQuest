@@ -1,7 +1,7 @@
 #pragma once
 #include "ec/component/component.h"
 #include <unordered_map>
-#include "json.hpp"
+#include <json.hpp>
 
 namespace Component {
 	template <typename T>

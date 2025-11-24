@@ -5,7 +5,7 @@
 #include "ec/component/component-template.h"
 #include "templates.h"
 #include "ec/component/src/component-src.h"
-#include "ec/component/block-box/component-block-box.h"
+#include "ec/component/block/component-block-box.h"
 
 namespace Component
 {

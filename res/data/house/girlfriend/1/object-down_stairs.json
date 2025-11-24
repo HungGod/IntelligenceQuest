@@ -1,56 +1,61 @@
-{"ParseJsonTemplate":{
-    "template": "res/data/templates/object.tmpl",
-    "args": {
-        "GROUP_ID": "House",
-        "OBJECT_ID": "Down_Stairs",
-        "TILEMAP_ID": "Girlfriend_1",
-        "POS_ID": 20,
-        "OBJECT_SCALE": 2.0,
-        "SRC_ID": "downstairs.png",
-        "COLLIDER_JSON": [
-            {
-                "points": [
-                    {
-                        "x":102,
-                        "y":34
+{
+    "ParseJsonTemplate": {
+        "template": "res/data/templates/object.tmpl",
+        "args": {
+            "GROUP_ID": "House",
+            "OBJECT_ID": "Down_Stairs",
+            "TILEMAP_ID": "Girlfriend_1",
+            "POS_ID": 20,
+            "OBJECT_SCALE": 2.0,
+            "SRC_ID": "downstairs.png",
+            "COLLIDERS": [
+                {
+                    "GJK_TYPE": "GJK::Polygon",
+                    "GJK_PARAMS": [
+                        {
+                            "x": 102,
+                            "y": 34
+                        },
+                        {
+                            "x": 92,
+                            "y": 46
+                        },
+                        {
+                            "x": 66,
+                            "y": 49
+                        },
+                        {
+                            "x": 100,
+                            "y": 4
+                        },
+                        {
+                            "x": 102,
+                            "y": 34
+                        }
+                    ]
+                },
+                {
+                    "GJK_TYPE": "GJK::LineSegment",
+                    "GJK_PARAMS": [
+                        {
+                            "x": 66,
+                            "y": 49
+                        },
+                        {
+                            "x": 20,
+                            "y": 49
+                        }
+                    ]
+                },
+                {
+                    "GJK_TYPE": "GJK::Circle",
+                    "GJK_PARAMS": {
+                        "x": 62,
+                        "y": 8,
+                        "radius": 24
                     },
-                    {
-                        "x":92,
-                        "y":46
-                    }, 
-                    {
-                        "x":66,
-                        "y":49
-                    }, 
-                    {
-                        "x":100,
-                        "y":4
-                    }, 
-                    {
-                        "x":102,
-                        "y":34
-                    } 
-                ]
-            },
-            {
-                "type": "GJK::LineSegment",
-                "parameters": [
-                    {
-                        "x":66,
-                        "y":49
-                    },
-                    {
-                        "x":20,
-                        "y":49
-                    }
-                ]
-            },
-            {
-                "type": "GJK::Circle",
-                "parameters": {
-                    "x": 62, "y": 8, "radius": 24,
-                    "state": "action_space",
-                    "data": {
+                    "MASK": "action_space",
+                    "DATA": {
                         "commands": {
                             "ParseJsonTemplate": {
                                 "template": "res/data/templates/warp.tmpl",
@@ -60,14 +65,17 @@
                                     "POSITION_NUM": 0,
                                     "TILEMAP_ID": "Girlfriend_0",
                                     "GROUP_ID": "House",
-                                    "PLAYER_DIR": {"x": -1, "y": 0}
+                                    "PLAYER_DIR": {
+                                        "x": -1,
+                                        "y": 0
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
-        ],
-        "SPRITESHEET_ID": "Inside"
+            ],
+            "SPRITESHEET_ID": "Inside"
+        }
     }
-}}
+}
