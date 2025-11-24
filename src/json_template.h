@@ -3,6 +3,7 @@
 #include <json.hpp>
 #include <fstream>
 #include <iostream>
+#include "logger.h"
 
 class JsonTemplate
 {
@@ -49,7 +50,7 @@ class JsonTemplate
 			{
 				std::string term;
 				for (i = i + 1; i < str.size(); ++i) {
-					if (str[i] == ',' || str[i] == ' ' || str[i] == ']' || str[i] == '}' || str[i] == '\n')
+					if (str[i] == ',' || str[i] == ' ' || str[i] == ']' || str[i] == '}' || str[i] == '\n' || str[i] == '\r')
 						break;
 					term.push_back(str[i]);
 				}
@@ -142,15 +143,12 @@ public:
 		recursive_create_template(str, i, node);
 	}
 
-
-
 	nlohmann::json load_template(nlohmann::json args)
 	{
 		std::vector<IfElse*> ifs_used;
 
 		if (!args.is_null())
 		{
-			// lmao On^3. This is definitly not optimal
 			for (auto& obj : args.get<nlohmann::json::object_t>())
 			{
 				if (for_each_map_.find(obj.first) != for_each_map_.end())
@@ -197,6 +195,10 @@ public:
 				}
 			}
 		}
+		else 
+		{
+			Logger::error("No args found in template", Logger::HIGH);
+		}
 
 		std::stringstream ss;
 		for (auto n = root_; n != nullptr; n = n->next)
@@ -209,9 +211,10 @@ public:
 		{
 			return nlohmann::json::parse(ss);
 		}
-		catch (std::exception e)
+		catch (const std::exception& e)
 		{
-			Logger::error("template parse error " + ss.str(), Logger::HIGH);
+			Logger::error("template parse error " + ss.str(), Logger::LOW);
+			// Return empty JSON instead of throwing - let caller decide what to do
 			return nlohmann::json{};
 		}
 	}

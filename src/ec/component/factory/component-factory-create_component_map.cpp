@@ -18,6 +18,9 @@
 
 #include "ec/component/material/component-material-sprite.h"
 #include "ec/component/material/component-material-font.h"
+#include "ec/component/component-collider_mask.h"
+#include "ec/component/component-collider.h"
+#include "ec/component/system/update/component-system-broad_phase_collision.h"
 
 #include "ec/component/component-json_template_map.h"
 #include "ec/component/system/update/component-system-insert_colliders.h"
@@ -30,7 +33,7 @@
 #include "ec/component/system/update/component-system-combat-controller.h"
 #include "ec/component/component-intelligence.h"
 
-#include "ec/component/system/update/component-system-combat_collisions.h"
+#include "ec/component/system/update/component-system-narrow_phase_collision.h"
 #include "ec/component/gjk/component-gjk-ellipse.h"
 
 #include "ec/component/src/component-src-texture_packer_gui.h"
@@ -85,6 +88,8 @@ void Factory::CreateComponentMap::create()
 	(*this)["Box"] = c_component<Component::Box>;
 	(*this)["SystemCache"] = c_component<Component::SystemCache>;
 	(*this)["Hitboxes"] = c_component<Component::Hitboxes>;
+	(*this)["ColliderMask"] = c_component<Component::ColliderMask>;
+	(*this)["Collider"] = c_component<Component::Collider>;
 
 	// component src
 	(*this)["Src"] = (*this)["Src::TexturePackerGUI"] = c_component<Src::TexturePackerGUI>;

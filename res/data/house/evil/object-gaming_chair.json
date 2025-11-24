@@ -1,5 +1,6 @@
 {
     "ParseJsonTemplate":{
+        "filename": "res/data/house/evil/object-gaming_chair.json",
         "template": "res/data/templates/object.tmpl",
         "args": {
             "GROUP_ID": "House",

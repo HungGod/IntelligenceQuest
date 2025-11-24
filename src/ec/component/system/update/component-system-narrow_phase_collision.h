@@ -37,7 +37,7 @@ namespace System {
                     jf["id"]
                     });
             }
-            mask_ = g->get_child("Colliders")->get_component<Component::ColliderMask>("mask");
+            mask_ = g->get_child("Collision")->get_component<Component::ColliderMask>("mask");
             pathway_ = g->get_component<Component::Pathway>("pathway");
         }
 

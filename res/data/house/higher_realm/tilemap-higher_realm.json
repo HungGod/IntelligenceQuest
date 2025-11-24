@@ -1,4 +1,5 @@
 {"ParseJsonTemplate":{
+    "filename": "res/data/house/higher_realm/tilemap-higher_realm.json",
     "template": "res/data/templates/tilemap.tmpl",
     "args": {
         "GROUP_ID": "House",

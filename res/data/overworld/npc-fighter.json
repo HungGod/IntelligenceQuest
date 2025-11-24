@@ -1,5 +1,6 @@
 {
     "ParseJsonTemplate":{
+        "filename": "res/data/overworld/npc-fighter.json",
         "template": "res/data/templates/npc.tmpl",
         "args": {
             "GROUP_ID": "Overworld",

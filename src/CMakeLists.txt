@@ -162,7 +162,7 @@ set(EC_System_Update
         ec/component/system/update/component-system-combat-gravity_physics.h
         ec/component/system/update/component-system-combat-transformations.h
         ec/component/system/update/component-system-combat_ability_factory.h
-        ec/component/system/update/component-system-combat_collisions.h
+        ec/component/system/update/component-system-narrow_phase_collision.h
         ec/component/system/update/component-system-navigate-fight.h
         ec/component/system/update/component-system-navigate-horizontal.h
         ec/component/system/update/component-system-navigate-message.h
@@ -184,11 +184,6 @@ set(Header_Files
         text.h
         json_to.h)
 source_group("Headers" FILES ${Header_Files})
-
-set(Resource_Files
-        ../res/shaders/sprite.fs
-        ../res/shaders/sprite.vs)
-source_group("res" FILES ${Resource_Files})
 
 set(Source_Files
         game.cpp
@@ -212,7 +207,6 @@ set(ALL_FILES
         ${EC_System_Render}
         ${EC_System_Update}
         ${Header_Files}
-        ${Resource_Files}
         ${Source_Files})
 
 # ❷--------------------------------------------------------------------------

@@ -1,6 +1,7 @@
 [
     {
         "ParseJsonTemplate":{
+            "filename": "res/data/overworld/object-higher_realm_house.json",
             "template": "res/data/templates/object.tmpl",
             "args": {
                 "GROUP_ID": "Overworld",
@@ -16,6 +17,7 @@
     },
     {
         "ParseJsonTemplate":{
+            "filename": "res/data/overworld/object-higher_realm_house.json",
             "template": "res/data/templates/object.tmpl",
             "args": {
                 "GROUP_ID": "Overworld",

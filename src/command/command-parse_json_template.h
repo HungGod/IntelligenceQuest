@@ -27,9 +27,17 @@ namespace Command
 
 			if (json_template_map.find(json_["template"]) != json_template_map.end())
 			{
-				auto loaded_template = json_template_map[json_["template"]]->load_template(args);
-
-				pathway->message(loaded_template);
+				std::string filename = json_.value("filename", "no idea");
+				std::string template_name = json_["template"].get<std::string>();
+				try 
+				{
+					auto loaded_template = json_template_map[json_["template"]]->load_template(args);
+					pathway->message(loaded_template);
+				}
+				catch (std::exception e)
+				{
+					Logger::error("Template failed to parse: " + template_name + " filename: " + filename + " error: " + e.what(), Logger::HIGH);
+				}
 			}
 			else
 			{

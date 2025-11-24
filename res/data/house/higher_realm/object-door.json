@@ -1,5 +1,6 @@
 {
     "ParseJsonTemplate":{
+        "filename": "res/data/house/higher_realm/object-door.json",
         "template": "res/data/templates/object.tmpl",
         "args": {
             "GROUP_ID": "House",

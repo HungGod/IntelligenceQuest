@@ -1,5 +1,6 @@
 {
     "ParseJsonTemplate": {
+        "filename": "res/data/overworld/tileset-outside.json",
         "template": "res/data/templates/tileset.tmpl",
         "args": {
             "GROUP_ID": "Overworld",

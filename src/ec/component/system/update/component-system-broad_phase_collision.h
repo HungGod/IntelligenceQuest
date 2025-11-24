@@ -24,7 +24,7 @@ namespace System
 
 			tree_ = game->get_nested_component<Component::QuadTree>(json["quadtree"]);
 
-			mask_ = game->get_child("Colliders")->get_component<Component::ColliderMask>("mask");
+			mask_ = game->get_child("Collision")->get_component<Component::ColliderMask>("mask");
 			pathway_ = game->get_component<Component::Pathway>("pathway");
 		}
 

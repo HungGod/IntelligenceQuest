@@ -1,5 +1,6 @@
 {
     "ParseJsonTemplate": {
+        "filename": "res/data/house/evil/npc-ai_steve.json",
         "template": "res/data/templates/npc.tmpl",
         "args": {
             "GROUP_ID": "House",

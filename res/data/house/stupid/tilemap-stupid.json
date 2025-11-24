@@ -1,5 +1,6 @@
 {
     "ParseJsonTemplate":{
+        "filename": "res/data/house/stupid/tilemap-stupid.json",
         "template": "res/data/templates/tilemap.tmpl",
         "args": {
             "GROUP_ID": "House",

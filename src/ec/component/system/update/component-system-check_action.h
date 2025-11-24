@@ -30,7 +30,7 @@ namespace System
 			controller_ = game->get_nested_component<IController>(json["controller"]);
 			position_ = game->get_nested_component<Component::Position>(json["position"]);
 			pathway_ = game->get_component<Component::Pathway>("pathway");
-			mask_ = game->get_child("Colliders")->get_component<Component::ColliderMask>("mask");
+			mask_ = game->get_child("Collision")->get_component<Component::ColliderMask>("mask");
 		}
 
 		void execute() override

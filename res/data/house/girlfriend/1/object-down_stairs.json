@@ -1,5 +1,6 @@
 {
     "ParseJsonTemplate": {
+        "filename": "res/data/house/girlfriend/1/object-down_stairs.json",
         "template": "res/data/templates/object.tmpl",
         "args": {
             "GROUP_ID": "House",

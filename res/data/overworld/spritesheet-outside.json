@@ -1,5 +1,6 @@
 {
     "ParseJsonTemplate": {
+        "filename": "res/data/overworld/spritesheet-outside.json",
         "template": "res/data/templates/spritesheet.tmpl",
         "args": {
             "GROUP_ID": "Overworld",

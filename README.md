@@ -11,7 +11,7 @@ To check your OpenGL version, download the [OpenGL Extensions Viewer](https://ww
 ```bash
 cmake -G Ninja -B build
 cmake --build build
-./build/IntelligenceQuest
+./build/src/IntelligenceQuest
 ```
 
 ## Dependencies Included

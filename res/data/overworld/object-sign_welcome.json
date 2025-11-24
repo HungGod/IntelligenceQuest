@@ -1,5 +1,6 @@
 {
     "ParseJsonTemplate":{
+        "filename": "res/data/overworld/object-sign_house_appearing.json",
         "template": "res/data/templates/object.tmpl",
         "args": {
             "GROUP_ID": "Overworld",

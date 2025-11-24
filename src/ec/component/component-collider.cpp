@@ -7,7 +7,7 @@ void Component::Collider::init(nlohmann::json json, Entity* game)
     std::string gjk_type = json["shape"]["type"];
     std::string gjk_name = gjk_type + "-" + json["shape"]["parameters"].dump();
     Entity* colliders = game->get_child("Colliders");
-    Component::ColliderMask* mask = game->get_child("Collider")->get_component<Component::ColliderMask>("mask");
+    Component::ColliderMask* mask = game->get_child("Collision")->get_component<Component::ColliderMask>("mask");
 
     if (!colliders->has_component(gjk_name)) // if the collider doesn't exist create a new one
     {
