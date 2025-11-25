@@ -20,11 +20,11 @@ namespace GJK {
 
         void init(nlohmann::json j, Entity* game) override {
             verts_.clear();
-            if (!j.contains("vertices") || !j["vertices"].is_array()) {
-                Logger::error("Polygon JSON must contain an array \"vertices\"", Logger::HIGH);
+            if (!j.is_array()) {
+                Logger::error("Polygon JSON must be an array", Logger::HIGH);
                 return;
             }
-            for (auto& vj : j["vertices"]) {
+            for (auto& vj : j) {
                 verts_.emplace_back(vj["x"].get<float>(), vj["y"].get<float>());
             }
             if (verts_.size() < 3) {

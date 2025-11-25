@@ -12,12 +12,19 @@
             "SRC_ID": "bench.png",
             "COLLIDERS": [
                 {
-                    "GJK_TYPE": "GJK::AABB",
-                    "GJK_PARAMS": {
-                        "h": 116,
-                        "w": 52,
-                        "x": 0,
-                        "y": 0
+                    "type": "Collider",
+                    "parameters": {
+                        "position": ["House", "Stupid", "Object", "Bench", "position"],
+                        "scale": ["House", "Stupid", "Object", "Bench", "scale"],
+                        "shape": {
+                            "type": "GJK::AABB",
+                            "parameters": {
+                                "h": 116,
+                                "w": 52,
+                                "x": 0,
+                                "y": 0
+                            }
+                        }
                     }
                 }
             ]

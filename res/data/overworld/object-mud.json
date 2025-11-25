@@ -11,80 +11,86 @@
             "SRC_ID": "iq_mud_0.png",
             "COLLIDERS": [
                 {
-                    "GJK_TYPE": "GJK::AABB",
-                    "GJK_PARAMS": { "x":0, "y":16, "w":256, "h":96 },
-                    "MASK": "both",
-                    "DATA": {
-                        "commands" : {
-                            "SmartEnough": {
-                                "IQ": 80,
-                                "commands": {
-                                    "Series": [
-                                        {
-                                            "Pause": {
-                                                "pause_update": true
-                                            }
-                                        },
-                                        {
-                                            "Move": {
-                                                "position": ["Player", "position"],
-                                                "animation_map": ["Player", "animation_map"],
-                                                "src_temp": ["Player", "src_temp"],
-                                                "camera": ["Camera", "Update", "camera"],
-                                                "end_position": {
-                                                    "position_map": ["Overworld", "Outside", "position_map"],
-                                                    "id": 17,
-                                                    "num": 4
-                                                },
-                                                "end_direction": "idle_up",
-                                                "anim_speed": 8,
-                                                "move_speed": 360
-                                            }
-                                        },
-                                        {
-                                            "CreateComponents":{
-                                                "path": ["Overworld", "Outside", "Object", "Mud"],
-                                                "components" : [
-                                                    {
-                                                        "name": "position",
-                                                        "parameters": {
-                                                            "displace": { "x": -128, "y": -456}
-                                                        }
+                    "type": "Collider",
+                    "parameters": {
+                        "position": ["Overworld", "Outside", "Object", "Mud", "position"],
+                        "scale": ["Overworld", "Outside", "Object", "Mud", "scale"],
+                        "shape": {
+                            "type": "GJK::AABB",
+                            "parameters": { "x":0, "y":16, "w":256, "h":96 }
+                        },
+                        "mask": "both",
+                        "data": {
+                            "commands" : {
+                                "SmartEnough": {
+                                    "IQ": 80,
+                                    "commands": {
+                                        "Series": [
+                                            {
+                                                "Pause": {
+                                                    "pause_update": true
+                                                }
+                                            },
+                                            {
+                                                "Move": {
+                                                    "position": ["Player", "position"],
+                                                    "animation_map": ["Player", "animation_map"],
+                                                    "src_temp": ["Player", "src_temp"],
+                                                    "camera": ["Camera", "Update", "camera"],
+                                                    "end_position": {
+                                                        "position_map": ["Overworld", "Outside", "position_map"],
+                                                        "id": 17,
+                                                        "num": 4
                                                     },
-                                                    {
-                                                        "name": "animation",
-                                                        "parameters": null
-                                                    }
-                                                ]
+                                                    "end_direction": "idle_up",
+                                                    "anim_speed": 8,
+                                                    "move_speed": 360
+                                                }
+                                            },
+                                            {
+                                                "CreateComponents":{
+                                                    "path": ["Overworld", "Outside", "Object", "Mud"],
+                                                    "components" : [
+                                                        {
+                                                            "name": "position",
+                                                            "parameters": {
+                                                                "displace": { "x": -128, "y": -456}
+                                                            }
+                                                        },
+                                                        {
+                                                            "name": "animation",
+                                                            "parameters": null
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "PlayAnimation": {
+                                                    "animation_map": ["Overworld", "Outside", "Object", "Mud", "animation_map"],
+                                                    "animation_id": "house_appearing",
+                                                    "src_temp": ["Overworld", "Outside", "Object", "Mud", "src_temp"],
+                                                    "play_speed": 24
+                                                }
+                                            },
+                                            {
+                                                "AddFlag": {
+                                                    "flags": ["Player", "flags"],
+                                                    "flag_id": "HOUSE_APPEARING"
+                                                }
+                                            },
+                                            {
+                                                "DelayTime": 2
+                                            },
+                                            {
+                                                "LoadFiles": {
+                                                    "gamestate": "res/data/gamestates/overworld/overworld.json"
+                                                }
                                             }
-                                        },
-                                        {
-                                            "PlayAnimation": {
-                                                "animation_map": ["Overworld", "Outside", "Object", "Mud", "animation_map"],
-                                                "animation_id": "house_appearing",
-                                                "src_temp": ["Overworld", "Outside", "Object", "Mud", "src_temp"],
-                                                "play_speed": 24
-                                            }
-                                        },
-                                        {
-                                            "AddFlag": {
-                                                "flags": ["Player", "flags"],
-                                                "flag_id": "HOUSE_APPEARING"
-                                            }
-                                        },
-                                        {
-                                            "DelayTime": 2
-                                        },
-                                        {
-                                            "LoadFiles": {
-                                                "gamestate": "res/data/gamestates/overworld/overworld.json"
-                                            }
-                                        }
-                                    ]
+                                        ]
+                                    }
                                 }
                             }
-                        }   
-                        
+                        }
                     }
                 }
             ],

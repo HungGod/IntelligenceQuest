@@ -32,13 +32,18 @@
                 "walk_down_left" : ["long_arms_walk_left_0.png", "long_arms_walk_left_1.png", "long_arms_walk_left_2.png"],
                 "walk_up_left" : ["long_arms_walk_left_0.png", "long_arms_walk_left_1.png", "long_arms_walk_left_2.png"]
             },
-            "COLLIDERS": [
-                {
-                    "GJK_TYPE": "GJK::AABB",
-                    "GJK_PARAMS": { "x": 0, "y": 64, "w": 80, "h": 80 },
-                    "MOVEABLE": true,
-                    "MASK": "both",
-                    "DATA": {
+            "COLLIDERS": {
+                "type": "Collider",
+                "parameters": {
+                    "position": ["Overworld", "Outside", "NPC", "Long_Arms", "position"],
+                    "scale": ["Overworld", "Outside", "NPC", "Long_Arms", "scale"],
+                    "shape": {
+                        "type": "GJK::AABB",
+                        "parameters": { "x": 0, "y": 64, "w": 80, "h": 80 }
+                    },
+                    "moveable": true,
+                    "mask": "both",
+                    "data": {
                         "commands": {
                             "AddIntelligence": {
                                 "id" : "long_arms", "IQ": 8
@@ -46,7 +51,7 @@
                         }
                     }
                 }
-            ]
+            }
         }
     }
 }

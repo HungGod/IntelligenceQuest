@@ -4,8 +4,8 @@
             "path": "Player",
             "components": [
                 {
-                    "type" : "Position",
-                    "name" : "position"
+                    "type": "Position",
+                    "name": "position"
                 },
                 {
                     "type": "Intelligence",
@@ -37,10 +37,13 @@
                     "parameters": 8
                 },
                 {
-                    "type" : "Src::Transform",
-                    "name" : "src_temp",
+                    "type": "Src::Transform",
+                    "name": "src_temp",
                     "parameters": {
-                        "path": ["Spritesheet", "flesh_idle_down.png"]
+                        "path": [
+                            "Spritesheet",
+                            "flesh_idle_down.png"
+                        ]
                     }
                 },
                 {
@@ -48,76 +51,135 @@
                     "name": "flags"
                 },
                 {
-                    "type" : "AnimationMap",
-                    "name" : "animation_map",
-                    "parameters" : {
-                        "path" : "Spritesheet",
+                    "type": "AnimationMap",
+                    "name": "animation_map",
+                    "parameters": {
+                        "path": "Spritesheet",
                         "animations": {
-                            "idle_down" : "flesh_idle_down.png",
-                            "idle_up" : "flesh_idle_up.png",
-                            "idle_right" : "flesh_idle_right.png",
-                            "idle_down_right" : "flesh_idle_down_right.png",
-                            "idle_up_right" : "flesh_idle_up_right.png",
-                            "idle_left" : "flesh_idle_left.png",
-                            "idle_down_left" : "flesh_idle_down_left.png",
-                            "idle_up_left" : "flesh_idle_up_left.png",
-                            
-                            "walk_down" : ["flesh_walk_down_0.png", "flesh_walk_down_1.png"],
-                            "walk_up" : ["flesh_walk_up_0.png", "flesh_walk_up_1.png"],
-                            "walk_right" : ["flesh_walk_right_0.png", "flesh_walk_right_1.png"],
-                            "walk_down_right" : ["flesh_walk_down_right_0.png", "flesh_walk_down_right_1.png"],
-                            "walk_up_right" : ["flesh_walk_up_right_0.png", "flesh_walk_up_right_1.png"],
-                            "walk_left" : ["flesh_walk_left_0.png", "flesh_walk_left_1.png"],
-                            "walk_down_left" : ["flesh_walk_down_left_0.png", "flesh_walk_down_left_1.png"],
-                            "walk_up_left" : ["flesh_walk_up_left_0.png", "flesh_walk_up_left_1.png"]
+                            "idle_down": "flesh_idle_down.png",
+                            "idle_up": "flesh_idle_up.png",
+                            "idle_right": "flesh_idle_right.png",
+                            "idle_down_right": "flesh_idle_down_right.png",
+                            "idle_up_right": "flesh_idle_up_right.png",
+                            "idle_left": "flesh_idle_left.png",
+                            "idle_down_left": "flesh_idle_down_left.png",
+                            "idle_up_left": "flesh_idle_up_left.png",
+                            "walk_down": [
+                                "flesh_walk_down_0.png",
+                                "flesh_walk_down_1.png"
+                            ],
+                            "walk_up": [
+                                "flesh_walk_up_0.png",
+                                "flesh_walk_up_1.png"
+                            ],
+                            "walk_right": [
+                                "flesh_walk_right_0.png",
+                                "flesh_walk_right_1.png"
+                            ],
+                            "walk_down_right": [
+                                "flesh_walk_down_right_0.png",
+                                "flesh_walk_down_right_1.png"
+                            ],
+                            "walk_up_right": [
+                                "flesh_walk_up_right_0.png",
+                                "flesh_walk_up_right_1.png"
+                            ],
+                            "walk_left": [
+                                "flesh_walk_left_0.png",
+                                "flesh_walk_left_1.png"
+                            ],
+                            "walk_down_left": [
+                                "flesh_walk_down_left_0.png",
+                                "flesh_walk_down_left_1.png"
+                            ],
+                            "walk_up_left": [
+                                "flesh_walk_up_left_0.png",
+                                "flesh_walk_up_left_1.png"
+                            ]
                         }
                     }
                 },
                 {
-                    "type" : "Animation",
-                    "name" : "animation",
+                    "type": "Animation",
+                    "name": "animation",
                     "parameters": {
-                        "animation_map": [ "Player", "animation_map"],
+                        "animation_map": [
+                            "Player",
+                            "animation_map"
+                        ],
                         "id": "idle_down"
                     }
                 },
                 {
-                    "type" : "Direction",
-                    "name" : "direction",
-                    "parameters": {"x": 0, "y": 1}
+                    "type": "Direction",
+                    "name": "direction",
+                    "parameters": {
+                        "x": 0,
+                        "y": 1
+                    }
                 },
                 {
                     "type": "Direction",
                     "name": "prev_direction",
-                    "parameters": {"x": 0, "y": 1}
+                    "parameters": {
+                        "x": 0,
+                        "y": 1
+                    }
                 }
             ]
         }
     },
     {
-        "CreateComponents":{
-            "path" :  ["Player", "Colliders"],
-            "components" : [
+        "CreateComponents": {
+            "path": [
+                "Player",
+                "Colliders"
+            ],
+            "components": [
                 {
-                    "type" : "GJK::Circle",
-                    "name" : "player_collision",
-                    "parameters" : {
-                        "radius" : 16,
-                        "x": 32, 
-                        "y": 32,
-                        "position": ["Player", "position"],
-                        "state" : "player"
+                    "type": "Collider",
+                    "name": "player_collision",
+                    "parameters": {
+                        "shape": {
+                            "type": "GJK::Circle",
+                            "parameters": {
+                                "radius": 16,
+                                "x": 32,
+                                "y": 32
+                            }
+                        },
+                        "position": [
+                            "Player",
+                            "position"
+                        ],
+                        "mask": "player",
+                        "scale": ["Player", "scale"]
                     }
                 },
                 {
-                    "type" : "GJK::Point",
-                    "name" : "player_action_point",
+                    "type": "Collider",
+                    "name": "player_action_point",
                     "parameters": {
-                        "distance" : 72,
-                        "offset" : {"x": 32, "y": 32},
-                        "direction" : ["Player", "prev_direction"],
-                        "position": ["Player", "position"],
-                        "state" : "check_action"
+                        "shape": {
+                            "type": "GJK::Point",
+                            "parameters": {
+                                "distance": 72,
+                                "offset": {
+                                    "x": 32,
+                                    "y": 32
+                                },
+                                "direction": [
+                                    "Player",
+                                    "prev_direction"
+                                ]
+                            }
+                        },
+                        "position": [
+                            "Player",
+                            "position"
+                        ],
+                        "mask": "check_action",
+                        "scale": ["Player", "scale"]
                     }
                 }
             ]
@@ -127,43 +189,84 @@
         "DelayNext": [
             {
                 "CreateComponents": {
-                    "path": [ "Player", "Render" ],
+                    "path": [
+                        "Player",
+                        "Render"
+                    ],
                     "components": {
                         "type": "System::CameraDraw",
                         "name": "camera_draw",
                         "parameters": {
-                            "src_temp" : [ "Player", "src_temp" ],
-                            "position" : [ "Player", "position" ],
-                            "material" : [ "Spritesheet", "material" ],
-                            "camera" : [ "Camera", "position" ],
-                            "scale": ["Player", "scale"]
+                            "src_temp": [
+                                "Player",
+                                "src_temp"
+                            ],
+                            "position": [
+                                "Player",
+                                "position"
+                            ],
+                            "material": [
+                                "Spritesheet",
+                                "material"
+                            ],
+                            "camera": [
+                                "Camera",
+                                "position"
+                            ],
+                            "scale": [
+                                "Player",
+                                "scale"
+                            ]
                         }
                     }
                 }
             },
             {
                 "CreateComponents": {
-                    "path": ["Player", "Update" ],
+                    "path": [
+                        "Player",
+                        "Update"
+                    ],
                     "components": [
                         {
                             "type": "System::CheckAction",
                             "name": "system-check_action",
                             "parameters": {
-                                "action_collider": ["Player", "Colliders", "player_action_point"],
-                                "quadtree": ["Collision", "QuadTree", "root"],
-                                "controller": ["Controller", "controller"],
-                                "position": ["Player", "position"]
+                                "action_collider": [
+                                    "Player",
+                                    "Colliders",
+                                    "player_action_point"
+                                ],
+                                "quadtree": [
+                                    "Collision",
+                                    "QuadTree",
+                                    "root"
+                                ],
+                                "controller": [
+                                    "Controller",
+                                    "controller"
+                                ],
+                                "position": [
+                                    "Player",
+                                    "position"
+                                ]
                             }
                         },
                         {
                             "type": "System::ExecuteJson",
                             "name": "system-open_menu",
                             "parameters": {
-                                "controller": ["Controller", "controller"],
+                                "controller": [
+                                    "Controller",
+                                    "controller"
+                                ],
                                 "commands": [
                                     {
                                         "CreateComponents": {
-                                            "path": ["Blocks", "Menu"],
+                                            "path": [
+                                                "Blocks",
+                                                "Menu"
+                                            ],
                                             "components": [
                                                 {
                                                     "name": "position",
@@ -179,56 +282,93 @@
                                         "Pause": {
                                             "cache": true,
                                             "pause_update": true,
-                                            "render": [["Blocks", "Menu"]],
-                                            "update": [["Blocks", "Menu"]]
+                                            "render": [
+                                                [
+                                                    "Blocks",
+                                                    "Menu"
+                                                ]
+                                            ],
+                                            "update": [
+                                                [
+                                                    "Blocks",
+                                                    "Menu"
+                                                ]
+                                            ]
                                         }
                                     }
                                 ]
                             }
                         },
                         {
-                            "type" : "System::AnimateMove",
-                            "name" : "system-animate_move",
-                            "parameters" : {
-                                "direction" : [ "Player", "direction" ],
-                                "prev_direction" : [ "Player", "prev_direction" ],
-                                "animation_map": [ "Player", "animation_map" ],
-                                "animation" : [ "Player", "animation" ]
+                            "type": "System::AnimateMove",
+                            "name": "system-animate_move",
+                            "parameters": {
+                                "direction": [
+                                    "Player",
+                                    "direction"
+                                ],
+                                "prev_direction": [
+                                    "Player",
+                                    "prev_direction"
+                                ],
+                                "animation_map": [
+                                    "Player",
+                                    "animation_map"
+                                ],
+                                "animation": [
+                                    "Player",
+                                    "animation"
+                                ]
                             }
                         },
                         {
                             "type": "System::ControllerChangeDirection",
                             "name": "system-controller_change_direction",
                             "parameters": {
-                                "controller" : [ "Controller", "controller" ],
-                                "direction" : [ "Player", "direction" ]
+                                "controller": [
+                                    "Controller",
+                                    "controller"
+                                ],
+                                "direction": [
+                                    "Player",
+                                    "direction"
+                                ]
                             }
                         },
                         {
                             "type": "System::Move",
                             "name": "system-move",
                             "parameters": {
-                                "position" : [ "Player", "position" ],
-                                "direction" : [ "Player", "direction" ],
-                                "speed" : [ "Player", "speed" ]
+                                "position": [
+                                    "Player",
+                                    "position"
+                                ],
+                                "direction": [
+                                    "Player",
+                                    "direction"
+                                ],
+                                "speed": [
+                                    "Player",
+                                    "speed"
+                                ]
                             }
                         },
                         {
-                            "type" : "System::Animate",
-                            "name" : "system-animate",
-                            "parameters" : {
-                                "animation" : [ "Player", "animation" ],
-                                "src_temp" : [ "Player", "src_temp" ],
-                                "speed" : [ "Player", "animation_speed" ]
-                            } 
-                        },                        
-                        {
-                            "type" : "System::CheckCollision",
-                            "name" : "system-check_collision",
-                            "parameters" : {
-                                "collider" : ["Player", "Colliders", "player_collision"],
-                                "position" : ["Player", "position"],
-                                "quadtree": ["Collision", "QuadTree", "root"]
+                            "type": "System::Animate",
+                            "name": "system-animate",
+                            "parameters": {
+                                "animation": [
+                                    "Player",
+                                    "animation"
+                                ],
+                                "src_temp": [
+                                    "Player",
+                                    "src_temp"
+                                ],
+                                "speed": [
+                                    "Player",
+                                    "animation_speed"
+                                ]
                             }
                         }
                     ]

@@ -35,6 +35,7 @@
 
 #include "ec/component/system/update/component-system-narrow_phase_collision.h"
 #include "ec/component/gjk/component-gjk-ellipse.h"
+#include "ec/component/gjk/component-gjk-polygon.h"
 
 #include "ec/component/src/component-src-texture_packer_gui.h"
 
@@ -90,6 +91,7 @@ void Factory::CreateComponentMap::create()
 	(*this)["Hitboxes"] = c_component<Component::Hitboxes>;
 	(*this)["ColliderMask"] = c_component<Component::ColliderMask>;
 	(*this)["Collider"] = c_component<Component::Collider>;
+	(*this)["ColliderVector"] = c_component<Component::ColliderVector>;
 
 	// component src
 	(*this)["Src"] = (*this)["Src::TexturePackerGUI"] = c_component<Src::TexturePackerGUI>;
@@ -115,6 +117,8 @@ void Factory::CreateComponentMap::create()
 	(*this)["GJK::Point"] = c_component<GJK::Point>;
 	(*this)["GJK::AABB"] = c_component<GJK::AABB>;
 	(*this)["GJK::Ellipse"] = c_component<GJK::Ellipse>;
+	(*this)["GJK::Polygon"] = c_component<GJK::Polygon>;
+
 
 	// component controller
 	(*this)["Controller::Keyboard"] = c_component<Controller::Keyboard>;
@@ -127,7 +131,7 @@ void Factory::CreateComponentMap::create()
 	(*this)["System::TilemapDraw"] = c_component<System::TilemapDraw>;
 	(*this)["System::Animate"] = c_component<System::Animate>;
 	(*this)["System::AnimateMove"] = c_component<System::AnimateMove>;
-	(*this)["System::CheckCollision"] = c_component<System::BroadPhaseCollision>;
+	(*this)["System::BroadPhaseCollision"] = c_component<System::BroadPhaseCollision>;
 	(*this)["System::NPCMove"] = c_component<System::NPCMove>;
 	(*this)["System::InsertColliders"] = (*this)["System::AddColliders"] = c_component<System::InsertColliders>;
 	(*this)["System::ClearQuadtree"] = (*this)["System::ClearQuadTree"] = c_component<System::ClearQuadTree>;

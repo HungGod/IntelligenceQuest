@@ -16,12 +16,19 @@
             },
             "COLLIDERS": [
                 {
-                    "GJK_TYPE": "GJK::AABB",
-                    "GJK_PARAMS": {
-                        "x": -16,
-                        "y": 10,
-                        "w": 70,
-                        "h": 60
+                    "type": "Collider",
+                    "parameters": {
+                        "position": ["House", "Girlfriend_0", "Object", "Beer", "position"],
+                        "scale": ["House", "Girlfriend_0", "Object", "Beer", "scale"],
+                        "shape": {
+                            "type": "GJK::AABB",
+                            "parameters": {
+                                "x": -16,
+                                "y": 10,
+                                "w": 70,
+                                "h": 60
+                            }
+                        }
                     }
                 }
             ]

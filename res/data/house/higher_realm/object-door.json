@@ -13,25 +13,31 @@
             "DISPLACEMENT": {"x":0, "y": 64},
             "COLLIDERS": [
                 {
-                    "GJK_TYPE": "GJK::Circle",
-                    "GJK_PARAMS": { "x": 32, "y": 160, "radius": 32 },
-                    "MASK": "action_space",
-                    "DATA": {
-                        "commands": {
-                            "ParseJsonTemplate": {
-                                "template": "res/data/templates/warp.tmpl",
-                                "args": {
-                                    "GAMESTATE_PATH": "res/data/gamestates/overworld/overworld.json",
-                                    "GAMESTATE_NUM": 0,
-                                    "POSITION_NUM": 4,
-                                    "TILEMAP_ID": "Outside",
-                                    "GROUP_ID": "Overworld",
-                                    "PLAYER_DIR": {"x": 0, "y": 1}
+                    "type": "Collider",
+                    "parameters": {
+                        "position": ["House", "Higher_Realm", "Object", "Door", "position"],
+                        "scale": ["House", "Higher_Realm", "Object", "Door", "scale"],
+                        "shape": {
+                            "type": "GJK::Circle",
+                            "parameters": { "x": 32, "y": 160, "radius": 32 }
+                        },
+                        "mask": "action_space",
+                        "data": {
+                            "commands": {
+                                "ParseJsonTemplate": {
+                                    "template": "res/data/templates/warp.tmpl",
+                                    "args": {
+                                        "GAMESTATE_PATH": "res/data/gamestates/overworld/overworld.json",
+                                        "GAMESTATE_NUM": 0,
+                                        "POSITION_NUM": 4,
+                                        "TILEMAP_ID": "Outside",
+                                        "GROUP_ID": "Overworld",
+                                        "PLAYER_DIR": {"x": 0, "y": 1}
+                                    }
                                 }
                             }
                         }
-                    } 
-                    
+                    }
                 }
             ]
         }

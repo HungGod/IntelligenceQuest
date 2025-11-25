@@ -32,13 +32,18 @@
                 "walk_down_left" : ["brunis_walk_left_0.png", "brunis_walk_left_1.png"],
                 "walk_up_left" : ["brunis_walk_left_0.png", "brunis_walk_left_1.png"]
             },
-            "COLLIDERS": [
-                {
-                    "GJK_TYPE": "GJK::AABB",
-                    "GJK_PARAMS": { "x": 0, "y": 64, "w": 73, "h": 80 },
-                    "MOVEABLE": true,
-                    "MASK": "both",
-                    "DATA": {
+            "COLLIDERS": {
+                "type": "Collider",
+                "parameters": {
+                    "position": ["Overworld", "Outside", "NPC", "Brunis", "position"],
+                    "scale": ["Overworld", "Outside", "NPC", "Brunis", "scale"],
+                    "shape" : {
+                        "type": "GJK::AABB",
+                        "parameters": { "x": 0, "y": 64, "w": 73, "h": 80 }
+                    },
+                    "moveable": true,
+                    "mask": "both",
+                    "data": {
                         "commands": {
                             "AddIntelligence": {
                                 "id" : "brunis", "IQ": 10
@@ -46,7 +51,7 @@
                         }
                     }
                 }
-            ]
+            } 
         }
     }
 }

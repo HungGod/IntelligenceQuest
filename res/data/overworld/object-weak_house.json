@@ -29,8 +29,15 @@
                 "SRC_ID": "house.png",
                 "COLLIDERS": [
                     {
-                        "GJK_TYPE": "GJK::AABB",
-                        "GJK_PARAMS": {"x": 0, "y": -16, "w": 256, "h": 112}
+                        "type": "Collider",
+                        "parameters": {
+                            "position": ["Overworld", "Outside", "Object", "Weak", "position"],
+                            "scale": ["Overworld", "Outside", "Object", "Weak", "scale"],
+                            "shape": {
+                                "type": "GJK::AABB",
+                                "parameters": {"x": 0, "y": -16, "w": 256, "h": 112}
+                            }
+                        }
                     }
                 ], 
                 "SPRITESHEET_ID": "Outside"

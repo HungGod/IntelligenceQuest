@@ -34,11 +34,18 @@
             },
             "COLLIDERS": [
                 {
-                    "GJK_TYPE": "GJK::Circle",
-                    "GJK_PARAMS": {
-                        "x": 0,
-                        "y": 80,
-                        "radius": 64
+                    "type": "Collider",
+                    "parameters": {
+                        "position": ["House", "Higher_Realm", "NPC", "Dad", "position"],
+                        "scale": ["House", "Higher_Realm", "NPC", "Dad", "scale"],
+                        "shape": {
+                            "type": "GJK::Circle",
+                            "parameters": {
+                                "x": 0,
+                                "y": 80,
+                                "radius": 64
+                            }
+                        }
                     }
                 }
             ]

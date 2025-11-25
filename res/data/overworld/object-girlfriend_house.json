@@ -27,29 +27,43 @@
                 "POS_NUM": 2,
                 "OBJECT_SCALE": 2.0,
                 "SRC_ID": "house.png",
-                "COLLIDER_JSON": [
+                "COLLIDERS": [
                     {
-                        "GJK_TYPE": "GJK::AABB",
-                        "GJK_PARAMS": {"x": 0, "y": -16, "w": 256, "h": 112 }
+                        "type": "Collider",
+                        "parameters": {
+                            "position": ["Overworld", "Outside", "Object", "Girlfriend", "position"],
+                            "scale": ["Overworld", "Outside", "Object", "Girlfriend", "scale"],
+                            "shape": {
+                                "type": "GJK::AABB",
+                                "parameters": {"x": 0, "y": -16, "w": 256, "h": 112 }
+                            }
+                        }
                     },
                     {
-                        "GJK_TYPE": "GJK::Circle",
-                        "GJK_PARAMS": { "x": 128, "y": 64, "radius": 32},
-                        "MASK": "action_space",
-                        "DATA":  {
-                            "commands": {
-                                "ParseJsonTemplate": {
-                                    "template": "res/data/templates/warp.tmpl",
-                                    "args": {
-                                        "GAMESTATE_PATH": "res/data/gamestates/house/girlfriend.json",
-                                        "GAMESTATE_NUM": 0,
-                                        "POSITION_NUM": 1,
-                                        "TILEMAP_ID": "Girlfriend_0",
-                                        "GROUP_ID": "House",
-                                        "PLAYER_DIR": {"x": 1, "y": 0}
+                        "type": "Collider",
+                        "parameters": {
+                            "position": ["Overworld", "Outside", "Object", "Girlfriend", "position"],
+                            "scale": ["Overworld", "Outside", "Object", "Girlfriend", "scale"],
+                            "shape": {
+                                "type": "GJK::Circle",
+                                "parameters": { "x": 128, "y": 64, "radius": 32}
+                            },
+                            "mask": "action_space",
+                            "data": {
+                                "commands": {
+                                    "ParseJsonTemplate": {
+                                        "template": "res/data/templates/warp.tmpl",
+                                        "args": {
+                                            "GAMESTATE_PATH": "res/data/gamestates/house/girlfriend.json",
+                                            "GAMESTATE_NUM": 0,
+                                            "POSITION_NUM": 1,
+                                            "TILEMAP_ID": "Girlfriend_0",
+                                            "GROUP_ID": "House",
+                                            "PLAYER_DIR": {"x": 1, "y": 0}
+                                        }
                                     }
                                 }
-                            } 
+                            }
                         }
                     }
                 ], 

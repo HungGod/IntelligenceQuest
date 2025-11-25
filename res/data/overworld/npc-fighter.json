@@ -31,13 +31,18 @@
                 "walk_down_left" : ["fighter_walk_left_0.png", "fighter_walk_left_1.png", "fighter_walk_left_2.png"],
                 "walk_up_left" : ["fighter_walk_left_0.png", "fighter_walk_left_1.png", "fighter_walk_left_2.png"]
             },
-            "COLLIDERS": [
-                {
-                    "GJK_TYPE": "GJK::AABB",
-                    "GJK_PARAMS": { "x": 32, "y": 64, "w": 96, "h": 80 },
-                    "MASK": "both",
-                    "MOVEABLE": true,
-                    "DATA": {
+            "COLLIDERS": {
+                "type": "Collider",
+                "parameters": {
+                    "position": ["Overworld", "Outside", "NPC", "Fighter", "position"],
+                    "scale": ["Overworld", "Outside", "NPC", "Fighter", "scale"],
+                    "shape": {
+                        "type": "GJK::AABB",
+                        "parameters": { "x": 32, "y": 64, "w": 96, "h": 80 }
+                    },
+                    "moveable": true,
+                    "mask": "both",
+                    "data": {
                         "commands": {
                             "AddIntelligence": {
                                 "id" : "fighter", "IQ": 6
@@ -45,7 +50,7 @@
                         }
                     }
                 }
-            ]
+            }
         }
     }
 }

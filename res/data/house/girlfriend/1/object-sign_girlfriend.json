@@ -12,19 +12,26 @@
             "SRC_ID": "sign.png",
             "COLLIDERS": [
                 {
-                    "GJK_TYPE": "GJK::AABB",
-                    "GJK_PARAMS": {
-                        "x": 0,
-                        "y": -16,
-                        "w": 64,
-                        "h": 80
-                    },
-                    "MASK": "both",
-                    "DATA": {
-                        "commands": {
-                            "AddIntelligence": {
-                                "id": "sign_girlfriend",
-                                "IQ": 5
+                    "type": "Collider",
+                    "parameters": {
+                        "position": ["House", "Girlfriend_1", "Object", "Sign_Girlfriend", "position"],
+                        "scale": ["House", "Girlfriend_1", "Object", "Sign_Girlfriend", "scale"],
+                        "shape": {
+                            "type": "GJK::AABB",
+                            "parameters": {
+                                "x": 0,
+                                "y": -16,
+                                "w": 64,
+                                "h": 80
+                            }
+                        },
+                        "mask": "both",
+                        "data": {
+                            "commands": {
+                                "AddIntelligence": {
+                                    "id": "sign_girlfriend",
+                                    "IQ": 5
+                                }
                             }
                         }
                     }

@@ -3,9 +3,6 @@
 #include "ec/entity.h"
 #include <glm/vec2.hpp>
 
-/*
-* This class is a mess. Hopefully future me will look into cleaning up some of this.
-*/
 
 IComponent* JsonTo::component(nlohmann::json json, Entity* entity, Entity* game)
 {
@@ -65,11 +62,13 @@ IComponent* JsonTo::component(nlohmann::json json, Entity* entity, Entity* game)
 			component->init(json["parameters"], game);
 		}
 		else
-			Logger::error("Could not find component from json " + json.dump(1, '\t'), Logger::HIGH);
+		{
+			Logger::error("Could not find component from json " + json.dump(1, '\t'), Logger::LOW);
+			return nullptr;
+		}
 	}
 	else
 	{
-		// Janky solution to axis bounding boxes. MAKE EVERYTHING A LINE SEGMENT. Let's try it again :) I am sure it will work just fine
 		std::string type = json["type"];
 		/*if (json["type"].get<std::string>() == "GJK::AABB")
 		{

@@ -11,18 +11,25 @@
             "SRC_ID": "smiley_face.png",
             "COLLIDERS": [
                 {
-                    "GJK_TYPE": "GJK::Circle",
-                    "GJK_PARAMS": {
-                        "x": 32,
-                        "y": 106,
-                        "radius": 32
-                    },
-                    "MASK": "both",
-                    "DATA": {
-                        "commands": {
-                            "AddIntelligence": {
-                                "IQ": -7,
-                                "id": "smiley_face"
+                    "type": "Collider",
+                    "parameters": {
+                        "position": ["House", "Evil", "Object", "Smiley_Face", "position"],
+                        "scale": ["House", "Evil", "Object", "Smiley_Face", "scale"],
+                        "shape": {
+                            "type": "GJK::Circle",
+                            "parameters": {
+                                "x": 32,
+                                "y": 106,
+                                "radius": 32
+                            }
+                        },
+                        "mask": "both",
+                        "data": {
+                            "commands": {
+                                "AddIntelligence": {
+                                    "IQ": -7,
+                                    "id": "smiley_face"
+                                }
                             }
                         }
                     }

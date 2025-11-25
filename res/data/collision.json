@@ -1,15 +1,21 @@
 [
     {
         "CreateComponents": {
-            "path": ["Collision", "QuadTree"],
-            "components" : [
+            "path": [
+                "Collision",
+                "QuadTree"
+            ],
+            "components": [
                 {
                     "type": "QuadTree",
                     "name": "root",
-                    "parameters" : {
-                        "path": ["Collision", "QuadTree"],
-                        "max_objects" : 32,
-                        "max_trees" : 256
+                    "parameters": {
+                        "path": [
+                            "Collision",
+                            "QuadTree"
+                        ],
+                        "max_objects": 32,
+                        "max_trees": 256
                     }
                 }
             ]
@@ -17,39 +23,76 @@
     },
     {
         "CreateComponents": {
-            "path" : ["Collision", "Update"],
-            "components": {
-                "type": "System::ClearQuadtree",
-                "name": "clear_tree",
-                "parameters": {
-                    "quadtree": ["Collision", "QuadTree", "root"]
+            "path": [
+                "Collision"
+            ],
+            "components": [
+                {
+                    "type": "ColliderMask",
+                    "name": "mask",
+                    "parameters": {
+                        "ids": [
+                            "warp_space",
+                            "actionable",
+                            "attack",
+                            "player",
+                            "physical",
+                            "inactive"
+                        ],
+                        "collide_map": {
+                            "physical": [
+                                "physical"
+                            ],
+                            "player": [
+                                "physical",
+                                "warp_space"
+                            ],
+                            "actionable": [
+                                "actionable"
+                            ],
+                            "attack": [
+                                "physical"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "type": "ColliderVector",
+                    "name": "moveable_colliders"
                 }
-            }
+            ]
         }
     },
     {
         "CreateComponents": {
-            "path": ["Collision"],
-            "components": {
-                "type": "ColliderMask",
-                "name": "mask",
-                "parameters":{
-                    "ids": [
-                        "warp_space",
-                        "actionable",
-                        "attack",
-                        "player",
-                        "physical",
-                        "inactive"
-                    ],
-                    "collide_map": {
-                        "physical": ["physical"],
-                        "player": ["physical", "warp_space"],
-                        "actionable": ["actionable"],
-                        "attack": ["physical"]
+            "path": [
+                "Collision",
+                "Update"
+            ],
+            "components": [
+                {
+                    "type": "System::BroadPhaseCollision",
+                    "name": "system-broad_phase_collision",
+                    "parameters": {
+                        "tree": [
+                            "Collision",
+                            "QuadTree",
+                            "root"
+                        ]
+                    }
+                },
+                {
+                    "type": "System::ClearQuadtree",
+                    "name": "clear_tree",
+                    "parameters": {
+                        "quadtree": [
+                            "Collision",
+                            "QuadTree",
+                            "root"
+                        ]
                     }
                 }
-            }
+            ]
         }
     }
 ]

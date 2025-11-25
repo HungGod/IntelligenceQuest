@@ -1,26 +1,37 @@
 #include "ec/component/component-collider.h"
 #include "ec/component/factory/component-factory-create_component_map.h"
 #include <sstream>
+#include "json_to.h"
 
 void Component::Collider::init(nlohmann::json json, Entity* game)
 {
-    std::string gjk_type = json["shape"]["type"];
+    std::string gjk_type;
+    try{
+        gjk_type = json["shape"]["type"];
+    }catch(std::exception e){
+        Logger::error("Collider JSON needs shape: " + json.dump(1, '\t'), Logger::HIGH);
+        return;
+    }
+    
     std::string gjk_name = gjk_type + "-" + json["shape"]["parameters"].dump();
-    Entity* colliders = game->get_child("Colliders");
-    Component::ColliderMask* mask = game->get_child("Collision")->get_component<Component::ColliderMask>("mask");
+    Entity* collision = game->get_child("Collision");
+    Component::ColliderMask* mask = collision->get_component<Component::ColliderMask>("mask");
 
-    if (!colliders->has_component(gjk_name)) // if the collider doesn't exist create a new one
+    if (!collision->has_component(gjk_name)) // if the collider doesn't exist create a new one
     {
-        Factory::CreateComponentMap* create_component_map = game->get_component<Factory::CreateComponentMap>("create_component_map");
-        IComponent* gjk = (*create_component_map)[gjk_type]();
-        gjk->init(json["shape"]["parameters"], game);
-        colliders->insert_component(gjk, gjk_name);
+        JsonTo json_to;
+        IComponent* gjk = json_to.component(json["shape"], collision, game);
         shape = static_cast<IGJK*>(gjk);
     }
     else
-        shape = colliders->get_component<IGJK>(gjk_name);
+        shape = collision->get_component<IGJK>(gjk_name);
  
     moveable = json.value("moveable", false);
+    if (moveable)
+    {
+        Component::ColliderVector* colliders = collision->get_component<Component::ColliderVector>("moveable_colliders");
+        colliders->push_back(this);
+    }
     kind = mask->get_kind_from_string(json.value("mask", "physical"));
     data = json.value("data", nlohmann::json{});
     position = game->get_nested_component<Component::Position>(json["position"]);

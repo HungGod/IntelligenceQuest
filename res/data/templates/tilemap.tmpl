@@ -38,20 +38,17 @@
             ]
         }
     },
+    <IF TILEMAP_OBSTACLES>
     {
         "CreateComponents": {
             "path": [$GROUP_ID, $TILEMAP_ID, "Colliders"],
             "components": $TILEMAP_OBSTACLES
         }
-    },
-    {
-        "UpdateComponents": {
-            "path": [$GROUP_ID, $TILEMAP_ID, "Colliders"],
-            "update": {"scale": [$GROUP_ID, $TILEMAP_ID , "scale"]}
-        }
     },  
+    </IF>
     {
         "DelayNext":  [
+            <IF TILEMAP_OBSTACLES>
             {
                 "CreateComponents": {
                     "path" : [ $GROUP_ID, $TILEMAP_ID, "Update"],
@@ -66,6 +63,7 @@
                     }
                 }
             },
+            </IF>
             {    
                 "CreateComponents": {
                     "path": [ $GROUP_ID, $TILEMAP_ID, "Render" ],

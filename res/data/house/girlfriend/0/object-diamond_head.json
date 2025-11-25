@@ -11,18 +11,25 @@
             "SRC_ID": "diamond_head.png",
             "COLLIDERS": [
                 {
-                    "GJK_TYPE": "GJK::Circle",
-                    "GJK_PARAMS": {
-                        "x": 32,
-                        "y": 106,
-                        "radius": 32
-                    },
-                    "MASK": "both",
-                    "DATA": {
-                        "commands": {
-                            "AddIntelligence": {
-                                "IQ": 7,
-                                "id": "diamond_head"
+                    "type": "Collider",
+                    "parameters": {
+                        "position": ["House", "Girlfriend_0", "Object", "Diamond_Head", "position"],
+                        "scale": ["House", "Girlfriend_0", "Object", "Diamond_Head", "scale"],
+                        "shape": {
+                            "type": "GJK::Circle",
+                            "parameters": {
+                                "x": 32,
+                                "y": 106,
+                                "radius": 32
+                            }
+                        },
+                        "mask": "both",
+                        "data": {
+                            "commands": {
+                                "AddIntelligence": {
+                                    "IQ": 7,
+                                    "id": "diamond_head"
+                                }
                             }
                         }
                     }

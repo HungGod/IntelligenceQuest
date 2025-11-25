@@ -35,13 +35,18 @@
                 "walk_down_left" : ["weak_walk_left_0.png", "weak_walk_left_1.png"],
                 "walk_up_left" : ["weak_walk_left_0.png", "weak_walk_left_1.png"]
             },
-            "COLLIDERS": [
-                {
-                    "GJK_TYPE": "GJK::AABB",
-                    "GJK_PARAMS": { "x": 0, "y": 64, "w": 64, "h": 80 },
-                    "MASK": "both",
-                    "MOVEABLE": true,
-                    "DATA": {
+            "COLLIDERS": {
+                "type": "Collider",
+                "parameters": {
+                    "position": ["Overworld", "Outside", "NPC", "Weak", "position"],
+                    "scale": ["Overworld", "Outside", "NPC", "Weak", "scale"],
+                    "shape": {
+                        "type": "GJK::AABB",
+                        "parameters": { "x": 0, "y": 64, "w": 64, "h": 80 }
+                    },
+                    "moveable": true,
+                    "mask": "both",
+                    "data": {
                         "commands": [
                             {
                                 "RepeatedEvent": {
@@ -223,7 +228,7 @@
                         ]
                     }
                 }
-            ]
+            }
         }
     }
 }

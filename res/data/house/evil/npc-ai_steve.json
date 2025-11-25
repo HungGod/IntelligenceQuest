@@ -34,16 +34,23 @@
             },
             "COLLIDERS": [
                 {
-                    "GJK_TYPE": "GJK::AABB",
-                    "GJK_PARAMS": { "x": 0, "y": 64, "w": 64, "h": 80 },
-                    "MASK":"both",
-                    "MOVEABLE": true,
-                    "DATA": {
-                        "commands": {
-                            "AddIntelligence": {
-                                "IQ": -14, "id": "ai_steve"
+                    "type": "Collider",
+                    "parameters": {
+                        "position": ["House", "Evil", "NPC", "AI_Steve", "position"],
+                        "scale": ["House", "Evil", "NPC", "AI_Steve", "scale"],
+                        "shape": {
+                            "type": "GJK::AABB",
+                            "parameters": { "x": 0, "y": 64, "w": 64, "h": 80 }
+                        },
+                        "mask": "both",
+                        "moveable": true,
+                        "data": {
+                            "commands": {
+                                "AddIntelligence": {
+                                    "IQ": -14, "id": "ai_steve"
+                                }
                             }
-                        }             
+                        }
                     }
                 }
             ]

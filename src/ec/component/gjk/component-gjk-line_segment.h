@@ -25,7 +25,7 @@ namespace GJK
                 p2_ = { j["p2"]["x"], j["p2"]["y"] };
             }
             else {
-                Logger::error("LineSegment JSON needs p1/p2 or array", Logger::HIGH);
+                Logger::error("LineSegment JSON needs p1/p2 or array: " + j.dump(1, '\t'), Logger::HIGH);
             }
 
             IGJK::init(j, game);

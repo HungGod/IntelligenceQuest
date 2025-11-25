@@ -11,16 +11,23 @@
             "SRC_ID": "sign.png",
             "COLLIDERS": [
                 {
-                    "GJK_TYPE": "GJK::AABB",
-                    "GJK_PARAMS": { "x":0, "y":-16, "w":64, "h":80 }, 
-                    "MASK":"both",
-                    "DATA" : {
-                        "commands" : {
-                            "AddIntelligence" : {
-                                "id" : "sign_stupid", "IQ": 10
+                    "type": "Collider",
+                    "parameters": {
+                        "position": ["House", "Stupid", "Object", "Sign_Stupid", "position"],
+                        "scale": ["House", "Stupid", "Object", "Sign_Stupid", "scale"],
+                        "shape": {
+                            "type": "GJK::AABB",
+                            "parameters": { "x":0, "y":-16, "w":64, "h":80 }
+                        },
+                        "mask": "both",
+                        "data": {
+                            "commands" : {
+                                "AddIntelligence" : {
+                                    "id" : "sign_stupid", "IQ": 10
+                                }
                             }
                         }
-                    } 
+                    }
                 }
             ],
             "SPRITESHEET_ID": "Inside"

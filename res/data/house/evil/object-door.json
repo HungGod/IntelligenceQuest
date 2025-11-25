@@ -12,20 +12,27 @@
             "SRC_ID": "door.png",
             "COLLIDERS": [
                 {
-                    "GJK_TYPE": "GJK::Circle",
-                    "GJK_PARAMS": { "x": 32, "y": 128, "radius": 64 },
-                    "MASK": "action_space",
-                    "DATA": {
-                        "commands": {
-                            "ParseJsonTemplate": {
-                                "template": "res/data/templates/warp.tmpl",
-                                "args": {
-                                    "GAMESTATE_PATH": "res/data/gamestates/overworld/overworld.json",
-                                    "GAMESTATE_NUM": 0,
-                                    "POSITION_NUM": 2,
-                                    "TILEMAP_ID": "Outside",
-                                    "GROUP_ID": "Overworld",
-                                    "PLAYER_DIR": {"x": 0, "y": 1}
+                    "type": "Collider",
+                    "parameters": {
+                        "position": ["House", "Evil", "Object", "Door", "position"],
+                        "scale": ["House", "Evil", "Object", "Door", "scale"],
+                        "shape": {
+                            "type": "GJK::Circle",
+                            "parameters": { "x": 32, "y": 128, "radius": 64 }
+                        },
+                        "mask": "action_space",
+                        "data": {
+                            "commands": {
+                                "ParseJsonTemplate": {
+                                    "template": "res/data/templates/warp.tmpl",
+                                    "args": {
+                                        "GAMESTATE_PATH": "res/data/gamestates/overworld/overworld.json",
+                                        "GAMESTATE_NUM": 0,
+                                        "POSITION_NUM": 2,
+                                        "TILEMAP_ID": "Outside",
+                                        "GROUP_ID": "Overworld",
+                                        "PLAYER_DIR": {"x": 0, "y": 1}
+                                    }
                                 }
                             }
                         }

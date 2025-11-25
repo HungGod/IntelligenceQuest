@@ -12,7 +12,13 @@
         "POSITION_MAP": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         "TILEMAP_OBSTACLES": [
             {
-             "points":[
+                    "type": "Collider",
+                    "parameters": {
+                        "position": ["House", "Higher_Realm", "position"],
+                        "scale": ["House", "Higher_Realm", "scale"],
+                        "shape": {
+                            "type": "GJK::Polygon",
+                            "parameters":[
                     {
                         "x":768,
                         "y":576
@@ -29,10 +35,16 @@
                         "x":0,
                         "y":576
                     }
-                ]
+                ]}}
             },
             {
-                "points": [ 
+                    "type": "Collider",
+                    "parameters": {
+                        "position": ["House", "Higher_Realm", "position"],
+                        "scale": ["House", "Higher_Realm", "scale"],
+                        "shape": {
+                            "type": "GJK::Polygon",
+                            "parameters": [ 
                     {
                         "x":0,
                         "y":672
@@ -53,7 +65,7 @@
                         "x":0,
                         "y":672
                     }
-                ]
+                ]}}
             }
         ],
         "TILESET_ID": "Higher_Realm"

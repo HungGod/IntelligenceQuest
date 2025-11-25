@@ -11,12 +11,19 @@
             "SRC_ID": "table.png",
             "COLLIDERS": [
                 {
-                    "GJK_TYPE": "GJK::AABB",
-                    "GJK_PARAMS": {
-                        "x": -8,
-                        "y": 17,
-                        "w": 152,
-                        "h": 68
+                    "type": "Collider",
+                    "parameters": {
+                        "position": ["House", "Evil", "Object", "Table", "position"],
+                        "scale": ["House", "Evil", "Object", "Table", "scale"],
+                        "shape": {
+                            "type": "GJK::AABB",
+                            "parameters": {
+                                "x": -8,
+                                "y": 17,
+                                "w": 152,
+                                "h": 68
+                            }
+                        }
                     }
                 }
             ],

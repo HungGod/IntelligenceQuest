@@ -11,64 +11,85 @@
             "SRC_ID": "downstairs.png",
             "COLLIDERS": [
                 {
-                    "GJK_TYPE": "GJK::Polygon",
-                    "GJK_PARAMS": [
-                        {
-                            "x": 102,
-                            "y": 34
-                        },
-                        {
-                            "x": 92,
-                            "y": 46
-                        },
-                        {
-                            "x": 66,
-                            "y": 49
-                        },
-                        {
-                            "x": 100,
-                            "y": 4
-                        },
-                        {
-                            "x": 102,
-                            "y": 34
+                    "type": "Collider",
+                    "parameters": {
+                        "position": ["House", "Girlfriend_1", "Object", "Down_Stairs", "position"],
+                        "scale": ["House", "Girlfriend_1", "Object", "Down_Stairs", "scale"],
+                        "shape": {
+                            "type": "GJK::Polygon",
+                            "parameters": [
+                                {
+                                    "x": 102,
+                                    "y": 34
+                                },
+                                {
+                                    "x": 92,
+                                    "y": 46
+                                },
+                                {
+                                    "x": 66,
+                                    "y": 49
+                                },
+                                {
+                                    "x": 100,
+                                    "y": 4
+                                },
+                                {
+                                    "x": 102,
+                                    "y": 34
+                                }
+                            ]
                         }
-                    ]
+                    }
                 },
                 {
-                    "GJK_TYPE": "GJK::LineSegment",
-                    "GJK_PARAMS": [
-                        {
-                            "x": 66,
-                            "y": 49
-                        },
-                        {
-                            "x": 20,
-                            "y": 49
+                    "type": "Collider",
+                    "parameters": {
+                        "position": ["House", "Girlfriend_1", "Object", "Down_Stairs", "position"],
+                        "scale": ["House", "Girlfriend_1", "Object", "Down_Stairs", "scale"],
+                        "shape": {
+                            "type": "GJK::LineSegment",
+                            "parameters": [
+                                {
+                                    "x": 66,
+                                    "y": 49
+                                },
+                                {
+                                    "x": 20,
+                                    "y": 49
+                                }
+                            ]
                         }
-                    ]
+                    }
                 },
                 {
-                    "GJK_TYPE": "GJK::Circle",
-                    "GJK_PARAMS": {
-                        "x": 62,
-                        "y": 8,
-                        "radius": 24
-                    },
-                    "MASK": "action_space",
-                    "DATA": {
-                        "commands": {
-                            "ParseJsonTemplate": {
-                                "template": "res/data/templates/warp.tmpl",
-                                "args": {
-                                    "GAMESTATE_PATH": "res/data/gamestates/house/girlfriend.json",
-                                    "GAMESTATE_NUM": 0,
-                                    "POSITION_NUM": 0,
-                                    "TILEMAP_ID": "Girlfriend_0",
-                                    "GROUP_ID": "House",
-                                    "PLAYER_DIR": {
-                                        "x": -1,
-                                        "y": 0
+                    "type": "Collider",
+                    "parameters": {
+                        "position": ["House", "Girlfriend_1", "Object", "Down_Stairs", "position"],
+                        "scale": ["House", "Girlfriend_1", "Object", "Down_Stairs", "scale"],
+                        "shape": {
+                            "type": "GJK::Circle",
+                            "parameters": {
+                                "x": 62,
+                                "y": 8,
+                                "radius": 24
+                            }
+                        },
+                        "mask": "action_space",
+                        "data": {
+                            "commands": {
+                                "ParseJsonTemplate": {
+                                    "template": "res/data/templates/warp.tmpl",
+                                    "args": {
+                                        "GAMESTATE_PATH": "res/data/gamestates/house/girlfriend.json",
+                                        "GAMESTATE_NUM": 0,
+                                        "POSITION_NUM": 0,
+                                        "TILEMAP_ID": "Girlfriend_0",
+                                        "GROUP_ID": "House",
+                                        "PLAYER_DIR": {
+                                            "x": -1,
+                                            "y": 0
+                                        }
                                     }
                                 }
                             }

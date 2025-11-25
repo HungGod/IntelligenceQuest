@@ -34,18 +34,25 @@
             },
             "COLLIDERS": [
                 {
-                    "GJK_TYPE": "GJK::Circle",
-                    "GJK_PARAMS": {
-                        "x": 32,
-                        "y": 16,
-                        "radius": 48
-                    },
-                    "MASK": "both",
-                    "DATA": {
-                        "commands": {
-                            "AddIntelligence": {
-                                "IQ": 10,
-                                "id": "girlfriend"
+                    "type": "Collider",
+                    "parameters": {
+                        "position": ["House", "Girlfriend_1", "NPC", "Girlfriend", "position"],
+                        "scale": ["House", "Girlfriend_1", "NPC", "Girlfriend", "scale"],
+                        "shape": {
+                            "type": "GJK::Circle",
+                            "parameters": {
+                                "x": 32,
+                                "y": 16,
+                                "radius": 48
+                            }
+                        },
+                        "mask": "both",
+                        "data": {
+                            "commands": {
+                                "AddIntelligence": {
+                                    "IQ": 10,
+                                    "id": "girlfriend"
+                                }
                             }
                         }
                     }

@@ -34,18 +34,25 @@
             },
             "COLLIDERS": [
                 {
-                    "GJK_TYPE": "GJK::Circle",
-                    "GJK_PARAMS": {
-                        "x": 4,
-                        "y": 2,
-                        "radius": 10
-                    },
-                    "MASK": "both",
-                    "DATA": {
-                        "commands": {
-                            "AddIntelligence": {
-                                "id": "main_character",
-                                "IQ": 1
+                    "type": "Collider",
+                    "parameters": {
+                        "position": ["House", "Stupid", "NPC", "Main_Character", "position"],
+                        "scale": ["House", "Stupid", "NPC", "Main_Character", "scale"],
+                        "shape": {
+                            "type": "GJK::Circle",
+                            "parameters": {
+                                "x": 4,
+                                "y": 2,
+                                "radius": 10
+                            }
+                        },
+                        "mask": "both",
+                        "data": {
+                            "commands": {
+                                "AddIntelligence": {
+                                    "id": "main_character",
+                                    "IQ": 1
+                                }
                             }
                         }
                     }

@@ -11,50 +11,64 @@
             "SRC_ID": "bed.png",
             "COLLIDERS": [
                 {
-                    "GJK_TYPE": "GJK::Polygon",
-                    "GJK_PARAMS": [
-                        {
-                            "x": 0,
-                            "y": 51
-                        },
-                        {
-                            "x": 0.666666666666667,
-                            "y": 11.6666666666667
-                        },
-                        {
-                            "x": 40.6666666666667,
-                            "y": 0
-                        },
-                        {
-                            "x": 0,
-                            "y": 51
+                    "type": "Collider",
+                    "parameters": {
+                        "position": ["House", "Girlfriend_1", "Object", "Bed", "position"],
+                        "scale": ["House", "Girlfriend_1", "Object", "Bed", "scale"],
+                        "shape": {
+                            "type": "GJK::Polygon",
+                            "parameters": [
+                                {
+                                    "x": 0,
+                                    "y": 51
+                                },
+                                {
+                                    "x": 0.666666666666667,
+                                    "y": 11.6666666666667
+                                },
+                                {
+                                    "x": 40.6666666666667,
+                                    "y": 0
+                                },
+                                {
+                                    "x": 0,
+                                    "y": 51
+                                }
+                            ]
                         }
-                    ]
+                    }
                 },
                 {
-                    "GJK_TYPE": "GJK::Polygon",
-                    "GJK_PARAMS": [
-                        {
-                            "x": 123,
-                            "y": 56
-                        },
-                        {
-                            "x": 82,
-                            "y": 70
-                        },
-                        {
-                            "x": 82,
-                            "y": 35
-                        },
-                        {
-                            "x": 119,
-                            "y": 22
-                        },
-                        {
-                            "x": 123,
-                            "y": 56
+                    "type": "Collider",
+                    "parameters": {
+                        "position": ["House", "Girlfriend_1", "Object", "Bed", "position"],
+                        "scale": ["House", "Girlfriend_1", "Object", "Bed", "scale"],
+                        "shape": {
+                            "type": "GJK::Polygon",
+                            "parameters": [
+                                {
+                                    "x": 123,
+                                    "y": 56
+                                },
+                                {
+                                    "x": 82,
+                                    "y": 70
+                                },
+                                {
+                                    "x": 82,
+                                    "y": 35
+                                },
+                                {
+                                    "x": 119,
+                                    "y": 22
+                                },
+                                {
+                                    "x": 123,
+                                    "y": 56
+                                }
+                            ]
                         }
-                    ]
+                    }
                 }
             ],
             "SPRITESHEET_ID": "Inside"

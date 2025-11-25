@@ -94,42 +94,9 @@
     {
         "CreateComponents": {
             "path": [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "Colliders"],
-            "components": [
-            <FOREACH COLLIDERS>
-                {
-                    "type" : "Collider",
-                    <IF COLLIDER_NAME>
-                        "name": $COLLIDER_NAME,
-                    </IF>
-                    "parameters": {
-                        "shape": {
-                            "type": $GJK_TYPE,
-                            "parameters": $GJK_PARAMS
-                        },
-                        <IF MOVEABLE>
-                            "moveable": $MOVEABLE,
-                        </IF>
-                        <IF MASK>
-                            "mask": $MASK,
-                        </IF>
-                        <IF DATA>
-                            "data": $DATA,
-                        </IF>
-                        "scale": [$GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "scale"],
-                        "position": [$GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "position"],
-                    }
-                },
-            </FOREACH>
-                {}
-            ]
+            "components": $COLLIDERS
         }
     },
-    {
-        "UpdateComponents": {
-            "path": [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "Colliders"],
-            "update":  {"scale": [$GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "scale"]}
-        }
-    }, 
     {
         "DelayNext": [
             {
@@ -152,15 +119,6 @@
                 "CreateComponents": {
                     "path": [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "Update" ],
                     "components": [
-                        {
-                            "type" : "System::CheckCollision",
-                            "name" : "system-check_collision",
-                            "parameters" : {
-                                "colliders" : [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "Colliders" ],
-                                "position" : [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "position" ],
-                                "quadtree": [ "Collision", "QuadTree", "root" ]
-                            }
-                        },
                         {
                             "type" : "System::AnimateMove",
                             "name" : "system-animate_move",

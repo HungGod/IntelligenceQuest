@@ -20,9 +20,9 @@ namespace System
 
 		void init(nlohmann::json json, Entity* game) override
 		{
-			moveable_colliders_ = game->get_nested_component<Component::ColliderVector>(json["moveable_colliders"]);
+			moveable_colliders_ = game->get_child("Collision")->get_component<Component::ColliderVector>("moveable_colliders");
 
-			tree_ = game->get_nested_component<Component::QuadTree>(json["quadtree"]);
+			tree_ = game->get_nested_component<Component::QuadTree>(json["tree"]);
 
 			mask_ = game->get_child("Collision")->get_component<Component::ColliderMask>("mask");
 			pathway_ = game->get_component<Component::Pathway>("pathway");
