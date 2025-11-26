@@ -133,7 +133,7 @@ int main()
         auto current_frame = static_cast<GLfloat>(glfwGetTime());
         delta_time = current_frame - last_frame;
         last_frame = current_frame;
-
+        
         for (auto u : update)
             u->execute();
 

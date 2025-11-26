@@ -13,6 +13,7 @@ namespace Component {
        IGJK* shape{};
        bool moveable{};
        bool physical{};
+       bool add_collider{};
        nlohmann::json data{};
        Component::Position* position{};
        Component::Float* scale{};
@@ -33,8 +34,6 @@ namespace Component {
            if (is_colliding(other, mask)) {
                 // Handle any commands in other 
                 if (other->data.contains("commands")) {
-                    if (other->data.contains("timestamp") && other->data["timestamp"].get<double>() > glfwGetTime() - 5.0f) return;
-                    other->data["timestamp"] = glfwGetTime();
                     pathway->message(other->data["commands"]);
                 }
 
@@ -43,16 +42,15 @@ namespace Component {
                     glm::vec2 piercing_vec = other->piercing_vec(this);
                    
                     // Apply displacement based on moveability
-                    if (this->moveable && other->moveable) {
+                    if (other->moveable) {
                         // Both moveable: split the displacement
                         *this->position += piercing_vec / 2.f;
                         *other->position -= piercing_vec / 2.f;
-                    } else if (this->moveable) {
+                    } else {
                         // Only this is moveable: full displacement
                         *this->position += piercing_vec;
                     } 
                 }
-               
            }
        }
 

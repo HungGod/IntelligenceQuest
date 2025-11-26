@@ -35,20 +35,6 @@ void Component::Collider::init(nlohmann::json json, Entity* game)
     data = json.value("data", nlohmann::json{});
     position = game->get_nested_component<Component::Position>(json["position"]);
     scale = game->get_nested_component<Component::Float>(json["scale"]);
-
-    bool add_collider = json.value("add_collider", true);
-    if (collision->has_child("QuadTree") && add_collider)
-    {
-        moveable = json.value("moveable", false);
-
-        if (moveable)
-        {
-            Component::ColliderVector* colliders = collision->get_component<Component::ColliderVector>("moveable_colliders");
-            colliders->push_back(this);
-        }
-        else{
-            Component::ColliderVector* colliders = collision->get_component<Component::ColliderVector>("static_colliders");
-            colliders->push_back(this);
-        }
-    }
+    moveable = json.value("moveable", false);
+    add_collider = json.value("add_collider", true);
 }

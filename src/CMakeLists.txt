@@ -16,7 +16,6 @@
 
 # --- Commands -----------------------------------------------------------------
 set(Commands
-        command/command-add_colliders.h
         command/command-add_flag.h
         command/command-add_intelligence.h
         command/command-add_kerning.h

@@ -15,6 +15,7 @@
             "TILEMAP_ID": "Stupid",
             "CAMERA": "",
             "CHANGE_STATE": {
+                "add_colliders_to_quadtree": true,
                 "render" : [ 
                     ["House", "Stupid"], 
                     "Player", 

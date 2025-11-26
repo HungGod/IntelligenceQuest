@@ -17,6 +17,7 @@
                 "TILEMAP_ID": "Girlfriend_0",
                 "CAMERA": null,
                 "CHANGE_STATE": {
+                    "add_colliders_to_quadtree": true,
                     "render" : [ 
                         ["House", "Girlfriend_0"], 
                         ["House", "Girlfriend_0", "Object", "Diamond_Head"], 
@@ -58,6 +59,7 @@
                 "TILEMAP_ID": "Girlfriend_1",
                 "CAMERA": null,
                 "CHANGE_STATE": {
+                    "add_colliders_to_quadtree": true,
                     "render" : [ 
                         ["House", "Girlfriend_1"], 
                         "Player",

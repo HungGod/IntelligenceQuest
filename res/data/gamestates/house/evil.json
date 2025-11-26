@@ -18,6 +18,7 @@
             "TILEMAP_ID": "Evil",
             "CAMERA": null,
             "CHANGE_STATE": {
+                "add_colliders_to_quadtree": true,
                 "render" : [ 
                     ["House", "Evil"], 
                     ["House", "Evil", "NPC", "AI_Steve"],

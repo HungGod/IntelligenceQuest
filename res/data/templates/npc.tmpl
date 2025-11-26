@@ -91,12 +91,14 @@
             ]
         }
     },
+    <IF COLLIDERS>
     {
         "CreateComponents": {
             "path": [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "Colliders"],
             "components": $COLLIDERS
         }
     },
+    </IF>
     {
         "DelayNext": [
             {

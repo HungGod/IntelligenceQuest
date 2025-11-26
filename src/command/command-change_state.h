@@ -5,6 +5,7 @@
 #include "ec/component/system/component-system.h"
 #include "json_to.h"
 #include "ec/entity.h"
+#include "ec/component/component-collider.h"
 
 namespace Command
 {
@@ -12,6 +13,7 @@ namespace Command
 	{
 		std::vector<nlohmann::json> render_;
 		std::vector<nlohmann::json> update_;
+		bool add_colliders_to_quadtree_{};
 	public:
 		void load(nlohmann::json json, Entity* game, Component::Pathway* pathway) override
 		{
@@ -25,6 +27,8 @@ namespace Command
 				update_ = json_to.vector(json["update"]);
 			else
 				update_.clear();
+
+			add_colliders_to_quadtree_ = json.value("add_colliders_to_quadtree", false);
 		}
 
 		void execute(Entity* game, Component::Pathway* pathway) override
@@ -50,6 +54,33 @@ namespace Command
 
 			set_system_vec(render_, "render", "Render");
 			set_system_vec(update_, "update", "Update");
+
+			if (add_colliders_to_quadtree_)
+			{
+				for (auto& rj : render_)
+				{
+					Entity* e = game->get_nested_child(rj);
+
+					if (e->has_child("Colliders"))
+					{
+						Entity* e_colliders = e->get_child("Colliders");
+						Component::ColliderVector* moveable_colliders = game->get_child("Collision")->get_component<Component::ColliderVector>("moveable_colliders");
+						Component::ColliderVector* static_colliders = game->get_child("Collision")->get_component<Component::ColliderVector>("static_colliders");
+
+						for (auto& c : e_colliders->casted_component_list<Component::Collider>())
+						{
+							if (c->add_collider)
+							{
+								if (c->moveable)
+									moveable_colliders->push_back(c);
+								else
+									static_colliders->push_back(c);
+							}
+						}
+					}
+					
+				}
+			}
 		}
 		std::string to_string() override { return "change_state"; }
 		

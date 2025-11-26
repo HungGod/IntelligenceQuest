@@ -34,7 +34,7 @@ namespace System
 			tree_->clear();
 			tree_->add(*moveable_colliders_);	
 			tree_->add(*static_colliders_);
-			
+
 			for (Component::Collider* col_a : *moveable_colliders_){
 				for (Component::Collider* col_b : tree_->retrieve(col_a)){
 					col_a->collide_and_resolve(col_b, mask_, pathway_);

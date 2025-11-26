@@ -29,7 +29,6 @@
 #include "command/command-simultaneous.h"
 #include "command/command-static_move.h"
 #include "command/command-zoom.h"
-#include "command/command-add_colliders.h"
 
 template <typename T>
 std::shared_ptr<Ring<ICommand>> create_command_ring()
@@ -72,5 +71,4 @@ void Factory::CommandMap::create()
 	(*this)["Simultaneous"] = create_command_ring<Command::Simultaneous>();
 	(*this)["Zoom"] = create_command_ring<Command::Zoom>();
 	(*this)["StaticMove"] = create_command_ring<Command::StaticMove>();
-	(*this)["AddColliders"] = create_command_ring<Command::AddColliders>();
 }
