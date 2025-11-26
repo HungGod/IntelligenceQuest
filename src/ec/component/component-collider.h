@@ -3,6 +3,7 @@
 #include <string>  
 #include "ec/component/component-collider_mask.h"  
 #include "ec/component/component-pathway.h"
+#include <GLFW/glfw3.h>
 
 namespace Component {  
    class Collider : public IComponent  
@@ -30,14 +31,14 @@ namespace Component {
            if (this == other) return;
            
            if (is_colliding(other, mask)) {
-                // Handle resolve commands (like warp, messages, etc.)
-                if (other->data.contains("resolve")) {
-                    std::string command_name = other->data["resolve"].get<std::string>();
-                    nlohmann::json resolve {command_name, {data, other->data}};
-                    pathway->message(resolve);
+                // Handle any commands in other 
+                if (other->data.contains("commands")) {
+                    if (other->data.contains("timestamp") && other->data["timestamp"].get<double>() > glfwGetTime() - 5.0f) return;
+                    other->data["timestamp"] = glfwGetTime();
+                    pathway->message(other->data["commands"]);
                 }
 
-                // Handle physical displacement - check if both are physical
+                // Handle physical displacement
                 if (this->physical && other->physical) {
                     glm::vec2 piercing_vec = other->piercing_vec(this);
                    

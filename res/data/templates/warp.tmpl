@@ -2,7 +2,8 @@
     {
         "Pause": {
             "pause_render": true,
-            "pause_update": true
+            "pause_update": true,
+            "clear_colliders": true
         }
     },
     {
@@ -34,6 +35,12 @@
                                 "parameters": $PLAYER_DIR
                             }
                         ]
+                    }
+                },
+                {
+                    "AddColliders": {
+                        "colliders": ["Player", "Colliders"],
+                        "moveable": true
                     }
                 }
             ]

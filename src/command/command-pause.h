@@ -4,6 +4,8 @@
 #include "templates.h"
 #include "ec/component/system/component-system.h"
 #include "ec/component/component-cache.h"
+#include "ec/component/component-collider.h"
+#include "ec/component/component-quadtree.h"
 
 namespace Command
 {
@@ -86,6 +88,17 @@ namespace Command
 						game_update.insert(game_update.end() - 1, systems.begin(), systems.end());
 				}
 
+			}
+
+			if (json_.contains("clear_colliders"))
+			{
+				Component::ColliderVector* moveable_colliders = game->get_child("Collision")->get_component<Component::ColliderVector>("moveable_colliders");
+				Component::ColliderVector* static_colliders = game->get_child("Collision")->get_component<Component::ColliderVector>("static_colliders");
+				Component::QuadTree* quadtree = game->get_child("Collision")->get_child("QuadTree")->get_component<Component::QuadTree>("root");
+
+				moveable_colliders->clear();
+				static_colliders->clear();
+				quadtree->all_clear();
 			}
 
 		}

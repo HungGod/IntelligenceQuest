@@ -3,6 +3,8 @@
 #include "command/command.h"
 #include "ec/component/component-tilemap.h"
 #include "ec/component/component-vec2.h"
+#include "ec/component/component-template.h"
+#include "templates.h"
 
 namespace Command
 {

@@ -46,7 +46,7 @@
                             "scale": ["Overworld", "Outside", "Object", "Girlfriend", "scale"],
                             "shape": {
                                 "type": "GJK::Circle",
-                                "parameters": { "x": 128, "y": 64, "radius": 32}
+                                "parameters": { "x": 128, "y": 64, "radius": 64}
                             },
                             "mask": "action_space",
                             "data": {
