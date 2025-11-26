@@ -1,6 +1,6 @@
 Latest working demo (https://wadsey.itch.io/intelligencequest)
 
-A video game where the protagonist gets more intelligent.
+A game where the protagonist gets more intelligent. (Me, hopefully)
 
 ## System Requirements
 - **OpenGL 4.6** required (Linux and Windows distributions updated post 2014 should be compatible. MacOS is not.)
