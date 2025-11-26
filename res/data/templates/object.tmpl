@@ -94,22 +94,6 @@
     </IF>
    { 
         "DelayNext": [
-            <IF COLLIDERS> 
-                { 
-                    "CreateComponents": {
-                        "path": [ $GROUP_ID, $TILEMAP_ID, "Object", $OBJECT_ID, "Update"],
-                        "components": {
-                            "type" : "System::AddColliders",
-                            "name" : "system-add_colliders",
-                            "parameters" : {
-                                "colliders" : [ $GROUP_ID, $TILEMAP_ID, "Object", $OBJECT_ID, "Colliders"],
-                                "quadtree" : [ "Collision", "QuadTree", "root"],
-                                "position" : [$GROUP_ID, $TILEMAP_ID, "Object", $OBJECT_ID, "position"]
-                            }
-                        }
-                    }
-                },
-            </IF>
 
             <IF ANIMATIONS> 
                 { 

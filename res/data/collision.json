@@ -32,26 +32,34 @@
                     "name": "mask",
                     "parameters": {
                         "ids": [
-                            "warp_space",
+                            "action_space",
                             "actionable",
                             "attack",
+                            "both",
                             "player",
                             "physical",
-                            "inactive"
+                            "inactive",
+                            "check_action"
                         ],
                         "collide_map": {
                             "physical": [
-                                "physical"
+                                "physical",
+                                "both",
+                                "player"
+                            ],
+                            "both": [
+                                "physical",
+                                "both",
+                                "player"
                             ],
                             "player": [
                                 "physical",
-                                "warp_space"
+                                "action_space",
+                                "both"
                             ],
-                            "actionable": [
-                                "actionable"
-                            ],
-                            "attack": [
-                                "physical"
+                            "check_action": [
+                                "actionable",
+                                "both"
                             ]
                         }
                     }
@@ -59,6 +67,10 @@
                 {
                     "type": "ColliderVector",
                     "name": "moveable_colliders"
+                },
+                {
+                    "type": "ColliderVector",
+                    "name": "static_colliders"
                 }
             ]
         }

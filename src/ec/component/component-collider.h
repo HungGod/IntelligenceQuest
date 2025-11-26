@@ -9,12 +9,13 @@ namespace Component {
    {    
    public:
        uint8_t kind{};
-       bool moveable{};
        IGJK* shape{};
+       bool moveable{};
+       bool physical{};
        nlohmann::json data{};
        Component::Position* position{};
        Component::Float* scale{};
-       
+
        void init(nlohmann::json json, Entity* game) override;  
 
        bool is_colliding(Component::Collider* other, Component::ColliderMask* mask)  
@@ -25,14 +26,32 @@ namespace Component {
        }  
 
        void collide_and_resolve(Component::Collider* other, Component::ColliderMask* mask, Component::Pathway* pathway) {  
+           // Prevent self-collision
+           if (this == other) return;
+           
            if (is_colliding(other, mask)) {
+                // Handle resolve commands (like warp, messages, etc.)
+                if (other->data.contains("resolve")) {
+                    std::string command_name = other->data["resolve"].get<std::string>();
+                    nlohmann::json resolve {command_name, {data, other->data}};
+                    pathway->message(resolve);
+                }
 
-               std::string command_name = kind > other->kind ? data["resolve"].get<std::string>(): other->data["resolve"].get<std::string>(); // resolve based on kind priority, if equal use other
-
-               nlohmann::json resolve{
-                   command_name, { data, other->data }
-               };
-               pathway->message(resolve);
+                // Handle physical displacement - check if both are physical
+                if (this->physical && other->physical) {
+                    glm::vec2 piercing_vec = other->piercing_vec(this);
+                   
+                    // Apply displacement based on moveability
+                    if (this->moveable && other->moveable) {
+                        // Both moveable: split the displacement
+                        *this->position += piercing_vec / 2.f;
+                        *other->position -= piercing_vec / 2.f;
+                    } else if (this->moveable) {
+                        // Only this is moveable: full displacement
+                        *this->position += piercing_vec;
+                    } 
+                }
+               
            }
        }
 

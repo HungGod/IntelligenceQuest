@@ -41,68 +41,61 @@ namespace GJK
 			return height_ * sc;
 		}
 
-		glm::vec2 support(glm::vec2 direction, glm::vec2 position, float sc) override
-		{
-			float sc_width = width_ * sc;
-			float sc_height = height_ * sc;
+	glm::vec2 support(glm::vec2 direction, glm::vec2 position, float sc) override
+	{
+		// Support function returns the farthest point in the given direction
+		// For an AABB, this is simply the corner that maximizes dot(direction, corner)
+		float sc_width = width_ * sc;
+		float sc_height = height_ * sc;
+		
+		glm::vec2 min = get_min(position, sc);
+		
+		// Choose corner based on direction signs
+		glm::vec2 corner = min;
+		if (direction.x > 0.f) corner.x += sc_width;
+		if (direction.y > 0.f) corner.y += sc_height;
+		
+		return corner;
+	}
 
-			auto mag_max = glm::vec2((sc_width - direction.x) * (sc_width - direction.x), (sc_height - direction.y) * (sc_height - direction.y));
-			auto mag_min = glm::vec2((-sc_width - direction.x) * (-sc_width - direction.x), (-sc_height - direction.y) * (-sc_height - direction.y));
-
-
-			auto shortest_distance = mag_min.x + mag_min.y;
-			glm::vec2 closest_vertex = get_min(position, sc);
-
-			if (mag_max.x + mag_min.y < shortest_distance)
-			{
-				shortest_distance = mag_max.x + mag_min.y;
-				closest_vertex = get_min(position, sc) + glm::vec2(sc_width, 0);
-			}
-
-			if (mag_max.x + mag_max.y < shortest_distance)
-			{
-				shortest_distance = mag_max.x + mag_min.y;
-				closest_vertex = get_min(position, sc) + glm::vec2(sc_width, sc_height);
-			}
-
-			if (mag_min.x + mag_max.y < shortest_distance)
-			{
-				shortest_distance = mag_max.x + mag_min.y;
-				closest_vertex = get_min(position, sc) + glm::vec2(0, sc_height);
-			}
-
-			return closest_vertex;
+	glm::vec2 resolve(IGJK* B, glm::vec2 A_pos, float A_sc, glm::vec2 B_pos, float B_sc) override
+	{
+		// Get centers of both shapes
+		glm::vec2 centerA = get_center(A_pos, A_sc);
+		glm::vec2 centerB = B->get_center(B_pos, B_sc);
+		
+		// Direction from A center to B center
+		glm::vec2 centerDir = centerB - centerA;
+		
+		// For AABB, we want to resolve along the axis with the smallest component
+		// This ensures we push perpendicular to an edge
+		glm::vec2 resolutionDir{0.f, 0.f};
+		
+		if (std::abs(centerDir.x) > std::abs(centerDir.y)) {
+			// Push along X axis (perpendicular to vertical edge)
+			resolutionDir = glm::vec2((centerDir.x > 0.f) ? 1.f : -1.f, 0.f);
+		} else {
+			// Push along Y axis (perpendicular to horizontal edge)
+			resolutionDir = glm::vec2(0.f, (centerDir.y > 0.f) ? 1.f : -1.f);
 		}
-
-		glm::vec2 resolve(IGJK* B, glm::vec2 A_pos, float A_sc, glm::vec2 B_pos, float B_sc) override
-		{
-			// world‐space centers
-			glm::vec2 cA = get_center(A_pos, A_sc);
-			glm::vec2 cB = B->get_center(B_pos, B_sc);
-			glm::vec2 d = cA - cB;
-
-			// half‐extents
-			float hWA = 0.5f * get_width(A_sc);
-			float hHA = 0.5f * get_height(A_sc);
-			float hWB = 0.5f * B->get_width(B_sc);
-			float hHB = 0.5f * B->get_height(B_sc);
-
-			// overlap on each axis
-			float overlapX = (hWA + hWB) - std::abs(d.x);
-			float overlapY = (hHA + hHB) - std::abs(d.y);
-
-			// if no overlap, no resolution
-			if (overlapX <= 0.f || overlapY <= 0.f)
-				return { 0.f, 0.f };
-
-			// push out along smallest penetration axis
-			if (overlapX < overlapY) {
-				return { d.x < 0.f ? -overlapX : overlapX, 0.f };
-			}
-			else {
-				return { 0.f, d.y < 0.f ? -overlapY : overlapY };
-			}
+		
+		// Handle case where centers are very close (B center inside A)
+		if (glm::length2(centerDir) < GJK_EPSILON) {
+			// Use a default direction (prefer X axis)
+			resolutionDir = glm::vec2(1.f, 0.f);
 		}
+		
+		// Use support points to get accurate penetration depth
+		// This works correctly even when B's center is inside A
+		glm::vec2 As = support(resolutionDir, A_pos, A_sc);
+		glm::vec2 Bs = B->support(-resolutionDir, B_pos, B_sc);
+		float pen = glm::dot(As - Bs, resolutionDir);
+		
+		// Ensure penetration is positive (should always be if colliding)
+		if (pen < 0.f) pen = -pen;
+		
+		return resolutionDir * pen;
+	}
 
 		
 		std::string get_id() override { return "gjk-aabb"; }

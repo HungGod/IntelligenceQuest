@@ -1,7 +1,10 @@
 #include "ec/component/component-collider.h"
 #include "ec/component/factory/component-factory-create_component_map.h"
 #include <sstream>
-#include "json_to.h"
+#include "json_to.h"    
+#include "ec/component/component-quadtree.h"
+#include "ec/component/component-template.h"
+#include "templates.h"
 
 void Component::Collider::init(nlohmann::json json, Entity* game)
 {
@@ -25,15 +28,27 @@ void Component::Collider::init(nlohmann::json json, Entity* game)
     }
     else
         shape = collision->get_component<IGJK>(gjk_name);
- 
-    moveable = json.value("moveable", false);
-    if (moveable)
-    {
-        Component::ColliderVector* colliders = collision->get_component<Component::ColliderVector>("moveable_colliders");
-        colliders->push_back(this);
-    }
-    kind = mask->get_kind_from_string(json.value("mask", "physical"));
+
+    std::string mask_str = json.value("mask", "physical");
+    kind = mask->get_kind_from_string(mask_str);
+    physical = mask_str == "physical" || mask_str == "both" || mask_str == "player";
     data = json.value("data", nlohmann::json{});
     position = game->get_nested_component<Component::Position>(json["position"]);
     scale = game->get_nested_component<Component::Float>(json["scale"]);
+
+    bool add_collider = json.value("add_collider", true);
+    if (collision->has_child("QuadTree") && add_collider)
+    {
+        moveable = json.value("moveable", false);
+
+        if (moveable)
+        {
+            Component::ColliderVector* colliders = collision->get_component<Component::ColliderVector>("moveable_colliders");
+            colliders->push_back(this);
+        }
+        else{
+            Component::ColliderVector* colliders = collision->get_component<Component::ColliderVector>("static_colliders");
+            colliders->push_back(this);
+        }
+    }
 }

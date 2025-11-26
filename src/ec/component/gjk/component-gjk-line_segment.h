@@ -64,8 +64,7 @@ namespace GJK
 		glm::vec2 resolve(IGJK* B, glm::vec2 A_pos, float A_sc, glm::vec2 B_pos, float B_sc) override
 		{
 			auto line = glm::normalize(p2_ - p1_);
-			auto perp_bisector = glm::vec2(line.y, -line.x);
-
+            auto perp_bisector = glm::vec2(line.y, -line.x);
 			auto sup = B->support(-perp_bisector, B_pos, B_sc) - this->support(perp_bisector, A_pos, A_sc);
 			auto piercing_vec = glm::dot(sup, -perp_bisector) * perp_bisector;
 

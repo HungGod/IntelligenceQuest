@@ -194,6 +194,12 @@ namespace Component
 			num_objects_++;
 		}
 
+		void add(std::vector<Component::Collider*>& colliders)
+		{
+			for (Component::Collider* col : colliders)
+				add(col);
+		}
+
 		void clear()
 		{
 			num_objects_ = 0;
@@ -221,6 +227,11 @@ namespace Component
 			return retrieved;
 		}
 
+		int size()
+		{
+			return objects_.size();
+		}
+		
 		std::string get_id() override { return "quadtree"; }
 	};
 }

@@ -30,7 +30,6 @@
 #include "command/command-static_move.h"
 #include "command/command-zoom.h"
 
-
 template <typename T>
 std::shared_ptr<Ring<ICommand>> create_command_ring()
 {

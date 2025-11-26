@@ -36,8 +36,12 @@ namespace Command
 				std::vector<ISystem*> systems;
 				for (auto &v : vec)
 				{
-					auto child_systems = game->get_nested_child(v)->get_child(child_name)->casted_component_list<ISystem>();
-					systems.insert(systems.begin(), child_systems.begin(), child_systems.end());
+					Entity* child = game->get_nested_child(v);
+					if (child->has_child(child_name))
+					{
+						auto child_systems = child->get_child(child_name)->casted_component_list<ISystem>();
+						systems.insert(systems.begin(), child_systems.begin(), child_systems.end());
+					}
 				}
 
 				c_system.clear();

@@ -10,38 +10,6 @@ IComponent* JsonTo::component(nlohmann::json json, Entity* entity, Entity* game)
 
 	IComponent* component = nullptr;
 
-	if (json.contains("points"))
-	{
-		nlohmann::json prev = nullptr;
-		nlohmann::json line_segment;
-		line_segment["type"] = "GJK::LineSegment";
-		for (auto p : json["points"])
-		{
-			if (!prev.is_null())
-			{
-
-				glm::vec2 vec_prev = { prev["x"], prev["y"] };
-				glm::vec2 vec_curr = { p["x"], p["y"] };
-
-				glm::vec2 lowest = { vec_prev.x > vec_curr.x ? vec_curr.x : vec_prev.x, 
-					vec_prev.y > vec_curr.y ? vec_curr.y : vec_prev.y };
-				
-				vec_prev -= lowest;
-				vec_curr -= lowest;
-
-				line_segment["parameters"]["p1"]["x"] = vec_prev.x;
-				line_segment["parameters"]["p1"]["y"] = vec_prev.y;
-				line_segment["parameters"]["p2"]["x"] = vec_curr.x;
-				line_segment["parameters"]["p2"]["y"] = vec_curr.y;
-				line_segment["parameters"]["pos"]["x"] = lowest.x;
-				line_segment["parameters"]["pos"]["y"] = lowest.y;
-				JsonTo::component(line_segment, entity, game);
-			}
-			prev = p;
-		}
-		return component;
-	}
-
 	if (!json.contains("type"))
 	{
 		// load texturepacker gui spritesheet format
@@ -70,54 +38,102 @@ IComponent* JsonTo::component(nlohmann::json json, Entity* entity, Entity* game)
 	else
 	{
 		std::string type = json["type"];
-		/*if (json["type"].get<std::string>() == "GJK::AABB")
+
+		
+		if (json["type"].get<std::string>() == "Collider")
 		{
-			if (!json["parameters"].contains("state") || json["parameters"]["state"] == "both" || json["paramters"]["state"] == "physical")
+			if (json["parameters"]["shape"]["type"].get<std::string>() == "GJK::AABB")
 			{
-				float x = json["parameters"]["x"];
-				float y = json["parameters"]["y"];
-				float w = json["parameters"]["w"];
-				float h = json["parameters"]["h"];
+				float x = json["parameters"]["shape"]["parameters"]["x"];
+				float y = json["parameters"]["shape"]["parameters"]["y"];
+				float w = json["parameters"]["shape"]["parameters"]["w"];
+				float h = json["parameters"]["shape"]["parameters"]["h"];
 
-				nlohmann::json p1;
-				p1["x"] = x;
-				p1["y"] = y;
-				nlohmann::json p2;
-				p2["x"] = x + w;
-				p2["y"] = y;
-				nlohmann::json p3;
-				p3["x"] = x + w;
-				p3["y"] = y + h;
-				nlohmann::json p4;
-				p4["x"] = x;
-				p4["y"] = y + h;
+				if (!json["parameters"].contains("mask") || json["parameters"]["mask"] == "both" || json["parameters"]["mask"] == "physical" || json["parameters"]["mask"] == "player")
+				{
+					nlohmann::json p1;
+					p1["x"] = x;
+					p1["y"] = y;
+					nlohmann::json p2;
+					p2["x"] = x + w;
+					p2["y"] = y;
+					nlohmann::json p3;
+					p3["x"] = x + w;
+					p3["y"] = y + h;
+					nlohmann::json p4;
+					p4["x"] = x;
+					p4["y"] = y + h;
+	
+					nlohmann::json collider;
+					collider["type"] = "Collider";
+					collider["parameters"]["shape"]["type"] = "GJK::LineSegment";
+					collider["parameters"]["shape"]["parameters"]["p1"] = p1;
+					collider["parameters"]["shape"]["parameters"]["p2"] = p2;
+					collider["parameters"]["mask"] = json["parameters"]["mask"] == "player" ? "player" : "physical";
+					collider["parameters"]["position"] = json["parameters"]["position"];
+					collider["parameters"]["scale"] = json["parameters"]["scale"];
+					JsonTo::component(collider, entity, game);
+	
+					collider["parameters"]["shape"]["parameters"]["p1"] = p2;
+					collider["parameters"]["shape"]["parameters"]["p2"] = p3;
+					JsonTo::component(collider, entity, game);
+	
+					collider["parameters"]["shape"]["parameters"]["p1"] = p3;
+					collider["parameters"]["shape"]["parameters"]["p2"] = p4;
+					JsonTo::component(collider, entity, game);
 
+					collider["parameters"]["shape"]["parameters"]["p1"] = p4;
+					collider["parameters"]["shape"]["parameters"]["p2"] = p1;
+					JsonTo::component(collider, entity, game);
 
-				nlohmann::json line_segment;
-				line_segment["type"] = "GJK::LineSegment";
-				line_segment["parameters"]["p1"] = p1;
-				line_segment["parameters"]["p2"] = p2;
+					if (json["parameters"]["mask"] != "both")
+						return component;
+					
+				}
+				nlohmann::json parameters;
 
-				JsonTo::component(line_segment, entity, game);
-				line_segment["parameters"]["p1"] = p2;
-				line_segment["parameters"]["p2"] = p3;
+				parameters["shape"]["type"] = "GJK::AABB";
+				parameters["shape"]["parameters"]["x"] = x;
+				parameters["shape"]["parameters"]["y"] = y;
+				parameters["shape"]["parameters"]["w"] = w;
+				parameters["shape"]["parameters"]["h"] = h;
+				parameters["mask"] = "actionable";
+				parameters["position"] = json["parameters"]["position"];
+				parameters["scale"] = json["parameters"]["scale"];
 
-				JsonTo::component(line_segment, entity, game);
-				line_segment["parameters"]["p1"] = p3;
-				line_segment["parameters"]["p2"] = p4;
-
-				JsonTo::component(line_segment, entity, game);
-				line_segment["parameters"]["p1"] = p4;
-				line_segment["parameters"]["p2"] = p1;
-
-				JsonTo::component(line_segment, entity, game);
-
-				if (!json["parameters"].contains("state") || json["parameters"]["state"] == "physical")
-					return component;
-
-				json["parameters"]["state"] = "actionable";
+				component = entity->push_back_component((*create_component_map)["Collider"]());
+				component->init(parameters, game);
+				return component;
 			}
-		}*/
+			else if (json["parameters"]["shape"]["type"].get<std::string>() == "GJK::Polygon")
+			{
+				nlohmann::json prev = nullptr;
+				nlohmann::json collider;
+				collider["type"] = "Collider";
+				collider["parameters"]["shape"]["type"] = "GJK::LineSegment";
+				collider["parameters"]["mask"] = "physical";
+				collider["parameters"]["position"] = json["parameters"]["position"];
+				collider["parameters"]["scale"] = json["parameters"]["scale"];
+
+				for (auto p : json["parameters"]["shape"]["parameters"])
+				{
+					if (!prev.is_null())
+					{
+
+						glm::vec2 vec_prev = { prev["x"], prev["y"] };
+						glm::vec2 vec_curr = { p["x"], p["y"] };
+
+						collider["parameters"]["shape"]["parameters"]["p1"]["x"] = vec_prev.x;
+						collider["parameters"]["shape"]["parameters"]["p1"]["y"] = vec_prev.y;
+						collider["parameters"]["shape"]["parameters"]["p2"]["x"] = vec_curr.x;
+						collider["parameters"]["shape"]["parameters"]["p2"]["y"] = vec_curr.y;
+						JsonTo::component(collider, entity, game);
+					}
+					prev = p;
+				}
+				return component;
+			}
+		}
 
 		// load in bitmap glyphs generated from BM Font
 		if (json["type"].get<std::string>() == "BMFont")

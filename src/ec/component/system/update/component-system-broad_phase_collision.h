@@ -13,6 +13,7 @@ namespace System
 	class BroadPhaseCollision : public ISystem
 	{
 		Component::ColliderVector* moveable_colliders_{};
+		Component::ColliderVector* static_colliders_{};
 		Component::QuadTree* tree_{};
 		Component::Pathway* pathway_{};
 		Component::ColliderMask* mask_{};
@@ -21,7 +22,7 @@ namespace System
 		void init(nlohmann::json json, Entity* game) override
 		{
 			moveable_colliders_ = game->get_child("Collision")->get_component<Component::ColliderVector>("moveable_colliders");
-
+			static_colliders_ = game->get_child("Collision")->get_component<Component::ColliderVector>("static_colliders");
 			tree_ = game->get_nested_component<Component::QuadTree>(json["tree"]);
 
 			mask_ = game->get_child("Collision")->get_component<Component::ColliderMask>("mask");
@@ -30,9 +31,15 @@ namespace System
 
 		void execute() override
 		{
-			for (Component::Collider* col_a : *moveable_colliders_)
-				for (Component::Collider* col_b : tree_->retrieve(col_a))
+			tree_->clear();
+			tree_->add(*moveable_colliders_);	
+			tree_->add(*static_colliders_);
+			
+			for (Component::Collider* col_a : *moveable_colliders_){
+				for (Component::Collider* col_b : tree_->retrieve(col_a)){
 					col_a->collide_and_resolve(col_b, mask_, pathway_);
+				}
+			}
 		}
 			
 		std::string get_id() override { return "system-broad_phase_collision"; }

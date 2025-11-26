@@ -152,6 +152,7 @@
                             "Player",
                             "position"
                         ],
+                        "moveable": true,
                         "mask": "player",
                         "scale": ["Player", "scale"]
                     }
@@ -160,6 +161,7 @@
                     "type": "Collider",
                     "name": "player_action_point",
                     "parameters": {
+                        "add_collider": false,
                         "shape": {
                             "type": "GJK::Point",
                             "parameters": {
