@@ -31,7 +31,7 @@ namespace System
 
 		void execute() override
 		{
-			tree_->clear();
+			tree_->all_clear();
 			tree_->add(*moveable_colliders_);	
 			tree_->add(*static_colliders_);
 
@@ -40,6 +40,7 @@ namespace System
 					col_a->collide_and_resolve(col_b, mask_, pathway_);
 				}
 			}
+
 		}
 			
 		std::string get_id() override { return "system-broad_phase_collision"; }

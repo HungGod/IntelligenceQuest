@@ -32,9 +32,18 @@ namespace Component {
            if (this == other) return;
            
            if (is_colliding(other, mask)) {
-                // Handle any commands in other 
                 if (other->data.contains("commands")) {
-                    pathway->message(other->data["commands"]);
+                    if (other->data.contains("cooldown")){
+                        double cooldown = other->data["cooldown"];
+                        double curr_time = glfwGetTime();
+                        if (!this->data.contains("time_stamp") || curr_time - this->data["time_stamp"].get<double>() >= cooldown)
+                        {
+                            this->data["time_stamp"] = curr_time;
+                            pathway->message(other->data["commands"]);
+                        }
+                    }
+                    else
+                        pathway->message(other->data["commands"]);
                 }
 
                 // Handle physical displacement

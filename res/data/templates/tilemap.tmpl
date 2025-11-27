@@ -48,22 +48,6 @@
     </IF>
     {
         "DelayNext":  [
-            <IF TILEMAP_OBSTACLES>
-            {
-                "CreateComponents": {
-                    "path" : [ $GROUP_ID, $TILEMAP_ID, "Update"],
-                    "components": {
-                        "type" : "System::InsertColliders",
-                        "name" : "system-InsertColliders",
-                        "parameters": {
-                            "position": [$GROUP_ID, $TILEMAP_ID, "position"],
-                            "quadtree": ["Collision", "QuadTree", "root"],
-                            "colliders": [ $GROUP_ID, $TILEMAP_ID, "Colliders"]
-                        }
-                    }
-                }
-            },
-            </IF>
             {    
                 "CreateComponents": {
                     "path": [ $GROUP_ID, $TILEMAP_ID, "Render" ],

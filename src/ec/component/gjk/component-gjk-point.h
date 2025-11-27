@@ -26,14 +26,6 @@ namespace GJK
 				offset_.x = json["offset"]["x"];
 				offset_.y = json["offset"]["y"];
 			}
-
-			if (json.contains("scale"))
-			{
-				auto scale = game->get_nested_component<Component::Float>(json["scale"]);
-				distance_ *= scale->val;
-			}
-			
-			IGJK::init(json, game);
 		}
 
 		glm::vec2 get_center(glm::vec2 position, float sc) override

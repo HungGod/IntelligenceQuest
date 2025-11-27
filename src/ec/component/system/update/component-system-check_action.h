@@ -14,7 +14,6 @@ namespace System
 		Component::Collider* action_collider_;
 		Component::QuadTree* quadtree_;
 		IController* controller_;
-		Component::Position* position_;
 		Component::Pathway* pathway_;
 		Component::ColliderMask* mask_;
 	public:
@@ -28,7 +27,6 @@ namespace System
 			action_collider_ = game->get_nested_component<Component::Collider>(json["action_collider"]);
 			quadtree_ = game->get_nested_component<Component::QuadTree>(json["quadtree"]);
 			controller_ = game->get_nested_component<IController>(json["controller"]);
-			position_ = game->get_nested_component<Component::Position>(json["position"]);
 			pathway_ = game->get_component<Component::Pathway>("pathway");
 			mask_ = game->get_child("Collision")->get_component<Component::ColliderMask>("mask");
 		}
@@ -38,11 +36,16 @@ namespace System
 			if (controller_->key_press_action_1())
 			{
 				std::vector<Component::Collider*> retrieved_cols = quadtree_->retrieve(action_collider_);
-				
 				for (auto col_b : retrieved_cols)
 				{
 					if (action_collider_->is_colliding(col_b, mask_))
-						pathway_->message(col_b->data["commands"]);
+					{
+						if (col_b->data.contains("commands"))
+						{
+							pathway_->message(col_b->data["commands"]);
+						}
+
+					}
 				}
 			}
 		}

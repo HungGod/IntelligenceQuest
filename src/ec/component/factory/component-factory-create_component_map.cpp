@@ -23,8 +23,6 @@
 #include "ec/component/system/update/component-system-broad_phase_collision.h"
 
 #include "ec/component/component-json_template_map.h"
-#include "ec/component/system/update/component-system-insert_colliders.h"
-#include "ec/component/system/update/component-system-clear_quad_tree.h"
 #include "ec/component/system/update/component-system-controller_change_direction.h"
 #include "ec/component/system/update/component-system-check_action.h"
 #include "ec/component/system/update/component-system-execute_json.h"
@@ -133,8 +131,6 @@ void Factory::CreateComponentMap::create()
 	(*this)["System::AnimateMove"] = c_component<System::AnimateMove>;
 	(*this)["System::BroadPhaseCollision"] = c_component<System::BroadPhaseCollision>;
 	(*this)["System::NPCMove"] = c_component<System::NPCMove>;
-	(*this)["System::InsertColliders"] = (*this)["System::AddColliders"] = c_component<System::InsertColliders>;
-	(*this)["System::ClearQuadtree"] = (*this)["System::ClearQuadTree"] = c_component<System::ClearQuadTree>;
 	(*this)["System::ControllerChangeDirection"] = c_component<System::ControllerChangeDirection>;
 	(*this)["System::CheckAction"] = c_component<System::CheckAction>;
 	(*this)["System::ExecuteJson"] = c_component<System::ExecuteJson>;

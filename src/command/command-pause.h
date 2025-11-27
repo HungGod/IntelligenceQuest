@@ -98,7 +98,7 @@ namespace Command
 
 				moveable_colliders->clear();
 				static_colliders->clear();
-				quadtree->clear();
+				quadtree->all_clear();
 			}
 
 		}

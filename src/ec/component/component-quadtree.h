@@ -14,47 +14,44 @@ namespace Component
 	class QuadTree : public IComponent
 	{
 		Rect rect_;
-		std::array<QuadTree*, MAX_INDEX> trees_;
 		std::vector<Component::Collider*> objects_;
 		std::size_t max_objects_;
-		bool split_;
+		std::array<QuadTree*, MAX_INDEX> trees_;
 		Component::QuadTreeVector* all_trees_;
 
-		enum quadrants
+		enum quadrants: unsigned
 		{
-			top_left,
-			top_right,
-			bot_right,
-			bot_left
+			top_left = 0,
+			top_right = 1,
+			bot_right = 2,
+			bot_left = 3
 		};
 
-		unsigned index(Rect obj)
+		std::vector<unsigned> index(Rect obj)
 		{
-			auto vertical_midpoint = rect_.x + (rect_.w / 2.0f);
-			auto horizontal_midpoint = rect_.y + (rect_.h / 2.0f);
+			float vertical_midpoint = rect_.x + (rect_.w / 2.0f);
+			float horizontal_midpoint = rect_.y + (rect_.h / 2.0f);
 
-			auto x = obj.x;
-			auto y = obj.y;
-			auto w = obj.w;
-			auto h = obj.h;
+			float x = obj.x;
+			float y = obj.y;
+			float w = obj.w;
+			float h = obj.h;
 
-			auto top_quadrant = y < horizontal_midpoint;
-			auto bottom_quadrant = y + h > horizontal_midpoint;
+			bool top_quadrant = y < horizontal_midpoint;
+			bool bottom_quadrant = y + h > horizontal_midpoint;
 
-			auto left_quadrant = x < vertical_midpoint;
-			auto right_quadrant = x + w > vertical_midpoint;
+			bool left_quadrant = x < vertical_midpoint;
+			bool right_quadrant = x + w > vertical_midpoint;
 
-
-			auto i = 0u;
-			auto index = 0u;
+			std::vector<unsigned> index;
 
 			if (left_quadrant) {
-				if (top_quadrant) index += top_left << (i++ << 1u);
-				if (bottom_quadrant) index += bot_left << (i++ << 1u);
+				if (top_quadrant) index.push_back(top_left) ;
+				if (bottom_quadrant) index.push_back(bot_left);
 			}
 			if (right_quadrant) {
-				if (top_quadrant) index += top_right << (i++ << 1u);
-				if (bottom_quadrant) index += bot_right << (i++ << 1u);
+				if (top_quadrant) index.push_back(top_right);
+				if (bottom_quadrant) index.push_back(bot_right);
 			}
 			return index;
 		}
@@ -62,7 +59,11 @@ namespace Component
 		void split()
 		{
 			if (index_->val + MAX_INDEX > all_trees_->size())
+			{
+				print_all_trees();
+				print(std::cout);
 				Logger::error("QuadTree exceeds max allocated trees", Logger::SEVERITY::HIGH);
+			}
 
 			auto x = rect_.x;
 			auto y = rect_.y;
@@ -70,72 +71,75 @@ namespace Component
 			auto sub_h = rect_.h / 2.0f;
 
 			// inits 4 quad trees at index and adds entities to the prior tree's children
-			trees_[top_left] = all_trees_->at(index_->val++)->init(Rect{ x, y, sub_w, sub_h });
-			trees_[top_right] = all_trees_->at(index_->val++)->init(Rect{ x + sub_w, y, sub_w, sub_h });
-			trees_[bot_right] = all_trees_->at(index_->val++)->init(Rect{ x + sub_w, y + sub_h, sub_w, sub_h });
-			trees_[bot_left] = all_trees_->at(index_->val++)->init(Rect{ x, y + sub_h, sub_w, sub_h });
+			trees_[top_left] = all_trees_->at(index_->val++)->init_rect(Rect{ x, y, sub_w, sub_h });
+			trees_[top_right] = all_trees_->at(index_->val++)->init_rect(Rect{ x + sub_w, y, sub_w, sub_h });
+			trees_[bot_right] = all_trees_->at(index_->val++)->init_rect(Rect{ x + sub_w, y + sub_h, sub_w, sub_h });
+			trees_[bot_left] = all_trees_->at(index_->val++)->init_rect(Rect{ x, y + sub_h, sub_w, sub_h });
+		
 		}
 
 		void retrieve(Rect col, std::vector<Component::Collider*>& retrieved_objs)
 		{
-			if (split_)
-				for (auto in = index(col);;)
-				{
-					auto in_tree = trees_[in % MAX_INDEX];
-					in_tree->retrieve(col, retrieved_objs);
-					in >>= 2;
-					if (!in) return;
-				}
-
 			for (auto &obj : objects_)
 				retrieved_objs.push_back(obj);
+
+			if (trees_[top_left] != nullptr)
+				for (auto in : index(col))
+				{
+					auto in_tree = trees_[in];
+					in_tree->retrieve(col, retrieved_objs);
+				}
 		}
 
 		void insert(Component::Collider* obj)
 		{
 			if (objects_.size() >= max_objects_) {
 				split();
+				std::vector<Component::Collider*> multi_quadrant_objects{};
 				for (auto i = 0u; i < objects_.size(); i++)
 				{
 					auto col = objects_[i];
 
-					for (auto in = index(col->get_rect());;)
-					{
-						auto in_tree = trees_[in % MAX_INDEX];
-						in_tree->insert(col);
-						in >>= 2;
-						if (!in) break;
-					}
+					auto in = index(col->get_rect());
+
+					if (in.size() == 1) trees_[in.front()]->insert(col);
+					else multi_quadrant_objects.push_back(col);
 				}
-				objects_.clear();
-				split_ = true;
+				objects_ = multi_quadrant_objects;
 			}
 
-			if (split_)
-				for (auto in = index(obj->get_rect());;) {
-					auto in_tree = trees_[in % MAX_INDEX];
-					in_tree->insert(obj);
-					in >>= 2;
-					if (!in) return;
+			if (trees_[top_left] != nullptr)
+			{
+				auto in = index(obj->get_rect());
+				if (in.size() == 1) 
+				{
+					trees_[in.front()]->insert(obj);
+					return;
 				}
+			}
 
 			objects_.push_back(obj);
 		}
+
+		void clear()
+		{
+			objects_.clear();
+			trees_ = {nullptr, nullptr, nullptr, nullptr};
+		}
 	public:
-		int num_objects_;
 		Component::Int* index_;
 
 		QuadTree()
-			: index_(nullptr), all_trees_(nullptr), max_objects_(0), rect_{0}, split_(false), num_objects_(0)
+			: index_(nullptr), all_trees_(nullptr), max_objects_(0), rect_{0}, trees_{nullptr, nullptr, nullptr, nullptr}
 		{}
 
 		QuadTree(Component::QuadTreeVector* all_trees, Component::Int* index, std::size_t max_objects)
-			: all_trees_(all_trees), max_objects_(max_objects), index_(index), rect_{0}, split_(false)
+			: all_trees_(all_trees), max_objects_(max_objects), index_(index), rect_{0}, trees_{nullptr, nullptr, nullptr, nullptr}
 		{
 			objects_.reserve(max_objects);
 		}
 
-		QuadTree* init(Rect rect)
+		QuadTree* init_rect(Rect rect)
 		{
 			clear();
 			rect_ = rect;
@@ -144,6 +148,12 @@ namespace Component
 
 		void init(nlohmann::json json, Entity* game) override
 		{
+			if (all_trees_ != nullptr)
+			{
+				Logger::error("QuadTree already initialized", Logger::SEVERITY::HIGH);
+				return;
+			}
+
 			auto root_entity = game->get_nested_child(json["path"]);
 			max_objects_ = json["max_objects"];
 			int max_trees = json["max_trees"];
@@ -158,32 +168,30 @@ namespace Component
 				all_trees_->push_back(static_cast<QuadTree*>(root_entity->push_back_component(new Component::QuadTree(all_trees_, index_, max_objects_))));
 		}
 
-		void print(std::ostream& os, int level = 0)
+		void print_all_trees()
+		{
+			std::cout << std::endl;
+			int object_count = this->objects_.size();
+			for (auto tree : *all_trees_)
+				object_count += tree->objects_.size();
+			std::cout << "object_count: " << object_count << std::endl;
+		}
+
+		void print(std::ostream& os, int level = 0, std::string prefix = "r")
 		{
 			os << std::endl;
-
-			if (trees_[top_left])
+			auto t_rect = this->rect_;
+			os << std::string(level, '\t') << prefix<< ": (" << t_rect.x << ", " << t_rect.y << ", "
+				<< t_rect.w << ", " << t_rect.h << ")" << std::endl;
+			for (auto obj : objects_)
+				os << std::string(level, '\t') << prefix << " -> o: (" << obj->get_rect().x << ", " << obj->get_rect().y << ", "
+					<< obj->get_rect().w << ", " << obj->get_rect().h << ")" << std::endl;
+			if (trees_[top_left] != nullptr)
 			{
-				auto t_tl = trees_[top_left]->rect_;
-				os << std::string(level, '\t') << "(" << t_tl.x << ", " << t_tl.y << ", "
-					<< t_tl.w << ", " << t_tl.h << ")";
-				trees_[top_left]->print(os, level + 1);
-
-				auto t_tr = trees_[top_right]->rect_;
-				os << std::string(level, '\t') << "(" << t_tr.x << ", " << t_tr.y << ", "
-					<< t_tr.w << ", " << t_tr.h << ")";
-				trees_[top_right]->print(os, level + 1);
-
-				auto t_br = trees_[bot_right]->rect_;
-				os << std::string(level, '\t') << "(" << t_br.x << ", " << t_br.y << ", "
-					<< t_br.w << ", " << t_br.h << ")";
-				trees_[bot_right]->print(os, level + 1);
-
-				auto t_bl = trees_[bot_left]->rect_;
-				os << std::string(level, '\t') << "(" << t_bl.x << ", " << t_bl.y << ", "
-					<< t_bl.w << ", " << t_bl.h << ")";
-				trees_[bot_left]->print(os, level + 1);
-
+				trees_[top_left]->print(os, level + 1, "tl");
+				trees_[top_right]->print(os, level + 1, "tr");
+				trees_[bot_right]->print(os, level + 1, "br");
+				trees_[bot_left]->print(os, level + 1, "bl");
 			}
 
 		}
@@ -191,7 +199,6 @@ namespace Component
 		void add(Component::Collider* col)
 		{
 			insert(col);
-			num_objects_++;
 		}
 
 		void add(std::vector<Component::Collider*>& colliders)
@@ -200,15 +207,10 @@ namespace Component
 				add(col);
 		}
 
-		void clear()
-		{
-			num_objects_ = 0;
-			objects_.clear();
-			split_ = false;
-		}
-
 		void all_clear()
 		{
+			for (int i = 0; i < index_->val; i++)
+				all_trees_->at(i)->clear();
 			clear();
 			index_->val = 0;
 		}

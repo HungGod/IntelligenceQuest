@@ -165,7 +165,7 @@
                         "shape": {
                             "type": "GJK::Point",
                             "parameters": {
-                                "distance": 72,
+                                "distance": 64,
                                 "offset": {
                                     "x": 32,
                                     "y": 32
@@ -247,10 +247,6 @@
                                 "controller": [
                                     "Controller",
                                     "controller"
-                                ],
-                                "position": [
-                                    "Player",
-                                    "position"
                                 ]
                             }
                         },

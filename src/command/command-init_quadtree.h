@@ -27,7 +27,8 @@ namespace Command
 			auto position = game->get_nested_component<Component::Position>(position_path_);
 
 			Rect map = { position->x, position->y, tilemap->width * tilemap->tile_size * scale->val, tilemap->height * tilemap->tile_size * scale->val };
-			quadtree->init(map);
+			quadtree->init_rect(map);
+			quadtree->all_clear();
 		}
 		std::string to_string() override { return "init_quadtree"; }
 	};

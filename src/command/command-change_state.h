@@ -33,6 +33,7 @@ namespace Command
 
 		void execute(Entity* game, Component::Pathway* pathway) override
 		{
+
 			auto set_system_vec = [game] (std::vector<nlohmann::json> vec, std::string sys_name, std::string child_name)
 			{
 				auto& c_system = *game->get_component<Component::SystemVector>(sys_name);
@@ -57,6 +58,10 @@ namespace Command
 
 			if (add_colliders_to_quadtree_)
 			{
+				Component::ColliderVector* moveable_colliders = game->get_child("Collision")->get_component<Component::ColliderVector>("moveable_colliders");
+				Component::ColliderVector* static_colliders = game->get_child("Collision")->get_component<Component::ColliderVector>("static_colliders");
+				moveable_colliders->clear();
+				static_colliders->clear();
 				for (auto& rj : render_)
 				{
 					Entity* e = game->get_nested_child(rj);
@@ -64,9 +69,7 @@ namespace Command
 					if (e->has_child("Colliders"))
 					{
 						Entity* e_colliders = e->get_child("Colliders");
-						Component::ColliderVector* moveable_colliders = game->get_child("Collision")->get_component<Component::ColliderVector>("moveable_colliders");
-						Component::ColliderVector* static_colliders = game->get_child("Collision")->get_component<Component::ColliderVector>("static_colliders");
-
+						
 						for (auto& c : e_colliders->casted_component_list<Component::Collider>())
 						{
 							if (c->add_collider)

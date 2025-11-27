@@ -42,6 +42,7 @@ IComponent* JsonTo::component(nlohmann::json json, Entity* entity, Entity* game)
 		
 		if (json["type"].get<std::string>() == "Collider")
 		{
+			
 			if (json["parameters"]["shape"]["type"].get<std::string>() == "GJK::AABB")
 			{
 				float x = json["parameters"]["shape"]["parameters"]["x"];
@@ -98,6 +99,7 @@ IComponent* JsonTo::component(nlohmann::json json, Entity* entity, Entity* game)
 				parameters["shape"]["parameters"]["w"] = w;
 				parameters["shape"]["parameters"]["h"] = h;
 				parameters["mask"] = "actionable";
+				parameters["data"] = json["parameters"]["data"];
 				parameters["position"] = json["parameters"]["position"];
 				parameters["scale"] = json["parameters"]["scale"];
 
@@ -133,6 +135,17 @@ IComponent* JsonTo::component(nlohmann::json json, Entity* entity, Entity* game)
 				}
 				return component;
 			}
+			else if (json["parameters"].contains("mask") && json["parameters"]["mask"] == "both")
+			{
+				// create seperate colliders for physical and actionable
+				json["parameters"]["mask"] = "actionable";
+				JsonTo::component(json, entity, game);
+				json["parameters"]["mask"] = "physical";
+				if (json["parameters"].contains("data"))
+					json["parameters"].erase("data");
+				return JsonTo::component(json, entity, game);
+			}
+
 		}
 
 		// load in bitmap glyphs generated from BM Font
@@ -151,7 +164,7 @@ IComponent* JsonTo::component(nlohmann::json json, Entity* entity, Entity* game)
 
 		if (json.contains("name") && !json["name"].is_null())
 		{
-			if (json["name"].is_string()) // I could make "name" a union and reduce 20 lines of code but I couldn't be bothered. 
+			if (json["name"].is_string())
 			{
 				std::string name = json["name"];
 				component = entity->get_raw_component(name);

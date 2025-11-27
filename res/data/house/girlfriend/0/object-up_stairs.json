@@ -62,6 +62,7 @@
                         },
                         "mask": "action_space",
                         "data": {
+                            "cooldown": 2, 
                             "commands": {
                                 "ParseJsonTemplate": {
                                     "template": "res/data/templates/warp.tmpl",

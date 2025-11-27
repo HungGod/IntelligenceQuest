@@ -152,10 +152,8 @@ set(EC_System_Update
         ec/component/system/update/component-system-broad_phase_collision.h
         ec/component/system/update/component-system-camera.h
         ec/component/system/update/component-system-check_action.h
-        ec/component/system/update/component-system-clear_quad_tree.h
         ec/component/system/update/component-system-controller_change_direction.h
         ec/component/system/update/component-system-execute_json.h
-        ec/component/system/update/component-system-insert_colliders.h
         ec/component/system/update/component-system-move.h
         ec/component/system/update/component-system-npc_move.h
         ec/component/system/update/component-system-combat-controller.h
