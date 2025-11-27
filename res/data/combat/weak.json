@@ -29,10 +29,6 @@
                         "parameters": 3.0
                     },
                     {
-                        "type": "Hitboxes",
-                        "name": "impulse"                
-                    },
-                    {
                         "type": "Float",
                         "name": "speed",
                         "parameters": 240
@@ -41,6 +37,10 @@
                         "type": "Float",
                         "name": "animation_speed",
                         "parameters": 8
+                    },
+                    {
+                        "type": "Vector2D",
+                        "name": "velocity"
                     },
                     {
                         "type" : "AnimationMap",
@@ -74,6 +74,10 @@
                         "parameters": {
                             "path": ["Combat", "Spritesheet", "Combat", "weak_idle_down.png"]
                         }
+                    },    
+                    {
+                        "type": "ColliderVector",
+                        "name": "impulse"
                     },
                     {
                         "type" : "Animation",
@@ -137,11 +141,11 @@
         "DelayNext": [
             {
                 "CreateComponents": {
-                    "path": ["Combat", "Weak"],
+                    "path": ["Combat", "Weak", "Colliders"],
                     "components": 
                     {
                         "type": "Collider",
-                        "name": "collider",
+                        "name": "weak_collider",
                         "parameters": {
                             "shape": {
                                 "type" : "GJK::Ellipse",

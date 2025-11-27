@@ -12,6 +12,10 @@
                     }
                 },
                 {
+                    "type": "Vector2D",
+                    "name": "velocity"
+                },
+                {
                     "type": "Float",
                     "name": "height",
                     "parameters": 64
@@ -37,29 +41,89 @@
                     "parameters": 8
                 },
                 {
-                    "type": "Collider",
-                    "name": "collider",
-                    "parameters": {
-                        "shape": {
-                            "type": "GJK::Circle",
-                            "parameters": {
-                                "radius": 32,
-                                "center": {
-                                    "x": 32,
-                                    "y": 32
-                                }
-                            }
-                        },
-                        "kind": "physical",
-                        "position": ["Combat", "Player", "position"],
-                        "scale": ["Combat", "Player", "scale"]
-                    }
-                },
-                {
                     "type" : "Src::Transform",
                     "name" : "src_temp",
                     "parameters": {
                         "path": ["Spritesheet", "flesh_idle_up.png"]
+                    }
+                },
+                {
+                    "type": "Json",
+                    "name": "combat_abilities",
+                    "parameters": {
+                        "jump": {
+                            "Jump": {
+                                "velocity": ["Combat", "Player", "velocity"],
+                                "jump_height": 10
+                            }
+                        },
+                        "ground_ability_1": {
+                            "Attack": {
+                                "spritesheet": ["Combat", "Spritesheet", "combat-spritesheet"],
+                                "direction": ["Combat", "Player", "direction"],
+                                "src": ["Combat", "Player", "src"],
+                                "attack": {
+                                    "left": [
+                                        "attack_left_0.png",
+                                        "attack_left_1.png",
+                                        "attack_left_2.png"
+                                    ],
+                                    "right": [
+                                        "attack_right_0.png",
+                                        "attack_right_1.png",
+                                        "attack_right_2.png"
+                                    ]
+                                },
+                                "hitboxes": ["Combat", "Player", "hitboxes"]
+                            }
+                        },
+                        "ground_ability_2": {
+                            "Projectile": {
+                                "spritesheet": ["Combat", "Spritesheet", "combat-spritesheet"],
+                                "direction": ["Combat", "Player", "direction"],
+                                "src": ["Combat", "Player", "src"],
+                                "projectile_vel": 40,
+                                "duration": 2,
+                                "left": [
+                                    "projectile_left.png"
+                                ],
+                                "right": [
+                                    "projectile_right.png"
+                                ],
+                                "hitboxes": ["Combat", "Player", "hitboxes"]
+                            }
+                        },
+                        "ground_ability_3": {
+                            "Block": {
+                                "spritesheet": ["Combat", "Spritesheet", "combat-spritesheet"],
+                                "direction": ["Combat", "Player", "direction"],
+                                "src": ["Combat", "Player", "src"],
+                                "block_health": 10,
+                                "block": [
+                                    "block.png"
+                                ],
+                                "block_broken": [
+                                    "block_broken.png"
+                                ],
+                                "hitboxes": ["Combat", "Player", "hitboxes"]
+                            }
+                        },
+                        "air_ability_1": {
+                            "Attack": {
+                                "spritesheet": ["Combat", "Spritesheet", "combat-spritesheet"],
+                                "direction": ["Combat", "Player", "direction"],
+                                "src": ["Combat", "Player", "src"],
+                                "attack": {
+                                    "left": [
+                                        "kick_left.png"
+                                    ],
+                                    "right": [
+                                        "kick_right.png"
+                                    ]
+                                },
+                                "hitboxes": ["Combat", "Player", "hitboxes"]
+                            }
+                        }
                     }
                 },
                 {
@@ -69,6 +133,10 @@
                         "animation_map": [ "Player", "animation_map"],
                         "id": "idle_down"
                     }
+                },
+                {
+                    "type": "ColliderVector",
+                    "name": "impulse"
                 },
                 {
                     "type" : "Direction",
@@ -81,6 +149,28 @@
                     "parameters": {"x": 0, "y": 1}
                 }
             ]
+        }
+    },
+    {
+        "CreateComponents": {
+            "path": ["Combat", "Player", "Colliders"],
+            "components": {
+                "type": "Collider",
+                "name": "player_collider",
+                "parameters": {
+                    "shape": {
+                        "type": "GJK::Circle",
+                        "parameters": {
+                            "radius": 32,
+                            "x": 32,
+                            "y": 32
+                        }
+                    },
+                    "kind": "physical",
+                    "position": ["Combat", "Player", "position"],
+                    "scale": ["Combat", "Player", "scale"]
+                }
+            }
         }
     },
     {
@@ -100,6 +190,7 @@
                     "type": "System::CombatController",
                     "name": "system-combat_controller",
                     "parameters": {
+                        "combat_abilities" : ["Combat", "Player", "combat_abilities"],
                         "controller" : [ "Controller", "controller" ],
                         "direction" : [ "Combat", "Player", "direction" ]
                     }

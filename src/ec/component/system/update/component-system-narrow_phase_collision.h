@@ -6,7 +6,6 @@
 #include "ec/component/component-pathway.h"
 #include "ec/component/component-template.h"
 #include "ec/component/component-vec2.h"
-#include "ec/component/component-hitboxes.h"
 
 namespace System {
 
@@ -14,8 +13,8 @@ namespace System {
     {
         struct Fighter {
             Component::Vector2D* velocity{};
-            std::vector<Component::Collider*> colliders{};
-            Component::Hitboxes* impulse{};
+            std::vector<Component::Collider*> hitboxes{};
+            Component::ColliderVector* impulse{};
             nlohmann::json       id;
         };
 
@@ -28,12 +27,11 @@ namespace System {
         void init(nlohmann::json j, Entity* g) override
         {
             for (auto& jf : j["fighters"]) {
-                Entity* colliders = g->get_nested_child(jf["colliders"]);
-
+                Entity* physical_colliders = g->get_nested_child(jf["hitboxes"]);
                 fighters_.push_back({
                     g->get_nested_component<Component::Vector2D>(jf["velocity"]),
-                    colliders->casted_component_list<Component::Collider>(),
-                    g->get_nested_component<Component::Hitboxes>(jf["impulse"]),
+                    physical_colliders->casted_component_list<Component::Collider>(),
+                    g->get_nested_component<Component::ColliderVector>(jf["impulse"]),
                     jf["id"]
                     });
             }
@@ -58,7 +56,7 @@ namespace System {
                         if (i == j) continue;
                         Fighter& B = fighters_[j];
 
-                        for (Component::Collider* col : B.colliders)
+                        for (Component::Collider* col : B.hitboxes)
                         {
                             atk->collide_and_resolve(col, mask_, pathway_);
                         }
@@ -78,8 +76,9 @@ namespace System {
                 {
                     Fighter& B = fighters_[j];
 
-                    for (Component::Collider* pa : A.colliders)
-                        for (Component::Collider* pb : B.colliders)
+                    for (Component::Collider* pa : A.hitboxes)
+                    {
+                        for (Component::Collider* pb : B.hitboxes)
                         {
                             pa->collide_and_resolve(pb, mask_, pathway_);
                         }
@@ -95,9 +94,9 @@ namespace System {
                 fighters_[i].velocity->y += avg.y;
             }
         }
+    }
 
 
         std::string get_id() override { return "system-narrow_phase_collision"; }
     };
-
 } // namespace System

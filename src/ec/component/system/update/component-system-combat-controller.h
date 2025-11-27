@@ -11,17 +11,19 @@ namespace System
 	{
 		IController* controller_{};
 		Component::Direction* direction_{};
-		Component::Json* ground_ability_1{}, * ground_ability_2{}, * ground_ability_3{},
-			* air_ability_1{}, * air_ability_2{}, * air_ability_3{}, * jump{};
-		Component::Bool* midair{};
+		Component::Json* combat_abilities{};
+		bool midair_{}
 		Component::Pathway* pathway_{};
 	public:
 		CombatController() = default;
 
 		void init(nlohmann::json json, Entity* game) override
 		{
+			midair_ = false;
+			combat_abilities = game->get_nested_component<Component::Json>(json["combat_abilities"]);
 			controller_ = game->get_nested_component<IController>(json["controller"]);
 			direction_ = game->get_nested_component<Component::Direction>(json["direction"]);
+			pathway_ = game->get_component<Component::Pathway>("pathway");
 		}
 
 		void execute() override
@@ -30,32 +32,30 @@ namespace System
 			direction_->x = (float)controller_->key_down_right() - (float)controller_->key_down_left();
 
 			if (controller_->key_down_up())
-				if (!midair->val)
-					pathway_->message(jump->val);
-			
+				if (!midair_)
+				{
+					midair_ = true;
+					pathway_->message(combat_abilities->val["jump"]);
+				}
 
 			if (controller_->key_press_action_1())
 			{
-				if (midair->val)
-					pathway_->message(air_ability_1->val);
+				if (midair_)
+					pathway_->message(combat_abilities->val["air_ability_1"]);
 				else
-					pathway_->message(ground_ability_1->val);
+					pathway_->message(combat_abilities->val["ground_ability_1"]);
 			}
 
 			if (controller_->key_press_action_2())
 			{
-				if (midair->val)
-					pathway_->message(air_ability_2->val);
-				else
-					pathway_->message(ground_ability_2->val);
+				if (!midair_)
+					pathway_->message(combat_abilities->val["ground_ability_2"]);
 			}
 
 			if (controller_->key_press_action_3())
 			{
-				if (midair->val)
-					pathway_->message(air_ability_3->val);
-				else
-					pathway_->message(ground_ability_3->val);
+				if (!midair_)
+					pathway_->message(combat_abilities->val["ground_ability_3"]);
 			}
 		}
 		std::string get_id() override { return "system-combat-controller"; }

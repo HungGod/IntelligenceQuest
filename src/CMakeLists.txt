@@ -16,6 +16,7 @@
 
 # --- Commands -----------------------------------------------------------------
 set(Commands
+        command/command-jump.h
         command/command-add_flag.h
         command/command-add_intelligence.h
         command/command-add_kerning.h

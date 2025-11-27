@@ -39,15 +39,15 @@
                     "parameters": {
                         "fighters": [
                             {
-                                "position": ["Combat", "Player", "position"],
-                                "physical_hitboxes": ["Combat", "Player", "physical_hitboxes"],
-                                "attacking_hitboxes": ["Combat", "Player", "attacking_hitboxes"],
+                                "velocity": ["Combat", "Player", "direction"],
+                                "hitboxes": ["Combat", "Player", "Colliders"],
+                                "impulse": ["Combat", "Player", "impulse"],
                                 "id": ["Combat", "Player"]
                             },
                             {
-                                "position": ["Combat", "Weak", "position"],
-                                "physical_hitboxes": ["Combat", "Weak", "physical_hitboxes"],
-                                "attacking_hitboxes": ["Combat", "Weak", "attacking_hitboxes"],
+                                "velocity": ["Combat", "Weak", "direction"],
+                                "hitboxes": ["Combat", "Weak", "Colliders"],
+                                "impulse": ["Combat", "Weak", "impulse"],
                                 "id": ["Combat", "Weak"]
                             }
                         ]
