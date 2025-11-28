@@ -26,9 +26,10 @@ namespace System
 		glm::vec2 center_;
 		Component::Position* position_;
 		Component::Direction* direction_;
+		Component::Velocity* velocity_;
 	public:
 		NPCMove()
-			:  speed_(nullptr), delta_time_(nullptr), center_(), position_(nullptr), end_time_(0), direction_(nullptr), radius_(nullptr)
+			:  speed_(nullptr), delta_time_(nullptr), center_(), position_(nullptr), end_time_(0), direction_(nullptr), radius_(nullptr), velocity_(nullptr)
 		{}
 
 		void init(nlohmann::json json, Entity* game) override
@@ -44,6 +45,7 @@ namespace System
 			center_ = *position_;
 			speed_ = game->get_nested_component<Component::Float>(json["speed"]);
 			delta_time_ = game->get_component<Component::Float>("delta_time");
+			velocity_ = game->get_nested_component<Component::Velocity>(json["velocity"]);
 		}
 
 		void execute() override
@@ -51,8 +53,12 @@ namespace System
 			double curr_time = glfwGetTime();
 			if (curr_time < end_time_)
 			{
-				position_->x += direction_->x * speed_->val * delta_time_->val;
-				position_->y += direction_->y * speed_->val * delta_time_->val;
+				velocity_->x += direction_->x * speed_->val;
+				velocity_->y += direction_->y * speed_->val;
+				position_->x += velocity_->x * delta_time_->val;
+				position_->y += velocity_->y * delta_time_->val;
+				velocity_->x = 0.0f;
+				velocity_->y = 0.0f;
 			}
 			else
 			{

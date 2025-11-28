@@ -12,8 +12,33 @@
                     }
                 },
                 {
-                    "type": "Vector2D",
+                    "type": "Velocity",
                     "name": "velocity"
+                },
+                {
+                    "type": "Bool",
+                    "name": "invincible",
+                    "parameters": false
+                },
+                {
+                    "type": "Bool",
+                    "name": "untouchable",
+                    "parameters": false 
+                },
+                {
+                    "type": "Bool",
+                    "name": "in_shield",
+                    "parameters": false
+                },
+                {
+                    "type": "Bool",
+                    "name": "stunned",
+                    "parameters": false
+                },
+                {
+                    "type": "Bool",
+                    "name": "midair",
+                    "parameters": false
                 },
                 {
                     "type": "Float",
@@ -54,7 +79,8 @@
                         "jump": {
                             "Jump": {
                                 "velocity": ["Combat", "Player", "velocity"],
-                                "jump_height": 10
+                                "jump_velocity": -32768,
+                                "jump_frames": 32
                             }
                         },
                         "ground_ability_1": {
@@ -190,6 +216,9 @@
                     "type": "System::CombatController",
                     "name": "system-combat_controller",
                     "parameters": {
+                        "midair": ["Combat", "Player", "midair"],
+                        "speed": ["Combat", "Player", "speed"],
+                        "velocity": ["Combat", "Player", "velocity"],
                         "combat_abilities" : ["Combat", "Player", "combat_abilities"],
                         "controller" : [ "Controller", "controller" ],
                         "direction" : [ "Combat", "Player", "direction" ]

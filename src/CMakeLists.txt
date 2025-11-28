@@ -160,7 +160,6 @@ set(EC_System_Update
         ec/component/system/update/component-system-combat-controller.h
         ec/component/system/update/component-system-combat-gravity_physics.h
         ec/component/system/update/component-system-combat-transformations.h
-        ec/component/system/update/component-system-combat_ability_factory.h
         ec/component/system/update/component-system-narrow_phase_collision.h
         ec/component/system/update/component-system-navigate-fight.h
         ec/component/system/update/component-system-navigate-horizontal.h

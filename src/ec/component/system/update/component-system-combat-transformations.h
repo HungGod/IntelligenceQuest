@@ -31,10 +31,10 @@ namespace System {
     {
         struct Fighter {
             Component::Position* pos{};
-            Component::Direction* dir{};
-            Component::Float* speed{};
+            Component::Bool* stunned{};
             Component::Float* width{};
             Component::Float* height{};
+            Component::Velocity* velocity{};
         };
 
         std::vector<Fighter> fighters_;
@@ -77,10 +77,10 @@ namespace System {
         for (auto& jc : j["combatants"]) {
             Fighter f;
             f.pos = g->get_nested_component<Component::Position>(jc["position"]);
-            f.dir = g->get_nested_component<Component::Direction>(jc["direction"]);
-            f.speed = g->get_nested_component<Component::Float>(jc["speed"]);
+            f.stunned = g->get_nested_component<Component::Bool>(jc["stunned"]);
             f.width = g->get_nested_component<Component::Float>(jc["width"]);
             f.height = g->get_nested_component<Component::Float>(jc["height"]);
+            f.velocity = g->get_nested_component<Component::Velocity>(jc["velocity"]);
             fighters_.push_back(f);
         }
 
@@ -104,10 +104,6 @@ namespace System {
         const float vp_w = viewport_width_->val;
         const float vp_h = viewport_height_->val;
         const float old_zoom = camera_zoom_->val;
-
-        /* 1. advance fighters in world space */
-        for (auto& f : fighters_)
-            f.pos->x += f.speed->val * f.dir->x * dt;
 
         /* 2. bounding box of fighters (world units) */
         float min_x = FLT_MAX, max_x = -FLT_MAX;

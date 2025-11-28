@@ -18,19 +18,44 @@
                         "combatants": [
                             {
                                 "position":  ["Combat", "Player", "position"],
-                                "direction": ["Combat", "Player", "direction"],
+                                "stunned":   ["Combat", "Player", "stunned"],
                                 "width":     ["Combat", "Player", "width"],
                                 "height":    ["Combat", "Player", "height"],
-                                "speed":     ["Combat", "Player", "speed"]
+                                "velocity":  ["Combat", "Player", "velocity"]
                             },
                             {
                                 "position":  ["Combat", "Weak", "position"],
-                                "direction": ["Combat", "Weak", "direction"],
+                                "stunned":   ["Combat", "Weak", "stunned"],
                                 "width":     ["Combat", "Weak", "width"],
                                 "height":    ["Combat", "Weak", "height"],
-                                "speed":     ["Combat", "Weak", "speed"]
+                                "velocity":  ["Combat", "Weak", "velocity"]
                             }
                         ]
+                    }
+                },
+                {
+                    "type": "System::GravityPhysics",
+                    "name": "system-gravity_physics",
+                    "parameters": {
+                        "fighters": [
+                            {
+                                "velocity": ["Combat", "Player", "velocity"],
+                                "position": ["Combat", "Player", "position"],
+                                "scale": ["Combat", "Player", "scale"],
+                                "midair": ["Combat", "Player", "midair"],
+                                "height": ["Combat", "Player", "height"]
+                            },
+                            {
+                                "velocity": ["Combat", "Weak", "velocity"],
+                                "position": ["Combat", "Weak", "position"],
+                                "midair": ["Combat", "Weak", "midair"],
+                                "scale": ["Combat", "Weak", "scale"],
+                                "height": ["Combat", "Weak", "height"]
+                            }
+                        ],
+                        "camera_position": ["Combat", "Camera", "position"],
+                        "camera_zoom": ["Combat", "Camera", "zoom"],
+                        "gravity": 98.1
                     }
                 },
                 {

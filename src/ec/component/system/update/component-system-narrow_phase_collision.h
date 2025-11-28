@@ -82,19 +82,19 @@ namespace System {
                         {
                             pa->collide_and_resolve(pb, mask_, pathway_);
                         }
+                    }
+                }
+
+                /* ───────── 3. apply averaged displacement once per fighter ─────── */
+                for (std::size_t i = 0; i < n; ++i)
+                {
+                    if (hits_per_fighter[i] == 0) continue;
+                    glm::vec2 avg = resolve_per_fighter[i] / static_cast<float>(hits_per_fighter[i]);
+                    fighters_[i].velocity->x += avg.x;
+                    fighters_[i].velocity->y += avg.y;
                 }
             }
-
-            /* ───────── 3. apply averaged displacement once per fighter ─────── */
-            for (std::size_t i = 0; i < n; ++i)
-            {
-                if (hits_per_fighter[i] == 0) continue;
-                glm::vec2 avg = resolve_per_fighter[i] / static_cast<float>(hits_per_fighter[i]);
-                fighters_[i].velocity->x += avg.x;
-                fighters_[i].velocity->y += avg.y;
-            }
         }
-    }
 
 
         std::string get_id() override { return "system-narrow_phase_collision"; }

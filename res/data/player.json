@@ -37,6 +37,10 @@
                     "parameters": 8
                 },
                 {
+                    "type": "Velocity",
+                    "name": "velocity"
+                },
+                {
                     "type": "Src::Transform",
                     "name": "src_temp",
                     "parameters": {
@@ -337,6 +341,10 @@
                             "type": "System::Move",
                             "name": "system-move",
                             "parameters": {
+                                "velocity": [
+                                    "Player",
+                                    "velocity"
+                                ],
                                 "position": [
                                     "Player",
                                     "position"

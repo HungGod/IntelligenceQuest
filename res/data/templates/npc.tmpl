@@ -47,6 +47,10 @@
                     "parameters": [$GROUP_ID, "Spritesheet", $SPRITESHEET_ID, $SRC_ID]
                 },
                 {
+                    "type": "Velocity",
+                    "name": "velocity"
+                },
+                {
                     "type": "Position",
                     "name": "position",
                     "parameters": {
@@ -138,6 +142,7 @@
                                 <IF NPC_RADIUS>
                                     "radius" : [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "radius"],
                                 </IF>
+                                "velocity": [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "velocity" ],
                                 "position": [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "position" ],
                                 "direction": [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "direction"],
                                 "speed" : [ $GROUP_ID, $TILEMAP_ID, "NPC", $NPC_ID, "speed" ]

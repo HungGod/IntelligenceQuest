@@ -39,7 +39,32 @@
                         "parameters": 8
                     },
                     {
-                        "type": "Vector2D",
+                        "type": "Bool",
+                        "name": "invincible",
+                        "parameters": false
+                    },
+                    {
+                        "type": "Bool",
+                        "name": "untouchable",
+                        "parameters": false 
+                    },
+                    {
+                        "type": "Bool",
+                        "name": "in_shield",
+                        "parameters": false
+                    },
+                    {
+                        "type": "Bool",
+                        "name": "stunned",
+                        "parameters": false
+                    },
+                    {
+                        "type": "Bool",
+                        "name": "midair",
+                        "parameters": false
+                    },
+                    {
+                        "type": "Velocity",
                         "name": "velocity"
                     },
                     {
@@ -67,6 +92,10 @@
                                 "walk_up_left" : ["weak_walk_left_0.png", "weak_walk_left_1.png"]
                             }
                         }
+                    },
+                    {
+                        "type": "Json",
+                        "name": "combat_abilities"
                     },
                     {
                         "type" : "Src::Transform",
@@ -119,6 +148,10 @@
                         "type": "System::CombatController",
                         "name": "system-combat_controller",
                         "parameters": {
+                            "midair": ["Combat", "Weak", "midair"],
+                            "speed": ["Combat", "Weak", "speed"],
+                            "velocity": ["Combat", "Weak", "velocity"],
+                            "combat_abilities": ["Combat", "Weak", "combat_abilities"],
                             "controller" : [ "Controller", "debug" ],
                             "direction" : [ "Combat", "Weak", "direction" ]
                         }

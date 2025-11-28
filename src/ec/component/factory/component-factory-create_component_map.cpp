@@ -54,6 +54,7 @@
 #include "ec/component/system/update/component-system-combat-transformations.h"
 #include "ec/component/system/render/component-system-zoom_camera_draw.h"
 #include "ec/component/component-hitboxes.h"
+#include "ec/component/system/update/component-system-combat-gravity_physics.h"
 
 template<typename T>
 T* c_component() { return new T(); }
@@ -65,7 +66,7 @@ void Factory::CreateComponentMap::create()
 	(*this)["Bool"] = c_component<Component::Bool>;
 	(*this)["Int"] = c_component<Component::Int>;
 	(*this)["Json"] = c_component<Component::Json>;
-	(*this)["Position"] = (*this)["Direction"] = c_component<Component::Position>;
+	(*this)["Position"] = (*this)["Direction"] = (*this)["Velocity"] = c_component<Component::Position>;
 	(*this)["KeyboardArray"] = c_component<Component::KeyboardArray>;
 	(*this)["SystemVector"] = c_component<Component::SystemVector>;
 	(*this)["Animation"] = c_component<Component::Animation>;
@@ -141,6 +142,7 @@ void Factory::CreateComponentMap::create()
 	(*this)["System::CombatTransformations"] = c_component<System::CombatTransformations>;
 	(*this)["System::ZoomCameraDraw"] = c_component<System::ZoomCameraDraw>;
 	(*this)["System::CombatCollisions"] = c_component<System::NarrowPhaseCollision>;
+	(*this)["System::GravityPhysics"] = c_component<System::GravityPhysics>;
 
 
 	// component system navigate

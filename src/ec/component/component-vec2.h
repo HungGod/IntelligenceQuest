@@ -12,6 +12,7 @@ namespace Component
 	class Vector2D : public IComponent, public glm::vec2
 #define Position Vector2D
 #define Direction Vector2D
+#define Velocity Vector2D
 	{
 	public:
 		Vector2D()
