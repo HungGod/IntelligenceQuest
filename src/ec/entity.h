@@ -192,10 +192,10 @@ public:
 			for (auto i = 0; i < json.size() - 1; ++i) {
 				path.push_back(json[i]);
 			}
-			comp_id = json.back();
+			comp_id = json.back().get<std::string>();
 		}
 		else
-			comp_id = json;
+			comp_id = json.get<std::string>();
 
 		auto child = get_nested_child(path);
 

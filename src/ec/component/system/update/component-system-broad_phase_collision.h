@@ -17,6 +17,7 @@ namespace System
 		Component::QuadTree* tree_{};
 		Component::Pathway* pathway_{};
 		Component::ColliderMask* mask_{};
+		Component::Float* delta_time_{};
 	public:
 
 		void init(nlohmann::json json, Entity* game) override
@@ -27,6 +28,7 @@ namespace System
 
 			mask_ = game->get_child("Collision")->get_component<Component::ColliderMask>("mask");
 			pathway_ = game->get_component<Component::Pathway>("pathway");
+			delta_time_ = game->get_component<Component::Float>("delta_time");
 		}
 
 		void execute() override
@@ -37,10 +39,11 @@ namespace System
 
 			for (Component::Collider* col_a : *moveable_colliders_){
 				for (Component::Collider* col_b : tree_->retrieve(col_a)){
-					col_a->collide_and_resolve(col_b, mask_, pathway_);
+					col_a->collide_and_resolve(col_b, mask_, pathway_, delta_time_);
 				}
+				col_a->velocity->x = 0.0f;
+				col_a->velocity->y = 0.0f;
 			}
-
 		}
 			
 		std::string get_id() override { return "system-broad_phase_collision"; }

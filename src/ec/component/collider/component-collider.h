@@ -62,7 +62,44 @@ namespace Component {
             return colliding_shapes;
        }
 
-       void collide_and_resolve(Component::Collider* other, Component::ColliderMask* mask, Component::Pathway* pathway, Component::Float* delta_time); 
+       void collide_and_resolve(Component::Collider* other, Component::ColliderMask* mask, Component::Pathway* pathway) {  
+           // Prevent self-collision
+           if (this == other) return;
+           
+           auto colliding_shape_pairs = gjk_collide(other);
+           if (!colliding_shape_pairs.empty()) {
+                if (other->data.contains("commands")) {
+                    if (other->data.contains("cooldown")){
+                        double cooldown = other->data["cooldown"];
+                        double curr_time = glfwGetTime();
+                        if (!this->data.contains("time_stamp") || curr_time - this->data["time_stamp"].get<double>() >= cooldown)
+                        {
+                            this->data["time_stamp"] = curr_time;
+                            pathway->message(other->data["commands"]);
+                        }
+                    }
+                    else
+                        pathway->message(other->data["commands"]);
+                }
+
+                // Handle physical displacement
+                if (this->physical && other->physical) {
+                    glm::vec2 piercing_vec {0.f, 0.f};
+                    for (auto [shape, other_shape] : colliding_shape_pairs) {
+                        piercing_vec += shape->resolve(other_shape, *position, scale->val, *other->position, other->scale->val);
+                    }
+                    // Apply displacement based on moveability
+                    if (other->velocity != nullptr) {
+                        // Both moveable: split the displacement
+                        *this->position += piercing_vec / 2.f;
+                        *other->position -= piercing_vec / 2.f;
+                    } else {
+                        // Only this is moveable: full displacement
+                        *this->position += piercing_vec;
+                    } 
+                }
+           }
+       }
 
        glm::vec2 piercing_vec(Component::Collider* col_b)
        {

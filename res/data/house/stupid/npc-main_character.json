@@ -46,6 +46,7 @@
                                 "radius": 10
                             }
                         },
+                        "velocity": ["House", "Stupid", "NPC", "Main_Character", "velocity"],
                         "mask": "both",
                         "data": {
                             "commands": {

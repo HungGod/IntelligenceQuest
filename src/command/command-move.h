@@ -49,8 +49,8 @@ namespace Command
 			}
 
 			// Final facing direction sprite when the move completes.
-			end_direction_ = json["end_direction"];
-			move_speed_ = json["move_speed"];
+			end_direction_ = json["end_direction"].get<std::string>();
+			move_speed_ = json["move_speed"].get<float>();
 		}
 
 		void execute(Entity* game, Component::Pathway* pathway)

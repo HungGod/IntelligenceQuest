@@ -2,6 +2,7 @@
 #include "ec/component/factory/component-factory-create_component_map.h"
 #include "ec/entity.h"
 #include <glm/vec2.hpp>
+#include <ranges>
 
 
 IComponent* JsonTo::component(nlohmann::json json, Entity* entity, Entity* game)
@@ -40,51 +41,37 @@ IComponent* JsonTo::component(nlohmann::json json, Entity* entity, Entity* game)
 		std::string type = json["type"];
 
 		
-		if (json["type"].get<std::string>() == "Collider")
+		if (json["type"].get<std::string>() == "Collider" && json["parameters"].contains("shape"))
 		{
 			
 			if (json["parameters"]["shape"]["type"].get<std::string>() == "GJK::AABB")
 			{
-				float x = json["parameters"]["shape"]["parameters"]["x"];
-				float y = json["parameters"]["shape"]["parameters"]["y"];
-				float w = json["parameters"]["shape"]["parameters"]["w"];
-				float h = json["parameters"]["shape"]["parameters"]["h"];
+				float x = json["parameters"]["shape"]["parameters"]["x"].get<float>();
+				float y = json["parameters"]["shape"]["parameters"]["y"].get<float>();
+				float w = json["parameters"]["shape"]["parameters"]["w"].get<float>();
+				float h = json["parameters"]["shape"]["parameters"]["h"].get<float>();
 
 				if (!json["parameters"].contains("mask") || json["parameters"]["mask"] == "both" || json["parameters"]["mask"] == "physical" || json["parameters"]["mask"] == "player")
 				{
-					nlohmann::json p1;
-					p1["x"] = x;
-					p1["y"] = y;
-					nlohmann::json p2;
-					p2["x"] = x + w;
-					p2["y"] = y;
-					nlohmann::json p3;
-					p3["x"] = x + w;
-					p3["y"] = y + h;
-					nlohmann::json p4;
-					p4["x"] = x;
-					p4["y"] = y + h;
-	
+					nlohmann::json p1 = {{"x", x}, {"y", y}};
+					nlohmann::json p2 = {{"x", x + w}, {"y", y}};
+					nlohmann::json p3 = {{"x", x + w}, {"y", y + h}};
+					nlohmann::json p4 = {{"x", x}, {"y", y + h}};
+
 					nlohmann::json collider;
 					collider["type"] = "Collider";
-					collider["parameters"]["shape"]["type"] = "GJK::LineSegment";
-					collider["parameters"]["shape"]["parameters"]["p1"] = p1;
-					collider["parameters"]["shape"]["parameters"]["p2"] = p2;
+
+					for (auto [p, pl] : std::views::zip(std::vector{p1, p2, p3, p4}, std::vector{p4, p1, p2, p3}))
+					{
+						nlohmann::json shape;
+						shape["type"] = "GJK::LineSegment";
+						shape["parameters"]["p1"] = pl;
+						shape["parameters"]["p2"] = p;
+						collider["parameters"]["shapes"].push_back(shape);
+					}
 					collider["parameters"]["mask"] = json["parameters"]["mask"] == "player" ? "player" : "physical";
 					collider["parameters"]["position"] = json["parameters"]["position"];
 					collider["parameters"]["scale"] = json["parameters"]["scale"];
-					JsonTo::component(collider, entity, game);
-	
-					collider["parameters"]["shape"]["parameters"]["p1"] = p2;
-					collider["parameters"]["shape"]["parameters"]["p2"] = p3;
-					JsonTo::component(collider, entity, game);
-	
-					collider["parameters"]["shape"]["parameters"]["p1"] = p3;
-					collider["parameters"]["shape"]["parameters"]["p2"] = p4;
-					JsonTo::component(collider, entity, game);
-
-					collider["parameters"]["shape"]["parameters"]["p1"] = p4;
-					collider["parameters"]["shape"]["parameters"]["p2"] = p1;
 					JsonTo::component(collider, entity, game);
 
 					if (json["parameters"]["mask"] != "both")

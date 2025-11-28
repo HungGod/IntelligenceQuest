@@ -34,8 +34,8 @@ namespace Component {
 
 		void init(nlohmann::json json, Entity* game) override
 		{
-			vs_file_name_ = json["vs"];
-			fs_file_name_ = json["fs"];
+			vs_file_name_ = json["vs"].get<std::string>();
+			fs_file_name_ = json["fs"].get<std::string>();
 			load();
 			
 			// should probably remove this.

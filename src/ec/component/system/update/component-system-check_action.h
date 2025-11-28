@@ -38,7 +38,8 @@ namespace System
 				std::vector<Component::Collider*> retrieved_cols = quadtree_->retrieve(action_collider_);
 				for (auto col_b : retrieved_cols)
 				{
-					if (action_collider_->is_colliding(col_b, mask_))
+					auto colliding_pairs = action_collider_->is_colliding(col_b, mask_);
+					if (!colliding_pairs.empty())
 					{
 						if (col_b->data.contains("commands"))
 						{

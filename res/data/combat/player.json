@@ -88,18 +88,16 @@
                                 "spritesheet": ["Combat", "Spritesheet", "combat-spritesheet"],
                                 "direction": ["Combat", "Player", "direction"],
                                 "src": ["Combat", "Player", "src"],
-                                "attack": {
-                                    "left": [
-                                        "attack_left_0.png",
-                                        "attack_left_1.png",
-                                        "attack_left_2.png"
-                                    ],
-                                    "right": [
-                                        "attack_right_0.png",
-                                        "attack_right_1.png",
-                                        "attack_right_2.png"
-                                    ]
-                                },
+                                "left": [
+                                    "attack_left_0.png",
+                                    "attack_left_1.png",
+                                    "attack_left_2.png"
+                                ],
+                                "right": [
+                                    "attack_right_0.png",
+                                    "attack_right_1.png",
+                                    "attack_right_2.png"
+                                ],
                                 "hitboxes": ["Combat", "Player", "hitboxes"]
                             }
                         },
@@ -232,6 +230,20 @@
                         "prev_direction" : [ "Combat", "Player", "prev_direction" ],
                         "animation_map": [ "Player", "animation_map" ],
                         "animation" : [ "Combat", "Player", "animation" ]
+                    }
+                },
+                {
+                    "type": "System::GravityPhysics",
+                    "name": "system-gravity_physics",
+                    "parameters": {
+                        "velocity": ["Combat", "Player", "velocity"],
+                        "position": ["Combat", "Player", "position"],
+                        "scale": ["Combat", "Player", "scale"],
+                        "midair": ["Combat", "Player", "midair"],
+                        "height": ["Combat", "Player", "height"],
+                        "camera_position": ["Combat", "Camera", "position"],
+                        "camera_zoom": ["Combat", "Camera", "zoom"],
+                        "gravity": 512
                     }
                 }
             ]

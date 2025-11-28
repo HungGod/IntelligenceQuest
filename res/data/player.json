@@ -156,7 +156,7 @@
                             "Player",
                             "position"
                         ],
-                        "moveable": true,
+                        "velocity": ["Player", "velocity"],
                         "mask": "player",
                         "scale": ["Player", "scale"]
                     }

@@ -165,6 +165,20 @@
                             "animation_map": [ "Combat", "Weak", "animation_map" ],
                             "animation" : [ "Combat", "Weak", "animation" ]
                         }
+                    },
+                    {
+                        "type": "System::GravityPhysics",
+                        "name": "system-gravity_physics",
+                        "parameters": {
+                            "velocity": ["Combat", "Weak", "velocity"],
+                            "position": ["Combat", "Weak", "position"],
+                            "scale": ["Combat", "Weak", "scale"],
+                            "midair": ["Combat", "Weak", "midair"],
+                            "height": ["Combat", "Weak", "height"],
+                            "camera_position": ["Combat", "Camera", "position"],
+                            "camera_zoom": ["Combat", "Camera", "zoom"],
+                            "gravity": 981
+                        }
                     }
                 ]
             }

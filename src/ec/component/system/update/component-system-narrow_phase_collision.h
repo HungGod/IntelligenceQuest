@@ -21,7 +21,7 @@ namespace System {
         std::vector<Fighter> fighters_;
         Component::Pathway* pathway_{};
         Component::ColliderMask* mask_{};
-
+        Component::Float* delta_time_{};
     public:
         /* ---------------------------------------------------------------- init */
         void init(nlohmann::json j, Entity* g) override
@@ -37,6 +37,7 @@ namespace System {
             }
             mask_ = g->get_child("Collision")->get_component<Component::ColliderMask>("mask");
             pathway_ = g->get_component<Component::Pathway>("pathway");
+            delta_time_ = g->get_component<Component::Float>("delta_time");
         }
 
         /* --------------------------------------------------------------- execute */
@@ -58,7 +59,7 @@ namespace System {
 
                         for (Component::Collider* col : B.hitboxes)
                         {
-                            atk->collide_and_resolve(col, mask_, pathway_);
+                            atk->collide_and_resolve(col, mask_, pathway_, delta_time_);
                         }
                     }
                 }
@@ -80,7 +81,7 @@ namespace System {
                     {
                         for (Component::Collider* pb : B.hitboxes)
                         {
-                            pa->collide_and_resolve(pb, mask_, pathway_);
+                            pa->collide_and_resolve(pb, mask_, pathway_, delta_time_);
                         }
                     }
                 }

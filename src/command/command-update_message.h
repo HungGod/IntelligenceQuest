@@ -16,7 +16,7 @@ namespace Command
 		void load(nlohmann::json json, Entity* game, Component::Pathway* pathway) override
 		{
 			textbox_ = json["textbox"];
-			message_ = json["message"];
+			message_ = json["message"].get<std::string>();
 		}
 
 		void execute(Entity* game, Component::Pathway* pathway) override

@@ -74,7 +74,7 @@ namespace Command
 						{
 							if (c->add_collider)
 							{
-								if (c->moveable)
+								if (c->velocity != nullptr)
 									moveable_colliders->push_back(c);
 								else
 									static_colliders->push_back(c);

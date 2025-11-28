@@ -1,6 +1,6 @@
 #pragma once
 #include "command/command.h"
-#include "ec/component/collider/component-collider.h"
+#include "ec/component/component-collider.h"
 
 
 namespace Resolve
@@ -20,7 +20,7 @@ namespace Resolve
 		{
 			glm::vec2 piercing_vec = col_a_->piercing_vec(col_b_);
 
-			col_b_->moveable ? *col_a_->position += piercing_vec / 2.f : *col_a_->position += piercing_vec;
+			col_b_->velocity != nullptr ? *col_a_->position += piercing_vec / 2.f : *col_a_->position += piercing_vec;
 		}
 		std::string to_string() override { return "resolve-displace"; }
 	};

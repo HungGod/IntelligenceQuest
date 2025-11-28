@@ -37,8 +37,6 @@ namespace System
 			velocity_->y += dir.y * speed_->val;
 			position_->x += velocity_->x * delta_time_->val;
 			position_->y += velocity_->y * delta_time_->val;
-			velocity_->x = 0.0f;
-			velocity_->y = 0.0f;
 		}
 
 		std::string get_id() override { return "system-move"; }

@@ -44,7 +44,7 @@
                         "type": "GJK::AABB",
                         "parameters": { "x": 0, "y": 64, "w": 64, "h": 80 }
                     },
-                    "moveable": true,
+                    "velocity": ["Overworld", "Outside", "NPC", "Weak", "velocity"],
                     "mask": "both",
                     "data": {
                         "commands": [

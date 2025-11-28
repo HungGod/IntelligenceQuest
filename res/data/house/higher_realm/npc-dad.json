@@ -45,7 +45,8 @@
                                 "y": 80,
                                 "radius": 64
                             }
-                        }
+                        },
+                        "velocity": ["House", "Higher_Realm", "NPC", "Dad", "velocity"]
                     }
                 }
             ]
