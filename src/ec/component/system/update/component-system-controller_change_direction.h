@@ -8,7 +8,7 @@ namespace System
 	class ControllerChangeDirection : public ISystem
 	{
 		IController* controller_;
-		Component::Direction* direction_;
+		Component::Vector2D* direction_;
 	public:
 		ControllerChangeDirection()
 			: controller_(nullptr), direction_(nullptr)
@@ -17,7 +17,7 @@ namespace System
 		void init(nlohmann::json json, Entity* game) override
 		{
 			controller_ = game->get_nested_component<IController>(json["controller"]);
-			direction_ = game->get_nested_component<Component::Direction>(json["direction"]);
+			direction_ = game->get_nested_component<Component::Vector2D>(json["direction"]);
 		}
 
 		void execute() override

@@ -5,7 +5,6 @@
 #include "json_to.h"    
 #include "ec/component/component-quadtree.h"
 #include "ec/component/component-template.h"
-#include "templates.h"
 
 void Component::Collider::init(nlohmann::json json, Entity* game)
 {
@@ -62,16 +61,17 @@ void Component::Collider::init(nlohmann::json json, Entity* game)
     kind = mask->get_kind_from_string(mask_str);
     physical = mask_str == "physical" || mask_str == "both" || mask_str == "player";
     data = json.value("data", nlohmann::json{});
-    position = game->get_nested_component<Component::Position>(json["position"]);
-    scale = game->get_nested_component<Component::Float>(json["scale"]);
-    if (json.contains("velocity"))
-        velocity = game->get_nested_component<Component::Velocity>(json["velocity"]);
+    position = game->get_nested_component<Component::Vector2D>(json["position"]);
+    scale = game->get_nested_component<Component::ValTemplate<float>>(json["scale"]);
+    if (json.contains("velocity")){
+        velocity = game->get_nested_component<Component::Vector2D>(json["velocity"]);
+    }
     else
         velocity = nullptr;
     add_collider = json.value("add_collider", true);
 }
 
-void Component::Collider::collide_and_resolve(Component::Collider* other, Component::ColliderMask* mask, Component::Pathway* pathway, Component::Float* delta_time) {  
+void Component::Collider::collide_and_resolve(Component::Collider* other, Component::ColliderMask* mask, Component::Pathway* pathway, Component::ValTemplate<float>* delta_time) {  
     // Prevent self-collision
     if (this == other) return;
     
@@ -100,21 +100,17 @@ void Component::Collider::collide_and_resolve(Component::Collider* other, Compon
              }
 
             glm::vec2 result{0.f, 0.f};
+            
             if (piercing_vecs.size() == 2) {
                 glm::vec2 pv1 = piercing_vecs[0];
                 glm::vec2 pv2 = piercing_vecs[1];
-                float dot = glm::dot(glm::normalize(pv1), glm::normalize(pv2));
                 
+                result = pv1 + pv2;
+                float dot = glm::dot(glm::normalize(pv1), glm::normalize(pv2));
                 if (dot <= 0.0f) {
                     glm::vec2 temp = glm::abs(pv1 + pv2);
-                    *this->position -= *this->velocity * delta_time->val * glm::vec2{temp.x <= temp.y, temp.y < temp.x};
-                    if (other->velocity != nullptr) {
-                        *other->position += *other->velocity * delta_time->val * glm::vec2{temp.x <= temp.y, temp.y < temp.x};
-                    }
-                    return;
-                } else {
-                    result = pv1 + pv2;
-                }
+                    result = -*this->velocity * delta_time->val * glm::vec2{temp.x < temp.y, temp.y < temp.x}; 
+                } 
             } else {
                 for (const glm::vec2& pv : piercing_vecs) {
                     result += pv;

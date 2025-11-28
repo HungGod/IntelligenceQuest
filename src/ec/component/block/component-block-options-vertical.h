@@ -13,7 +13,7 @@ namespace Options
 
 			if (json.is_array())
 			{
-				int line_h = font_->get_component<Component::Int>("line_h")->val * text_scale_->val;
+				int line_h = font_->get_component<Component::ValTemplate<int>>("line_h")->val * text_scale_->val;
 				float y_pos = 0.0f;
 				float x_pos = 0.0f;
 				for (nlohmann::json j : json)

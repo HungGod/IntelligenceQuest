@@ -3,16 +3,12 @@
 #include <glm/glm.hpp>
 #include "ec/component/component-position_map.h"
 #include "ec/component/component-template.h"
-#include "templates.h"
 #include "ec/component/src/component-src.h"
 #include "ec/component/block/component-block-box.h"
 
 namespace Component
 {
 	class Vector2D : public IComponent, public glm::vec2
-#define Position Vector2D
-#define Direction Vector2D
-#define Velocity Vector2D
 	{
 	public:
 		Vector2D()
@@ -27,7 +23,7 @@ namespace Component
 				int num = 0;
 				if (json.contains("num"))
 					num = json["num"];
-				Component::Float* scale = game->get_nested_component<Component::Float>(json["scale"]);
+				Component::ValTemplate<float>* scale = game->get_nested_component<Component::ValTemplate<float>>(json["scale"]);
 				ISrc* src_temp = game->get_nested_component<ISrc>(json["src_temp"]);
 
 				glm::vec2 pos = position_map->at(id)[num];
@@ -36,9 +32,9 @@ namespace Component
 			}
 			else if (json.contains("obj") && json.contains("box"))
 			{
-				Component::Position* obj = game->get_nested_component<Component::Vector2D>(json["obj"]);
-				Component::Float* obj_width = game->get_nested_component<Component::Float>(json["obj_width"]);
-				Component::Float* scale = game->get_nested_component<Component::Float>(json["obj_scale"]);
+				Component::Vector2D* obj = game->get_nested_component<Component::Vector2D>(json["obj"]);
+				Component::ValTemplate<float>* obj_width = game->get_nested_component<Component::ValTemplate<float>>(json["obj_width"]);
+				Component::ValTemplate<float>* scale = game->get_nested_component<Component::ValTemplate<float>>(json["obj_scale"]);
 				Block::Box* box = game->get_nested_component<Block::Box>(json["box"]);
 
 				this->x = obj->x - box->get_arrow_position().x + obj_width->val * scale->val / 2.0f;

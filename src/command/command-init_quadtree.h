@@ -4,7 +4,6 @@
 #include "ec/component/component-tilemap.h"
 #include "ec/component/component-vec2.h"
 #include "ec/component/component-template.h"
-#include "templates.h"
 
 namespace Command
 {
@@ -23,8 +22,8 @@ namespace Command
 		{
 			auto quadtree = game->get_nested_component<Component::QuadTree>(quadtree_path_);
 			auto tilemap = game->get_nested_component<Component::Tilemap>(tilemap_path_);
-			auto scale = game->get_nested_component<Component::Float>(scale_path_);
-			auto position = game->get_nested_component<Component::Position>(position_path_);
+			auto scale = game->get_nested_component<Component::ValTemplate<float>>(scale_path_);
+			auto position = game->get_nested_component<Component::Vector2D>(position_path_);
 
 			Rect map = { position->x, position->y, tilemap->width * tilemap->tile_size * scale->val, tilemap->height * tilemap->tile_size * scale->val };
 			quadtree->init_rect(map);

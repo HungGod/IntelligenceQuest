@@ -14,33 +14,33 @@ namespace System
 {
 	class GravityPhysics : public ISystem
 	{
-		Component::Position* camera_position_;
-		Component::Float* camera_zoom_;
-		Component::Float* screen_h_;
-		Component::Float* delta_time_;
+		Component::Vector2D* camera_position_;
+		Component::ValTemplate<float>* camera_zoom_;
+		Component::ValTemplate<float>* screen_h_;
+		Component::ValTemplate<float>* delta_time_;
 		float gravity_;
-		Component::Position* position_;
-		Component::Float* scale_;
-		Component::Float* height_;
-		Component::Velocity* velocity_;
-		Component::Bool* midair_;
+		Component::Vector2D* position_;
+		Component::ValTemplate<float>* scale_;
+		Component::ValTemplate<float>* height_;
+		Component::Vector2D* velocity_;
+		Component::ValTemplate<bool>* midair_;
 
 	public:
 
 		void init(nlohmann::json json, Entity* game) override
 		{
 			
-			position_ = game->get_nested_component<Component::Position>(json["position"]),
-			scale_ = game->get_nested_component<Component::Float>(json["scale"]),
-			height_ = game->get_nested_component<Component::Float>(json["height"]),
-			velocity_ = game->get_nested_component<Component::Velocity>(json["velocity"]),
-			midair_ = game->get_nested_component<Component::Bool>(json["midair"]);
+			position_ = game->get_nested_component<Component::Vector2D>(json["position"]),
+			scale_ = game->get_nested_component<Component::ValTemplate<float>>(json["scale"]),
+			height_ = game->get_nested_component<Component::ValTemplate<float>>(json["height"]),
+			velocity_ = game->get_nested_component<Component::Vector2D>(json["velocity"]),
+			midair_ = game->get_nested_component<Component::ValTemplate<bool>>(json["midair"]);
 
-			camera_position_ = game->get_nested_component<Component::Position>(json["camera_position"]);
-			camera_zoom_ = game->get_nested_component<Component::Float>(json["camera_zoom"]);
+			camera_position_ = game->get_nested_component<Component::Vector2D>(json["camera_position"]);
+			camera_zoom_ = game->get_nested_component<Component::ValTemplate<float>>(json["camera_zoom"]);
 			gravity_ = json["gravity"];
-			screen_h_ = game->get_component<Component::Float>("height");
-			delta_time_ = game->get_component<Component::Float>("delta_time");
+			screen_h_ = game->get_component<Component::ValTemplate<float>>("height");
+			delta_time_ = game->get_component<Component::ValTemplate<float>>("delta_time");
 		}
 
 		void execute() override

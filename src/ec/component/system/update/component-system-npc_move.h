@@ -2,7 +2,6 @@
 #include "ec/component/system/component-system.h"
 #include "ec/component/component-template.h"
 #include "ec/component/component-vec2.h"
-#include "templates.h"
 #include <GLFW/glfw3.h>
 
 namespace System
@@ -21,12 +20,12 @@ namespace System
 			DOWN_LEFT
 		};
 
-		Component::Float* speed_, * delta_time_, * radius_;
+		Component::ValTemplate<float>* speed_, * delta_time_, * radius_;
 		double end_time_;
 		glm::vec2 center_;
-		Component::Position* position_;
-		Component::Direction* direction_;
-		Component::Velocity* velocity_;
+		Component::Vector2D* position_;
+		Component::Vector2D* direction_;
+		Component::Vector2D* velocity_;
 	public:
 		NPCMove()
 			:  speed_(nullptr), delta_time_(nullptr), center_(), position_(nullptr), end_time_(0), direction_(nullptr), radius_(nullptr), velocity_(nullptr)
@@ -34,18 +33,18 @@ namespace System
 
 		void init(nlohmann::json json, Entity* game) override
 		{
-			position_ = game->get_nested_component<Component::Position>(json["position"]);
-			direction_ = game->get_nested_component<Component::Direction>(json["direction"]);
+			position_ = game->get_nested_component<Component::Vector2D>(json["position"]);
+			direction_ = game->get_nested_component<Component::Vector2D>(json["direction"]);
 
 			if (json.contains("radius"))
-				radius_ = game->get_nested_component<Component::Float>(json["radius"]);
+				radius_ = game->get_nested_component<Component::ValTemplate<float>>(json["radius"]);
 			else
 				radius_ = nullptr;
 
 			center_ = *position_;
-			speed_ = game->get_nested_component<Component::Float>(json["speed"]);
-			delta_time_ = game->get_component<Component::Float>("delta_time");
-			velocity_ = game->get_nested_component<Component::Velocity>(json["velocity"]);
+			speed_ = game->get_nested_component<Component::ValTemplate<float>>(json["speed"]);
+			delta_time_ = game->get_component<Component::ValTemplate<float>>("delta_time");
+			velocity_ = game->get_nested_component<Component::Vector2D>(json["velocity"]);
 		}
 
 		void execute() override
@@ -55,10 +54,6 @@ namespace System
 			{
 				velocity_->x += direction_->x * speed_->val;
 				velocity_->y += direction_->y * speed_->val;
-				position_->x += velocity_->x * delta_time_->val;
-				position_->y += velocity_->y * delta_time_->val;
-				velocity_->x = 0.0f;
-				velocity_->y = 0.0f;
 			}
 			else
 			{

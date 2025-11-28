@@ -1,7 +1,6 @@
 #pragma once
 #include "ec/component/system/component-system.h"
 #include "ec/component/component-renderer.h"
-#include "templates.h"
 #include "ec/component/component-vec2.h"
 #include "ec/component/src/component-src-flex.h"
 
@@ -11,11 +10,11 @@ namespace System
 	{
 		Component::Renderer* renderer_;
 		ISrc* src_;
-		Component::Position* position_;
+		Component::Vector2D* position_;
 		IMaterial* material_;
-		Component::Position* camera_position_;
-		Component::Float* camera_zoom_;
-		Component::Float* scale_;
+		Component::Vector2D* camera_position_;
+		Component::ValTemplate<float>* camera_zoom_;
+		Component::ValTemplate<float>* scale_;
 	public:
 
 		ZoomCameraDraw()
@@ -25,11 +24,11 @@ namespace System
 		void init(nlohmann::json json, Entity* game) override
 		{
 			src_ = game->get_nested_component<ISrc>(json["src"]);
-			position_ = game->get_nested_component<Component::Position>(json["position"]);
+			position_ = game->get_nested_component<Component::Vector2D>(json["position"]);
 			material_ = game->get_nested_component<IMaterial>(json["material"]);
-			camera_position_ = game->get_nested_component<Component::Position>(json["camera_position"]);
-			camera_zoom_ = game->get_nested_component<Component::Float>(json["camera_zoom"]);
-			scale_ = game->get_nested_component<Component::Float>(json["scale"]);
+			camera_position_ = game->get_nested_component<Component::Vector2D>(json["camera_position"]);
+			camera_zoom_ = game->get_nested_component<Component::ValTemplate<float>>(json["camera_zoom"]);
+			scale_ = game->get_nested_component<Component::ValTemplate<float>>(json["scale"]);
 
 			renderer_ = game->get_component<Component::Renderer>("renderer");
 		}

@@ -72,6 +72,9 @@ IComponent* JsonTo::component(nlohmann::json json, Entity* entity, Entity* game)
 					collider["parameters"]["mask"] = json["parameters"]["mask"] == "player" ? "player" : "physical";
 					collider["parameters"]["position"] = json["parameters"]["position"];
 					collider["parameters"]["scale"] = json["parameters"]["scale"];
+					if (json["parameters"].contains("velocity"))
+						collider["parameters"]["velocity"] = json["parameters"]["velocity"];
+					
 					JsonTo::component(collider, entity, game);
 
 					if (json["parameters"]["mask"] != "both")

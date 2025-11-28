@@ -1,6 +1,5 @@
 #pragma once
 #include "command/command.h"
-#include "templates.h"
 #include <unordered_map>
 #include "ec/entity.h"
 #include <sstream>
@@ -20,7 +19,7 @@ namespace Command
 
 		void execute(Entity* game, Component::Pathway* pathway) override
 		{
-			auto& json_map = *game->get_component<Component::JsonMap>("json_map");
+			auto& json_map = *game->get_component<Component::Template<std::unordered_map<std::string, nlohmann::json>>>("json_map");
 			std::vector<std::string> filenames_;
 			bool reload = false;
 
@@ -28,7 +27,7 @@ namespace Command
 			{
 				if (json_.contains("gamestate"))
 				{
-					auto current_gamestate = game->get_component<Component::Json>("curr_state");
+					auto current_gamestate = game->get_component<Component::ValTemplate<nlohmann::json>>("curr_state");
 					current_gamestate->val = json_;
 					filenames_.push_back(json_["gamestate"]);
 					reload = true;

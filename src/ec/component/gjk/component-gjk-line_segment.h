@@ -1,7 +1,6 @@
 #pragma once
 #include "ec/component/gjk/component-gjk.h"
 #include "ec/component/component-template.h"
-#include "templates.h"
 #include "ec/entity.h"
 
 namespace GJK

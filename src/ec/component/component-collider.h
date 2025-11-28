@@ -17,13 +17,13 @@ namespace Component {
    public:
        uint8_t kind{};
        std::vector<IGJK*> shapes{};
-       Component::Velocity* velocity{};
+       Component::Vector2D* velocity{};
        bool physical{};
        bool add_collider{};
 
        nlohmann::json data{};
-       Component::Position* position{};
-       Component::Float* scale{};
+       Component::Vector2D* position{};
+       Component::ValTemplate<float>* scale{};
 
        Rect get_rect() { 
           return Rect {min_rect.x * scale->val + position->x, min_rect.y * scale->val + position->y, min_rect.w * scale->val, min_rect.h * scale->val};
@@ -62,7 +62,7 @@ namespace Component {
             return colliding_shapes;
        }
 
-       void collide_and_resolve(Component::Collider* other, Component::ColliderMask* mask, Component::Pathway* pathway, Component::Float* delta_time); 
+       void collide_and_resolve(Component::Collider* other, Component::ColliderMask* mask, Component::Pathway* pathway, Component::ValTemplate<float>* delta_time); 
 
        glm::vec2 piercing_vec(Component::Collider* col_b)
        {

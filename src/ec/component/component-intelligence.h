@@ -1,7 +1,6 @@
 #pragma once
 #include "ec/component/component.h"
 #include "ec/entity.h"
-#include "templates.h"
 
 namespace Component
 {

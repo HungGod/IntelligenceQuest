@@ -4,7 +4,6 @@
 #include "ec/component/component.h"
 #include "logger.h"
 #include "ec/component/component-vec2.h"
-#include "templates.h"
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/norm.hpp>  
 

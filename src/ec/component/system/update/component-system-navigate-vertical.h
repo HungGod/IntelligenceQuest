@@ -14,14 +14,14 @@ namespace Navigate
 		IController* controller_;
 		float real_pos_;
 		float step_;
-		Component::Int* nav_pos_;
+		Component::ValTemplate<int>* nav_pos_;
 	public:
 
 		void init(nlohmann::json json, Entity* game) override final
 		{
 			pathway_ = game->get_component<Component::Pathway>("pathway");
 			controller_ = game->get_nested_component<IController>(json["controller"]);
-			nav_pos_ = game->get_nested_component<Component::Int>(json["nav_pos"]);
+			nav_pos_ = game->get_nested_component<Component::ValTemplate<int>>(json["nav_pos"]);
 			step_ = json["step"].get<float>();
 
 			real_pos_ = 0.0f;

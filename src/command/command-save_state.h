@@ -15,10 +15,10 @@ namespace Command
 		void execute(Entity* game, Component::Pathway* pathway) override
 		{
 			Entity* player = game->get_child("Player");
-			auto player_pos = player->get_component<Component::Position>("position");
+			auto player_pos = player->get_component<Component::Vector2D>("position");
 			auto player_int = player->get_component<Component::Intelligence>("intelligence");
-			auto player_flags = player->get_component<Component::Json>("flags");
-			auto curr_gamestate = game->get_component<Component::Json>("curr_state");
+			auto player_flags = player->get_component<Component::ValTemplate<nlohmann::json>>("flags");
+			auto curr_gamestate = game->get_component<Component::ValTemplate<nlohmann::json>>("curr_state");
 
 			nlohmann::json save_json;
 			save_json["ParseJsonTemplate"]["template"] = "res/data/templates/save.tmpl";

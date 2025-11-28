@@ -22,8 +22,8 @@ namespace Command
 
 		void execute(Entity* game, Component::Pathway* pathway) override
 		{
-			Component::Position* player = game->get_nested_component<Component::Position>(player_);
-			Component::Position* obj = game->get_nested_component<Component::Position>(obj_);
+			Component::Vector2D* player = game->get_nested_component<Component::Vector2D>(player_);
+			Component::Vector2D* obj = game->get_nested_component<Component::Vector2D>(obj_);
 			Block::Box* box = game->get_nested_component<Block::Box>(box_);
 
 			bool player_is_left_of_obj = (player->x - obj->x) > 0;

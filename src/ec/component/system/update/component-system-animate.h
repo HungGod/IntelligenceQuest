@@ -1,6 +1,5 @@
 #pragma once
 #include "ec/component/system/component-system.h"
-#include "templates.h"
 #include "ec/component/component-template.h"
 #include <GLFW/glfw3.h>
 #include "ec/component/component-pathway.h"
@@ -14,7 +13,7 @@ namespace System
 	{
 		Component::Animation* animation_;
 		Src::Transform* src_temp_;
-		Component::Float* animation_speed_;
+		Component::ValTemplate<float>* animation_speed_;
 	public:
 		Animate()
 			: animation_speed_(nullptr), animation_(nullptr), src_temp_(nullptr)
@@ -24,7 +23,7 @@ namespace System
 		{
 			animation_ = game->get_nested_component<Component::Animation>(json["animation"]);
 			src_temp_ = game->get_nested_component<Src::Transform>(json["src_temp"]);
-			animation_speed_ = game->get_nested_component<Component::Float>(json["speed"]);
+			animation_speed_ = game->get_nested_component<Component::ValTemplate<float>>(json["speed"]);
 		}
 
 		void execute() override

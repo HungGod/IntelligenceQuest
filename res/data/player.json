@@ -345,10 +345,6 @@
                                     "Player",
                                     "velocity"
                                 ],
-                                "position": [
-                                    "Player",
-                                    "position"
-                                ],
                                 "direction": [
                                     "Player",
                                     "direction"

@@ -80,7 +80,6 @@ set(EC
         ec/component/component-collider_mask.h
         ec/component/component-quadtree.h
         ec/component/component.h
-        templates.h
         ec/entity.h)
 source_group("EC" FILES ${EC})
 

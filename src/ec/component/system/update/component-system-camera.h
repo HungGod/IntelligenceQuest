@@ -1,26 +1,24 @@
 #pragma once
-#include "templates.h"
 #include "ec/component/system/component-system.h"
 #include "ec/component/component-template.h"
 #include "ec/component/component-tilemap.h"
 #include "ec/component/src/component-src.h"
 #include "ec/component/component-vec2.h"
-#include "templates.h"
 #include <glm/glm.hpp>
 
 namespace System
 {
 	class Camera : public ISystem
 	{
-		Component::Position* follower_pos_;
-		Component::Position* camera_;
+		Component::Vector2D* follower_pos_;
+		Component::Vector2D* camera_;
 		Component::Tilemap* tilemap_;
-		Component::Float* follower_width_;
-		Component::Float* follower_height_;
-		Component::Float* scale_, *tilemap_scale_;
-		Component::Float* screen_width_;
-		Component::Float* screen_height_;
-		Component::Float* delta_time_;
+		Component::ValTemplate<float>* follower_width_;
+		Component::ValTemplate<float>* follower_height_;
+		Component::ValTemplate<float>* scale_, *tilemap_scale_;
+		Component::ValTemplate<float>* screen_width_;
+		Component::ValTemplate<float>* screen_height_;
+		Component::ValTemplate<float>* delta_time_;
 
 		float lerp(float a, float b, float f)
 		{
@@ -36,20 +34,20 @@ namespace System
 		void init(nlohmann::json json, Entity* game) override
 		{
 			if (json.contains("camera"))
-				camera_ = game->get_nested_component<Component::Position>(json["camera"]);
+				camera_ = game->get_nested_component<Component::Vector2D>(json["camera"]);
 
 			if (json.contains("follower_position"))
 			{
-				follower_width_ = game->get_nested_component<Component::Float>(json["follower_width"]);
-				follower_height_ = game->get_nested_component<Component::Float>(json["follower_height"]);
-				scale_ = game->get_nested_component<Component::Float>(json["scale"]);
-				follower_pos_ = game->get_nested_component<Component::Position>(json["follower_position"]);
+				follower_width_ = game->get_nested_component<Component::ValTemplate<float>>(json["follower_width"]);
+				follower_height_ = game->get_nested_component<Component::ValTemplate<float>>(json["follower_height"]);
+				scale_ = game->get_nested_component<Component::ValTemplate<float>>(json["scale"]);
+				follower_pos_ = game->get_nested_component<Component::Vector2D>(json["follower_position"]);
 			}
 
 			if (json.contains("tilemap"))
 			{
 				tilemap_ = game->get_nested_component<Component::Tilemap>(json["tilemap"]);
-				tilemap_scale_ = game->get_nested_component<Component::Float>(json["tilemap_scale"]);
+				tilemap_scale_ = game->get_nested_component<Component::ValTemplate<float>>(json["tilemap_scale"]);
 			}
 			else
 			{
@@ -58,9 +56,9 @@ namespace System
 			}
 			
 				
-			screen_width_ = game->get_component<Component::Float>("width");
-			screen_height_ = game->get_component<Component::Float>("height");
-			delta_time_ = game->get_component<Component::Float>("delta_time");
+			screen_width_ = game->get_component<Component::ValTemplate<float>>("width");
+			screen_height_ = game->get_component<Component::ValTemplate<float>>("height");
+			delta_time_ = game->get_component<Component::ValTemplate<float>>("delta_time");
 			camera_->x = follower_pos_->x - screen_width_->val / 2.0f + follower_width_->val / 2.0f * scale_->val;
 			camera_->y = follower_pos_->y - screen_height_->val / 2.0f + follower_height_->val / 2.0f * scale_->val;
 		}

@@ -3,7 +3,6 @@
 #include "rect.h"
 #include "logger.h"
 #include "ec/component/component-template.h"
-#include "templates.h"
 #include <sstream>
 #include "ec/entity.h"
 #include "ec/component/component-collider.h"
@@ -17,7 +16,7 @@ namespace Component
 		std::vector<Component::Collider*> objects_;
 		std::size_t max_objects_;
 		std::array<QuadTree*, MAX_INDEX> trees_;
-		Component::QuadTreeVector* all_trees_;
+		Component::Template<std::vector<Component::QuadTree*>>* all_trees_;
 
 		enum quadrants: unsigned
 		{
@@ -127,13 +126,13 @@ namespace Component
 			trees_ = {nullptr, nullptr, nullptr, nullptr};
 		}
 	public:
-		Component::Int* index_;
+		Component::ValTemplate<int>* index_;
 
 		QuadTree()
 			: index_(nullptr), all_trees_(nullptr), max_objects_(0), rect_{0}, trees_{nullptr, nullptr, nullptr, nullptr}
 		{}
 
-		QuadTree(Component::QuadTreeVector* all_trees, Component::Int* index, std::size_t max_objects)
+		QuadTree(Component::Template<std::vector<Component::QuadTree*>>* all_trees, Component::ValTemplate<int>* index, std::size_t max_objects)
 			: all_trees_(all_trees), max_objects_(max_objects), index_(index), rect_{0}, trees_{nullptr, nullptr, nullptr, nullptr}
 		{
 			objects_.reserve(max_objects);
@@ -158,9 +157,9 @@ namespace Component
 			max_objects_ = json["max_objects"];
 			int max_trees = json["max_trees"];
 
-			all_trees_ = static_cast<Component::QuadTreeVector*>(root_entity->push_back_component(new Component::QuadTreeVector()));
+			all_trees_ = static_cast<Component::Template<std::vector<Component::QuadTree*>>*>(root_entity->push_back_component(new Component::Template<std::vector<Component::QuadTree*>>()));
 			all_trees_->reserve(max_trees);
-			index_ = static_cast<Component::Int*>(root_entity->push_back_component(new Component::Int()));
+			index_ = static_cast<Component::ValTemplate<int>*>(root_entity->push_back_component(new Component::ValTemplate<int>()));
 			index_->val = 0;
 			objects_.reserve(max_objects_);
 

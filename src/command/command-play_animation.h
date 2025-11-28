@@ -16,7 +16,7 @@ namespace Command
 		int pos_;
 		float play_speed_;
 		double timestamp;
-		Component::Float* delta_time_;
+		Component::ValTemplate<float>* delta_time_;
 	public:
 
 		void load(nlohmann::json json, Entity* game, Component::Pathway* pathway) override
@@ -27,7 +27,7 @@ namespace Command
 			animation_ = animation_map->at(animation_id);
 			src_temp_ = game->get_nested_component<Src::Transform>(json["src_temp"]);
 			play_speed_ = json["play_speed"];
-			delta_time_ = game->get_component<Component::Float>("delta_time");
+			delta_time_ = game->get_component<Component::ValTemplate<float>>("delta_time");
 			pos_ = 0;
 			timestamp = 0;
 		}

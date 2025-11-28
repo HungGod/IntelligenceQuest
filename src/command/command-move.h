@@ -14,10 +14,10 @@ namespace Command
 {
 	class Move : public ICommand
 	{
-		Component::Position* position_;
+		Component::Vector2D* position_;
 		Src::Transform* src_temp_;
 		Component::AnimationMap* anim_map_;
-		Component::Float* delta_time_;
+		Component::ValTemplate<float>* delta_time_;
 		glm::vec2 end_position_;
 		float move_speed_;
 		std::string end_direction_;
@@ -27,10 +27,10 @@ namespace Command
 	public:
 		void load(nlohmann::json json, Entity* game, Component::Pathway* pathway) override
 		{
-			position_ = game->get_nested_component<Component::Position>(json["position"]);
+			position_ = game->get_nested_component<Component::Vector2D>(json["position"]);
 			anim_map_ = game->get_nested_component<Component::AnimationMap>(json["animation_map"]);
 			src_temp_ = game->get_nested_component<Src::Transform>(json["src_temp"]);
-			delta_time_ = game->get_component<Component::Float>("delta_time");
+			delta_time_ = game->get_component<Component::ValTemplate<float>>("delta_time");
 			anim_speed_ = json["anim_speed"];
 			if (json.contains("camera"))
 				camera_ = game->get_nested_component<System::Camera>(json["camera"]);

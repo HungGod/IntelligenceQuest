@@ -14,14 +14,14 @@ namespace System {
         struct Fighter {
             Component::Vector2D* velocity{};
             std::vector<Component::Collider*> hitboxes{};
-            Component::ColliderVector* impulse{};
+            Component::Template<std::vector<Component::Collider*>>* impulse{};
             nlohmann::json       id;
         };
 
         std::vector<Fighter> fighters_;
         Component::Pathway* pathway_{};
         Component::ColliderMask* mask_{};
-        Component::Float* delta_time_{};
+        Component::ValTemplate<float>* delta_time_{};
     public:
         /* ---------------------------------------------------------------- init */
         void init(nlohmann::json j, Entity* g) override
@@ -31,13 +31,13 @@ namespace System {
                 fighters_.push_back({
                     g->get_nested_component<Component::Vector2D>(jf["velocity"]),
                     physical_colliders->casted_component_list<Component::Collider>(),
-                    g->get_nested_component<Component::ColliderVector>(jf["impulse"]),
+                    g->get_nested_component<Component::Template<std::vector<Component::Collider*>>>(jf["impulse"]),
                     jf["id"]
                     });
             }
             mask_ = g->get_child("Collision")->get_component<Component::ColliderMask>("mask");
             pathway_ = g->get_component<Component::Pathway>("pathway");
-            delta_time_ = g->get_component<Component::Float>("delta_time");
+            delta_time_ = g->get_component<Component::ValTemplate<float>>("delta_time");
         }
 
         /* --------------------------------------------------------------- execute */

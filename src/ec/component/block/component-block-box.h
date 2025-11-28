@@ -2,13 +2,12 @@
 #include "ec/component/block/component-block.h"
 #include "ec/component/component-box.h"
 #include "ec/component/component-template.h"
-#include "templates.h"
 
 namespace Block
 {
 	class Box : public IBlock
 	{
-		Component::Float* scale_;
+		Component::ValTemplate<float>* scale_;
 		Component::Box* box_;
 		Component::Box::BoxContainer box_container_;
 	public:
@@ -16,7 +15,7 @@ namespace Block
 		void init(nlohmann::json json, Entity* game)
 		{
 			box_ = game->get_nested_component<Component::Box>(json["box"]);
-			scale_ = game->get_nested_component<Component::Float>(json["scale"]);
+			scale_ = game->get_nested_component<Component::ValTemplate<float>>(json["scale"]);
 			change_arrow(true, false);
 		}
 

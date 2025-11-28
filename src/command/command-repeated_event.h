@@ -1,6 +1,5 @@
 #pragma once
 #include "command/command.h"
-#include "templates.h"
 #include "ec/component/component-template.h"
 #include "ec/component/component-pathway.h"
 
@@ -9,7 +8,7 @@ namespace Command
 	class RepeatedEvent : public ICommand
 	{
 		std::vector<nlohmann::json> commands_;
-		Component::Int* counter_;
+		Component::ValTemplate<int>* counter_;
 		Component::Pathway* pathway_;
 	public:
 
@@ -20,7 +19,7 @@ namespace Command
 			else
 				Logger::error("Json[commands] is not an array", Logger::HIGH);
 
-			counter_ = game->get_nested_component<Component::Int>(json["counter"]);
+			counter_ = game->get_nested_component<Component::ValTemplate<int>>(json["counter"]);
 			pathway_ = game->get_component<Component::Pathway>("pathway");
 		}
 

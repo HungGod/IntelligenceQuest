@@ -30,18 +30,18 @@ namespace System {
     class CombatTransformations : public ISystem
     {
         struct Fighter {
-            Component::Position* pos{};
-            Component::Bool* stunned{};
-            Component::Float* width{};
-            Component::Float* height{};
-            Component::Velocity* velocity{};
+            Component::Vector2D* pos{};
+            Component::ValTemplate<bool>* stunned{};
+            Component::ValTemplate<float>* width{};
+            Component::ValTemplate<float>* height{};
+            Component::Vector2D* velocity{};
         };
 
         std::vector<Fighter> fighters_;
 
         /* camera components supplied from JSON */
-        Component::Position* camera_pos_{};
-        Component::Float* camera_zoom_{};
+        Component::Vector2D* camera_pos_{};
+        Component::ValTemplate<float>* camera_zoom_{};
 
         /* stage / engine constants */
         float  max_zoom_{ 1.f };
@@ -51,9 +51,9 @@ namespace System {
         float zoom_out_percent_{ 0.9f };
         float zoom_in_percent_{ 0.6f };
 
-        Component::Float* viewport_width_{};   // in screen pixels
-        Component::Float* viewport_height_{};   // in screen pixels
-        Component::Float* delta_time_{};       // seconds
+        Component::ValTemplate<float>* viewport_width_{};   // in screen pixels
+        Component::ValTemplate<float>* viewport_height_{};   // in screen pixels
+        Component::ValTemplate<float>* delta_time_{};       // seconds
     public:
         /* ISystem interface */
         void init(nlohmann::json j, Entity* g) override;
@@ -66,8 +66,8 @@ namespace System {
     /* -------------------------------------------------------------------- init */
     void CombatTransformations::init(nlohmann::json j, Entity* g)
     {
-        camera_pos_ = g->get_nested_component<Component::Position>(j["camera_position"]);
-        camera_zoom_ = g->get_nested_component<Component::Float>(j["camera_zoom"]);
+        camera_pos_ = g->get_nested_component<Component::Vector2D>(j["camera_position"]);
+        camera_zoom_ = g->get_nested_component<Component::ValTemplate<float>>(j["camera_zoom"]);
         max_zoom_ = j["max_zoom"].get<float>();
         min_zoom_ = j["min_zoom"].get<float>();
         lag_frames_ = j["lag_frames"].get<float>();
@@ -76,17 +76,17 @@ namespace System {
 
         for (auto& jc : j["combatants"]) {
             Fighter f;
-            f.pos = g->get_nested_component<Component::Position>(jc["position"]);
-            f.stunned = g->get_nested_component<Component::Bool>(jc["stunned"]);
-            f.width = g->get_nested_component<Component::Float>(jc["width"]);
-            f.height = g->get_nested_component<Component::Float>(jc["height"]);
-            f.velocity = g->get_nested_component<Component::Velocity>(jc["velocity"]);
+            f.pos = g->get_nested_component<Component::Vector2D>(jc["position"]);
+            f.stunned = g->get_nested_component<Component::ValTemplate<bool>>(jc["stunned"]);
+            f.width = g->get_nested_component<Component::ValTemplate<float>>(jc["width"]);
+            f.height = g->get_nested_component<Component::ValTemplate<float>>(jc["height"]);
+            f.velocity = g->get_nested_component<Component::Vector2D>(jc["velocity"]);
             fighters_.push_back(f);
         }
 
-        viewport_width_ = g->get_component<Component::Float>("width");
-        viewport_height_ = g->get_component<Component::Float>("height");
-        delta_time_ = g->get_component<Component::Float>("delta_time");
+        viewport_width_ = g->get_component<Component::ValTemplate<float>>("width");
+        viewport_height_ = g->get_component<Component::ValTemplate<float>>("height");
+        delta_time_ = g->get_component<Component::ValTemplate<float>>("delta_time");
     }
 
     /* -------------------------------------------- helper: critically damped zoom */

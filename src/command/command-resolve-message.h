@@ -1,7 +1,6 @@
 #pragma once
 #include "command/command.h"
 #include "glfw/glfw3.h"
-#include "templates.h"
 #include "ec/component/component-template.h"
 #include "ec/component/component-vec2.h"
 #include "ec/component/gjk/component-gjk.h"
@@ -11,14 +10,14 @@ namespace Resolve {
 	class Message : public ICommand
 	{
 		nlohmann::json message_;
-		Component::Double* time_stamp_;
+		Component::ValTemplate<double>* time_stamp_;
 		double delay_;
 	public:
 
 		void init(nlohmann::json json, Entity* game)
 		{
 			message_ = json["col_b"]["message"];
-			time_stamp_ = game->get_nested_component<Component::Double>(json["col_b"]["time_stamp"]);
+			time_stamp_ = game->get_nested_component<Component::ValTemplate<double>>(json["col_b"]["time_stamp"]);
 			delay_ = json["col_b"]["delay"];
 			time_stamp_->val = glfwGetTime();
 

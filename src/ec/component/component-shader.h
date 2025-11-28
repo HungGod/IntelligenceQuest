@@ -8,7 +8,6 @@
 #include <glm/matrix.hpp>
 #include <glm/ext/matrix_clip_space.hpp>
 #include "ec/component/component-template.h"
-#include "templates.h"
 #include "ec/entity.h"
 
 namespace Component {
@@ -40,7 +39,7 @@ namespace Component {
 			
 			// should probably remove this.
 			this->use();
-			auto projection = glm::ortho(0.0f, (GLfloat)game->get_component<Component::Float>("width")->val, (GLfloat)game->get_component<Component::Float>("height")->val, 0.0f, -1.0f, 1.0f);
+			auto projection = glm::ortho(0.0f, (GLfloat)game->get_component<Component::ValTemplate<float>>("width")->val, (GLfloat)game->get_component<Component::ValTemplate<float>>("height")->val, 0.0f, -1.0f, 1.0f);
 			this->set_mat4("projection", projection);
 		}
 

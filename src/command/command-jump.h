@@ -1,6 +1,5 @@
 #pragma once
 #include "command/command.h"
-#include "templates.h"
 #include "ec/component/component-template.h"
 #include "ec/component/component-vec2.h"
 
@@ -9,7 +8,7 @@ namespace Command
 	class Jump : public ICommand
 	{
         int jump_velocity_;
-        Component::Velocity* velocity_;
+        Component::Vector2D* velocity_;
 		int jump_frames_;
 		int initial_jump_frames_;
 		float damping_factor_;
@@ -19,7 +18,7 @@ namespace Command
 		{
 			jump_velocity_ = json["jump_velocity"].get<int>();
 			damping_factor_ = json.value("damping_factor", 0.0f);
-            velocity_ = game->get_nested_component<Component::Velocity>(json["velocity"]);
+            velocity_ = game->get_nested_component<Component::Vector2D>(json["velocity"]);
 			jump_frames_ = json["jump_frames"].get<int>();
 			initial_jump_frames_ = jump_frames_;
 		}

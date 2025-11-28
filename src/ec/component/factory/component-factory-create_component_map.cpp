@@ -1,4 +1,9 @@
 #include "ec/component/factory/component-factory-create_component_map.h"
+#include <array>
+#include <vector>
+#include <unordered_map>
+#include "ec/component/system/component-system.h"
+#include "ec/component/component-template.h"
 
 #include "ec/component/controller/component-controller-keyboard.h"
 
@@ -62,15 +67,15 @@ T* c_component() { return new T(); }
 void Factory::CreateComponentMap::create()
 {
 	// component
-	(*this)["Float"] = c_component<Component::Float>;
-	(*this)["Bool"] = c_component<Component::Bool>;
-	(*this)["Int"] = c_component<Component::Int>;
-	(*this)["Json"] = c_component<Component::Json>;
-	(*this)["Position"] = (*this)["Direction"] = (*this)["Velocity"] = c_component<Component::Position>;
-	(*this)["KeyboardArray"] = c_component<Component::KeyboardArray>;
-	(*this)["SystemVector"] = c_component<Component::SystemVector>;
+	(*this)["Float"] = c_component<Component::ValTemplate<float>>;
+	(*this)["Bool"] = c_component<Component::ValTemplate<bool>>;
+	(*this)["Int"] = c_component<Component::ValTemplate<int>>;
+	(*this)["Json"] = c_component<Component::ValTemplate<nlohmann::json>>;
+	(*this)["Position"] = (*this)["Direction"] = (*this)["Velocity"] = c_component<Component::Vector2D>;
+	(*this)["KeyboardArray"] = c_component<Component::Template<std::array<bool, 1024>>>;
+	(*this)["SystemVector"] = c_component<Component::Template<std::vector<ISystem*>>>;
 	(*this)["Animation"] = c_component<Component::Animation>;
-	(*this)["QuadTreeVector"] = c_component<Component::QuadTreeVector>;
+	(*this)["QuadTreeVector"] = c_component<Component::Template<std::vector<Component::QuadTree*>>>;
 	(*this)["QuadTree"] = c_component<Component::QuadTree>;
 	(*this)["AnimationMap"] = c_component<Component::AnimationMap>;
 	(*this)["Texture"] = c_component<Component::Texture>;
@@ -80,17 +85,17 @@ void Factory::CreateComponentMap::create()
 	(*this)["Tileset"] = c_component<Component::Tileset>;
 	(*this)["Pathway"] = c_component<Component::Pathway>;
 	(*this)["PositionMap"] = c_component<Component::PositionMap>;
-	(*this)["JsonMap"] = c_component<Component::JsonMap>;
-	(*this)["LoadMap"] = c_component<Component::BoolMap>;
+	(*this)["JsonMap"] = c_component<Component::Template<std::unordered_map<std::string, nlohmann::json>>>;
+	(*this)["LoadMap"] = c_component<Component::Template<std::unordered_map<std::string, bool>>>;
 	(*this)["JsonTemplateMap"] = c_component<Component::JsonTemplateMap>;
-	(*this)["String"] = c_component<Component::DavidString>;
+	(*this)["String"] = c_component<Component::ValTemplate<std::string>>;
 	(*this)["Intelligence"] = (*this)["IQ"] = c_component<Component::Intelligence>;
 	(*this)["Box"] = c_component<Component::Box>;
 	(*this)["SystemCache"] = c_component<Component::SystemCache>;
 	(*this)["Hitboxes"] = c_component<Component::Hitboxes>;
 	(*this)["ColliderMask"] = c_component<Component::ColliderMask>;
 	(*this)["Collider"] = c_component<Component::Collider>;
-	(*this)["ColliderVector"] = c_component<Component::ColliderVector>;
+	(*this)["ColliderVector"] = c_component<Component::Template<std::vector<Component::Collider*>>>;
 
 	// component src
 	(*this)["Src"] = (*this)["Src::TexturePackerGUI"] = c_component<Src::TexturePackerGUI>;

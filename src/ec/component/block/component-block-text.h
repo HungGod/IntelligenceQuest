@@ -15,7 +15,7 @@ namespace Block
 		{
 			Entity* font = game->get_nested_child(json["font"]);
 			material = font->get_component<IMaterial>("material");
-			Component::Float* scale = game->get_nested_component<Component::Float>(json["scale"]);
+			Component::ValTemplate<float>* scale = game->get_nested_component<Component::ValTemplate<float>>(json["scale"]);
 			text.init(font, scale->val);
 
 			if (json.contains("message"))

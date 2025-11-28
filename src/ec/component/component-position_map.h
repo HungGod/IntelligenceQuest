@@ -3,7 +3,6 @@
 #include <unordered_map>
 #include <glm/glm.hpp>
 #include "ec/component/component-tilemap.h"
-#include "templates.h"
 #include "ec/component/component-template.h"
 #include "ec/entity.h"
 
@@ -17,7 +16,7 @@ namespace Component
 			auto tilemap = game->get_nested_component<Component::Tilemap>(json["tilemap"]);
 			auto width = tilemap->width;
 			auto tile_size = tilemap->tile_size;
-			auto scale = game->get_nested_component<Component::Float>(json["scale"]);
+			auto scale = game->get_nested_component<Component::ValTemplate<float>>(json["scale"]);
 			this->clear();
 			auto i = 0;
 			for (int pos : json["map"])

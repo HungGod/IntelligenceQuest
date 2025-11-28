@@ -6,14 +6,14 @@ namespace System
 {
 	class StaticBlockDraw : public ISystem
 	{
-		Component::Position* position_;
+		Component::Vector2D* position_;
 		Component::Renderer* renderer_;
 	public:
 		std::vector<IBlock*> blocks;
 
 		void init(nlohmann::json json, Entity* game)
 		{	
-			position_ = game->get_nested_component<Component::Position>(json["position"]);
+			position_ = game->get_nested_component<Component::Vector2D>(json["position"]);
 			renderer_ = game->get_component<Component::Renderer>("renderer");
 			nlohmann::json blocks = json["blocks"];
 			for (auto b : blocks)

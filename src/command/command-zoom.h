@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include "command/command.h"
-#include "templates.h"
 #include "ec/component/component-template.h"
 #include "ec/component/component-vec2.h"
 #include "ec/component/component-pathway.h"
@@ -9,9 +8,9 @@ namespace Command
 {
 	class Zoom : public ICommand
 	{
-		Component::Float* camera_zoom_;
-		Component::Position* camera_position_;
-		Component::Float* delta_time_;
+		Component::ValTemplate<float>* camera_zoom_;
+		Component::Vector2D* camera_position_;
+		Component::ValTemplate<float>* delta_time_;
         bool first_;
         float width_, height_; 
 		float end_scale_;
@@ -21,14 +20,14 @@ namespace Command
 
 		void load(nlohmann::json json, Entity* game, Component::Pathway* pathway) override
 		{
-			camera_zoom_ = game->get_nested_component<Component::Float>(json["camera_zoom"]); // camera zoom
-			camera_position_ = game->get_nested_component<Component::Position>(json["camera_position"]); // camera position
+			camera_zoom_ = game->get_nested_component<Component::ValTemplate<float>>(json["camera_zoom"]); // camera zoom
+			camera_position_ = game->get_nested_component<Component::Vector2D>(json["camera_position"]); // camera position
 			end_scale_ = json["end_scale"];
 			step_ = json["step"];
-            width_ = game->get_component<Component::Float>("width")->val;
-            height_ = game->get_component<Component::Float>("height")->val;
+            width_ = game->get_component<Component::ValTemplate<float>>("width")->val;
+            height_ = game->get_component<Component::ValTemplate<float>>("height")->val;
             first_ = true;
-			delta_time_ = game->get_component<Component::Float>("delta_time");
+			delta_time_ = game->get_component<Component::ValTemplate<float>>("delta_time");
 		}
 
         void execute(Entity*, Component::Pathway* pathway)

@@ -2,7 +2,6 @@
 #include <sstream>
 #include "ec/component/factory/component-factory-create_component_map.h"
 #include "ec/component/component-pathway.h"
-#include "templates.h"
 #include "ec/component/component-template.h"
 #include "command/command.h"
 

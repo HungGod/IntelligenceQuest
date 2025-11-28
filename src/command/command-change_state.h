@@ -1,6 +1,6 @@
 #pragma once
 #include "command/command.h"
-#include "templates.h"
+#include <vector>
 #include "ec/component/component-template.h"
 #include "ec/component/system/component-system.h"
 #include "json_to.h"
@@ -36,7 +36,7 @@ namespace Command
 
 			auto set_system_vec = [game] (std::vector<nlohmann::json> vec, std::string sys_name, std::string child_name)
 			{
-				auto& c_system = *game->get_component<Component::SystemVector>(sys_name);
+				auto& c_system = *game->get_component<Component::Template<std::vector<ISystem*>>>(sys_name);
 
 				std::vector<ISystem*> systems;
 				for (auto &v : vec)
@@ -58,8 +58,8 @@ namespace Command
 
 			if (add_colliders_to_quadtree_)
 			{
-				Component::ColliderVector* moveable_colliders = game->get_child("Collision")->get_component<Component::ColliderVector>("moveable_colliders");
-				Component::ColliderVector* static_colliders = game->get_child("Collision")->get_component<Component::ColliderVector>("static_colliders");
+				Component::Template<std::vector<Component::Collider*>>* moveable_colliders = game->get_child("Collision")->get_component<Component::Template<std::vector<Component::Collider*>>>("moveable_colliders");
+				Component::Template<std::vector<Component::Collider*>>* static_colliders = game->get_child("Collision")->get_component<Component::Template<std::vector<Component::Collider*>>>("static_colliders");
 				moveable_colliders->clear();
 				static_colliders->clear();
 				for (auto& rj : render_)

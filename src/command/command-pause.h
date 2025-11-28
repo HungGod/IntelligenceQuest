@@ -1,7 +1,6 @@
 #pragma once
 #include "command/command.h"
 #include "ec/component/component-template.h"
-#include "templates.h"
 #include "ec/component/system/component-system.h"
 #include "ec/component/component-cache.h"
 #include "ec/component/component-collider.h"
@@ -21,8 +20,8 @@ namespace Command
 
 		void execute(Entity* game, Component::Pathway* pathway) override
 		{
-			Component::SystemVector& game_render = *game->get_component<Component::SystemVector>("render");
-			Component::SystemVector& game_update = *game->get_component<Component::SystemVector>("update");
+			Component::Template<std::vector<ISystem*>>& game_render = *game->get_component<Component::Template<std::vector<ISystem*>>>("render");
+			Component::Template<std::vector<ISystem*>>& game_update = *game->get_component<Component::Template<std::vector<ISystem*>>>("update");
 			
 			if (json_.contains("cache"))
 				if (json_["cache"] == true)
@@ -92,8 +91,8 @@ namespace Command
 
 			if (json_.contains("clear_colliders"))
 			{
-				Component::ColliderVector* moveable_colliders = game->get_child("Collision")->get_component<Component::ColliderVector>("moveable_colliders");
-				Component::ColliderVector* static_colliders = game->get_child("Collision")->get_component<Component::ColliderVector>("static_colliders");
+				Component::Template<std::vector<Component::Collider*>>* moveable_colliders = game->get_child("Collision")->get_component<Component::Template<std::vector<Component::Collider*>>>("moveable_colliders");
+				Component::Template<std::vector<Component::Collider*>>* static_colliders = game->get_child("Collision")->get_component<Component::Template<std::vector<Component::Collider*>>>("static_colliders");
 				Component::QuadTree* quadtree = game->get_child("Collision")->get_child("QuadTree")->get_component<Component::QuadTree>("root");
 
 				moveable_colliders->clear();

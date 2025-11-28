@@ -8,10 +8,10 @@ namespace System {
 	{
 		Component::Renderer* renderer_;
 		ISrc* src_;
-		Component::Position* position_;
+		Component::Vector2D* position_;
 		glm::vec4 dest_;
 		IMaterial* material_;
-		Component::Float* scale_;
+		Component::ValTemplate<float>* scale_;
 	public:
 
 		StaticDraw()
@@ -21,8 +21,8 @@ namespace System {
 		void init(nlohmann::json json, Entity* game) override
 		{
 			src_ = game->get_nested_component<ISrc>(json["src"]);
-			position_ = game->get_nested_component<Component::Position>(json["position"]);
-			scale_ = game->get_nested_component<Component::Float>(json["scale"]);
+			position_ = game->get_nested_component<Component::Vector2D>(json["position"]);
+			scale_ = game->get_nested_component<Component::ValTemplate<float>>(json["scale"]);
 			material_ = game->get_nested_component<IMaterial>(json["material"]);
 
 			renderer_ = game->get_component<Component::Renderer>("renderer");

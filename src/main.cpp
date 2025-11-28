@@ -2,6 +2,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <string>
+#include <array>
+#include <vector>
 #include <glm/ext/matrix_clip_space.hpp>
 #include "ec/component/component-renderer.h"
 #include "ec/entity.h"
@@ -21,26 +23,27 @@ void APIENTRY gl_debug_output(GLenum source, GLenum type, unsigned int id, GLenu
 void key_callback(GLFWwindow* window, int key, int scan_code, int action, int mode);
 void audio_callback(ma_device* p_device, void* p_output, const void* p_input, ma_uint32 frame_count);
 
+constexpr auto max_keys = 1024;
 constexpr auto game_filepath = "res/data/game.json";
-Component::KeyboardArray* keys;
+Component::Template<std::array<bool, max_keys>>* keys;
 Entity* e_game;
 
 int main()
 {
     Game game;
     e_game = game.init(game_filepath);
-    keys = e_game->get_component<Component::KeyboardArray>("keys");
+    keys = e_game->get_component<Component::Template<std::array<bool, max_keys>>>("keys");
 
-    auto sc_width = e_game->get_component<Component::Float>("width")->val;
-    auto sc_height = e_game->get_component<Component::Float>("height")->val;
+    auto sc_width = e_game->get_component<Component::ValTemplate<float>>("width")->val;
+    auto sc_height = e_game->get_component<Component::ValTemplate<float>>("height")->val;
 
-    auto window_title = e_game->get_component<Component::DavidString>("window_title")->val;
+    auto window_title = e_game->get_component<Component::ValTemplate<std::string>>("window_title")->val;
 
-    auto& delta_time = e_game->get_component<Component::Float>("delta_time")->val;
-    auto& exit = e_game->get_component<Component::Bool>("exit")->val;
+    auto& delta_time = e_game->get_component<Component::ValTemplate<float>>("delta_time")->val;
+    auto& exit = e_game->get_component<Component::ValTemplate<bool>>("exit")->val;
 
-    auto& render = *e_game->get_component<Component::SystemVector>("render");
-    auto& update = *e_game->get_component<Component::SystemVector>("update");
+    auto& render = *e_game->get_component<Component::Template<std::vector<ISystem*>>>("render");
+    auto& update = *e_game->get_component<Component::Template<std::vector<ISystem*>>>("update");
 
     auto& pathway = *e_game->get_component<Component::Pathway>("pathway");
     auto command_map = e_game->get_component<Factory::CommandMap>("command_map");
@@ -173,7 +176,7 @@ void audio_callback(ma_device* pDevice, void* pOutput, const void* pInput, ma_ui
 
 void key_callback(GLFWwindow* window, int key, int scan_code, int action, int mode)
 {
-    if (key >= 0 && key < MAX_KEYS)
+    if (key >= 0 && key < max_keys)
     {
         // update our global keyboard object
         if (action == GLFW_PRESS)

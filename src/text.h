@@ -1,7 +1,6 @@
 #pragma once
 #include "ec/component/src/component-src-bm_font.h"
 #include "ec/component/component-template.h"
-#include "templates.h"
 #include "ec/entity.h"
 #include "rect.h"
 
@@ -21,8 +20,8 @@ public:
 		dests.clear();
 		size = 0;
 
-		float space = static_cast<float>(font->get_component<Component::Int>("space")->val);
-		float line_h = static_cast<float>(font->get_component<Component::Int>("line_h")->val);
+		float space = static_cast<float>(font->get_component<Component::ValTemplate<int>>("space")->val);
+		float line_h = static_cast<float>(font->get_component<Component::ValTemplate<int>>("line_h")->val);
 
 		int prev_char = -1;
 
@@ -71,8 +70,8 @@ public:
 		dests.clear();
 		size = width;
 
-		float space = static_cast<float>(font->get_component<Component::Int>("space")->val);
-		float line_h = static_cast<float>(font->get_component<Component::Int>("line_h")->val);
+		float space = static_cast<float>(font->get_component<Component::ValTemplate<int>>("space")->val);
+		float line_h = static_cast<float>(font->get_component<Component::ValTemplate<int>>("line_h")->val);
 
 		int prev_char = -1;
 

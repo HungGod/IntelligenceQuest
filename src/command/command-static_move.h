@@ -14,16 +14,16 @@ namespace Command
 {
 	class StaticMove : public ICommand
 	{
-		Component::Position* position_;
-		Component::Float* delta_time_;
+		Component::Vector2D* position_;
+		Component::ValTemplate<float>* delta_time_;
 		glm::vec2 end_position_;
 		float move_speed_;
 
 	public:
 		void load(nlohmann::json json, Entity* game, Component::Pathway* pathway) override
 		{
-			position_ = game->get_nested_component<Component::Position>(json["position"]);
-			delta_time_ = game->get_component<Component::Float>("delta_time");
+			position_ = game->get_nested_component<Component::Vector2D>(json["position"]);
+			delta_time_ = game->get_component<Component::ValTemplate<float>>("delta_time");
 			end_position_.x = json["end_position"]["x"];
 			end_position_.y = json["end_position"]["y"];
 			

@@ -4,30 +4,29 @@
 #include "ec/component/component-vec2.h"
 #include "ec/component/component-pathway.h"
 #include "ec/component/component-template.h"
-#include "templates.h"
 
 namespace System
 {
 	class CombatController : public ISystem
 	{
 		IController* controller_{};
-		Component::Direction* direction_{};
-		Component::Json* combat_abilities{};
-		Component::Bool* midair_{};
+		Component::Vector2D* direction_{};
+		Component::ValTemplate<nlohmann::json>* combat_abilities{};
+		Component::ValTemplate<bool>* midair_{};
 		Component::Pathway* pathway_{};
-		Component::Float* speed_{};
-		Component::Velocity* velocity_{};
+		Component::ValTemplate<float>* speed_{};
+		Component::Vector2D* velocity_{};
 	public:
 		CombatController() = default;
 
 		void init(nlohmann::json json, Entity* game) override
 		{
-			midair_ = game->get_nested_component<Component::Bool>(json["midair"]);
-			combat_abilities = game->get_nested_component<Component::Json>(json["combat_abilities"]);
+			midair_ = game->get_nested_component<Component::ValTemplate<bool>>(json["midair"]);
+			combat_abilities = game->get_nested_component<Component::ValTemplate<nlohmann::json>>(json["combat_abilities"]);
 			controller_ = game->get_nested_component<IController>(json["controller"]);
-			direction_ = game->get_nested_component<Component::Direction>(json["direction"]);
-			speed_ = game->get_nested_component<Component::Float>(json["speed"]);
-			velocity_ = game->get_nested_component<Component::Velocity>(json["velocity"]);
+			direction_ = game->get_nested_component<Component::Vector2D>(json["direction"]);
+			speed_ = game->get_nested_component<Component::ValTemplate<float>>(json["speed"]);
+			velocity_ = game->get_nested_component<Component::Vector2D>(json["velocity"]);
 			pathway_ = game->get_component<Component::Pathway>("pathway");
 		}
 

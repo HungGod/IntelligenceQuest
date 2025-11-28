@@ -1,7 +1,6 @@
 #pragma once
 #pragma once
 #include "ec/component/system/component-system.h"
-#include "templates.h"
 #include "ec/component/component-template.h"
 #include "ec/component/controller/component-controller.h"
 #include <glm/vec2.hpp>
@@ -20,7 +19,7 @@ namespace System {
 	{
 		Component::AnimationMap* animation_map_;
 		Component::Animation* animation_;
-		Component::Direction* direction_, *prev_;
+		Component::Vector2D* direction_, *prev_;
 	public:
 		AnimateMove()
 			: animation_map_(nullptr), animation_(nullptr), direction_(nullptr), prev_(nullptr)
@@ -28,10 +27,10 @@ namespace System {
 
 		void init(nlohmann::json json, Entity* game) override
 		{
-			direction_ = game->get_nested_component<Component::Direction>(json["direction"]);
+			direction_ = game->get_nested_component<Component::Vector2D>(json["direction"]);
 			animation_map_ = game->get_nested_component<Component::AnimationMap>(json["animation_map"]);
 			animation_ = game->get_nested_component<Component::Animation>(json["animation"]);
-			prev_ = game->get_nested_component<Component::Direction>(json["prev_direction"]);
+			prev_ = game->get_nested_component<Component::Vector2D>(json["prev_direction"]);
 		}
 
 		void execute() override

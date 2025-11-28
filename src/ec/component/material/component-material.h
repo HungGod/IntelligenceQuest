@@ -3,7 +3,6 @@
 #include "ec/component/component-shader.h"
 #include "ec/component/component-template.h"
 #include "ec/entity.h"
-#include "templates.h"
 
 /*
 * Abstract holding class for texture shader combinations used for rendering
@@ -28,7 +27,7 @@ public:
 		texture = game->get_nested_component<Component::Texture>(json["texture"]);
 		shader = game->get_nested_component<Component::Shader>(json["shader"]);
 		tex_unit_ = json.value("tex_unit", 0);
-		id = game->get_component<Component::Int>("material_id")->val++;
+		id = game->get_component<Component::ValTemplate<int>>("material_id")->val++;
 	}
 
 	virtual void compile() = 0; 

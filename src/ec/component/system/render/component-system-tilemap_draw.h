@@ -1,6 +1,5 @@
 #pragma once
 #include "game.h"
-#include "templates.h"
 #include "ec/component/system/component-system.h"
 #include "ec/component/component-renderer.h"
 #include "ec/component/component-tilemap.h"
@@ -20,8 +19,8 @@ namespace System {
 		Component::Tilemap* tilemap_;
 		IMaterial* material_;
 
-		Component::Position* camera_pos_;
-		Component::Float* game_width_, * game_height_, *scale_;
+		Component::Vector2D* camera_pos_;
+		Component::ValTemplate<float>* game_width_, * game_height_, *scale_;
 	public:
 		TilemapDraw()
 			: renderer_(nullptr), tileset_(nullptr), tilemap_(nullptr), material_(nullptr),
@@ -31,12 +30,12 @@ namespace System {
 		void init(nlohmann::json json, Entity* game) override
 		{
 			tilemap_ = game->get_nested_component<Component::Tilemap>(json["tilemap"]);
-			camera_pos_ = game->get_nested_component<Component::Position>(json["camera"]);
-			scale_ = game->get_nested_component<Component::Float>(json["scale"]);
+			camera_pos_ = game->get_nested_component<Component::Vector2D>(json["camera"]);
+			scale_ = game->get_nested_component<Component::ValTemplate<float>>(json["scale"]);
 
 			renderer_ = game->get_component<Component::Renderer>("renderer");
-			game_width_ = game->get_component<Component::Float>("width");
-			game_height_ = game->get_component<Component::Float>("height");
+			game_width_ = game->get_component<Component::ValTemplate<float>>("width");
+			game_height_ = game->get_component<Component::ValTemplate<float>>("height");
 
 			tileset_ = game->get_nested_component<Component::Tileset>(json["tileset"]);
 			material_= game->get_nested_component<IMaterial>(json["material"]);

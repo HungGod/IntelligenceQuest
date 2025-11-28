@@ -2,7 +2,6 @@
 #include "ec/component/gjk/component-gjk.h"
 #include "rect.h"
 #include "ec/entity.h"
-#include "templates.h"
 #include "ec/component/component-template.h"
 
 namespace GJK
@@ -10,7 +9,7 @@ namespace GJK
 	class Point : public IGJK
 	{
 		float distance_;
-		Component::Direction* direction_;
+		Component::Vector2D* direction_;
 		glm::vec2 offset_;
 	public:
 		Point()
@@ -21,7 +20,7 @@ namespace GJK
 		{
 			if (json.contains("direction"))
 			{
-				direction_ = game->get_nested_component<Component::Direction>(json["direction"]);
+				direction_ = game->get_nested_component<Component::Vector2D>(json["direction"]);
 				distance_ = json["distance"];
 				offset_.x = json["offset"]["x"];
 				offset_.y = json["offset"]["y"];

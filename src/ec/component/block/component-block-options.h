@@ -8,12 +8,12 @@ class AOptions : public IBlock
 	Component::Renderer* renderer_;
 	int option_pos_;
 protected:
-	Component::Float* text_scale_;
+	Component::ValTemplate<float>* text_scale_;
 	Entity* font_;
 	ISrc* cursor_src_;
 	float cursor_scale_;
 	glm::vec2 center_;
-	Component::Int* nav_pos_;
+	Component::ValTemplate<int>* nav_pos_;
 	struct Option
 	{
 		Text text;
@@ -29,19 +29,19 @@ public:
 	{
 		options_.clear();
 		// find the center of the box
-		Component::Float* width = game->get_nested_component<Component::Float>(json["block_width"]);
-		Component::Float* height = game->get_nested_component<Component::Float>(json["block_height"]);
-		Component::Float* scale = game->get_nested_component<Component::Float>(json["block_scale"]);
+		Component::ValTemplate<float>* width = game->get_nested_component<Component::ValTemplate<float>>(json["block_width"]);
+		Component::ValTemplate<float>* height = game->get_nested_component<Component::ValTemplate<float>>(json["block_height"]);
+		Component::ValTemplate<float>* scale = game->get_nested_component<Component::ValTemplate<float>>(json["block_scale"]);
 
 		center_ = { width->val * scale->val / 2.0f, height->val * scale->val / 2.0f };
 
 		// load in the cursor and font stuff
-		text_scale_ = game->get_nested_component<Component::Float>(json["text_scale"]);
+		text_scale_ = game->get_nested_component<Component::ValTemplate<float>>(json["text_scale"]);
 		cursor_src_ = game->get_nested_component<ISrc>(json["cursor_src"]);
 		font_ = game->get_nested_child(json["font"]);
 		cursor_material_ = game->get_nested_component<IMaterial>(json["cursor_material"]);
 		cursor_scale_ = json["cursor_scale"];
-		nav_pos_ = game->get_nested_component<Component::Int>(json["nav_pos"]);
+		nav_pos_ = game->get_nested_component<Component::ValTemplate<int>>(json["nav_pos"]);
 	}
 
 	void draw(glm::vec2 position, Component::Renderer* renderer) override final

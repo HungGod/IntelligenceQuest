@@ -23,7 +23,7 @@ namespace Command
 				args.update(json_["args"]);
 			
 			if (json_.contains("get"))
-				args.update(game->get_nested_component<Component::Json>(json_["get"])->val);
+				args.update(game->get_nested_component<Component::ValTemplate<nlohmann::json>>(json_["get"])->val);
 
 			if (json_template_map.find(json_["template"]) != json_template_map.end())
 			{

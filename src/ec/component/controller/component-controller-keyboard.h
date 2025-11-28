@@ -1,6 +1,5 @@
 #pragma once
 #include "ec/component/controller/component-controller.h"
-#include "templates.h"
 #include "ec/component/component-template.h"
 #include "ec/entity.h"
 
@@ -26,13 +25,13 @@ namespace Controller {
 		};
 
 		std::array<int, 9> key_ids_{};
-		Component::KeyboardArray* keys_;
+		Component::Template<std::array<bool, 1024>>* keys_;
 	public:
 
 		Keyboard() = default;
 
 		void init(nlohmann::json json, Entity* game) override {
-			keys_ = game->get_component<Component::KeyboardArray>("keys");
+			keys_ = game->get_component<Component::Template<std::array<bool, 1024>>>("keys");
 
 			key_ids_[left] = json["left"];
 			key_ids_[right] = json["right"];
