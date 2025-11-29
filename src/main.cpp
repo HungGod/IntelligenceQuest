@@ -113,8 +113,12 @@ int main()
         glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
     }
 
-    // normalize window to work on other devices
-    glViewport(0, 0, (GLsizei)sc_width, (GLsizei)sc_height);
+    // Get actual framebuffer size (may differ from window size on high-DPI displays)
+    int framebuffer_width, framebuffer_height;
+    glfwGetFramebufferSize(window, &framebuffer_width, &framebuffer_height);
+    
+    // Call the resize callback to set up viewport with correct aspect ratio
+    framebuffer_size_callback(window, framebuffer_width, framebuffer_height);
 
 
     //glDisable(GL_CULL_FACE);
