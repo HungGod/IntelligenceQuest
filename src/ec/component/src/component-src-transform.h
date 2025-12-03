@@ -93,6 +93,7 @@ namespace Src
 
 		void draw(glm::vec4 dest, IMaterial* material, Component::Renderer* renderer)
 		{
+			if (!src) return;
 			glm::vec4 src = this->get_src();
 
 			if (rotation_angle_ != 0.0f) {

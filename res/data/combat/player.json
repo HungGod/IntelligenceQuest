@@ -85,67 +85,116 @@
                         },
                         "ground_ability_1": {
                             "Attack": {
-                                "spritesheet": ["Combat", "Spritesheet", "combat-spritesheet"],
+                                "position": ["Combat", "Player", "position"],
+                                "scale": ["Combat", "Player", "scale"],
                                 "direction": ["Combat", "Player", "direction"],
-                                "src": ["Combat", "Player", "src"],
-                                "left": [
-                                    "attack_left_0.png",
-                                    "attack_left_1.png",
-                                    "attack_left_2.png"
-                                ],
-                                "right": [
-                                    "attack_right_0.png",
-                                    "attack_right_1.png",
-                                    "attack_right_2.png"
-                                ],
-                                "hitboxes": ["Combat", "Player", "hitboxes"]
+                                "width": ["Combat", "Player", "width"],
+                                "attack_position": ["Combat", "Player", "Attack", "position"],
+                                "attack_src": ["Combat", "Player", "Attack", "src_temp"],
+                                "attack_collider": ["Combat", "Player", "Attack", "Colliders", "attack_collider"],
+                                "spritesheet": ["Combat", "Spritesheet", "Combat"],
+                                "combo": [
+                                    {
+                                        "duration": 0.15,
+                                        "startup": 0.03,
+                                        "damage": 8,
+                                        "hitstun": 0.15,
+                                        "knockback": { "x": 80, "y": -20 },
+                                        "impulse": { "x": 25, "y": 0 },
+                                        "hitbox_left": ["Combat", "Player", "Attack", "Hitboxes", "combo1_left"],
+                                        "hitbox_right": ["Combat", "Player", "Attack", "Hitboxes", "combo1_right"],
+                                        "frame_left": "attack_left_0.png",
+                                        "frame_right": "attack_right_0.png"
+                                    },
+                                    {
+                                        "duration": 0.22,
+                                        "startup": 0.06,
+                                        "damage": 16,
+                                        "hitstun": 0.3,
+                                        "knockback": { "x": 140, "y": -60 },
+                                        "impulse": { "x": 40, "y": 0 },
+                                        "hitbox_left": ["Combat", "Player", "Attack", "Hitboxes", "combo2_left"],
+                                        "hitbox_right": ["Combat", "Player", "Attack", "Hitboxes", "combo2_right"],
+                                        "frame_left": "attack_left_1.png",
+                                        "frame_right": "attack_right_1.png"
+                                    },
+                                    {
+                                        "duration": 0.28,
+                                        "startup": 0.08,
+                                        "damage": 22,
+                                        "hitstun": 0.45,
+                                        "knockback": { "x": 350, "y": -120 },
+                                        "impulse": { "x": -15, "y": 0 },
+                                        "hitbox_left": ["Combat", "Player", "Attack", "Hitboxes", "combo3_left"],
+                                        "hitbox_right": ["Combat", "Player", "Attack", "Hitboxes", "combo3_right"],
+                                        "frame_left": "attack_left_2.png",
+                                        "frame_right": "attack_right_2.png"
+                                    }
+                                ]
                             }
                         },
                         "ground_ability_2": {
                             "Projectile": {
-                                "spritesheet": ["Combat", "Spritesheet", "combat-spritesheet"],
+                                "position": ["Combat", "Player", "position"],
+                                "scale": ["Combat", "Player", "scale"],
                                 "direction": ["Combat", "Player", "direction"],
-                                "src": ["Combat", "Player", "src"],
-                                "projectile_vel": 40,
-                                "duration": 2,
-                                "left": [
-                                    "projectile_left.png"
-                                ],
-                                "right": [
-                                    "projectile_right.png"
-                                ],
-                                "hitboxes": ["Combat", "Player", "hitboxes"]
+                                "width": ["Combat", "Player", "width"],
+                                "projectile_position": ["Combat", "Player", "Attack", "position"],
+                                "projectile_src": ["Combat", "Player", "Attack", "src_temp"],
+                                "projectile_collider": ["Combat", "Player", "Attack", "Colliders", "attack_collider"],
+                                "spritesheet": ["Combat", "Spritesheet", "Combat"],
+                                "hitbox_left": ["Combat", "Player", "Attack", "Hitboxes", "projectile"],
+                                "hitbox_right": ["Combat", "Player", "Attack", "Hitboxes", "projectile"],
+                                "frame_left": "projectile_left.png",
+                                "frame_right": "projectile_right.png",
+                                "projectile_vel": 600,
+                                "max_distance": 380,
+                                "damage": 12,
+                                "hitstun": 0.25,
+                                "knockback": { "x": 160, "y": -30 },
+                                "spawn_offset": { "x": 48, "y": 20 }
                             }
                         },
                         "ground_ability_3": {
-                            "Block": {
-                                "spritesheet": ["Combat", "Spritesheet", "combat-spritesheet"],
+                            "Shield": {
+                                "position": ["Combat", "Player", "position"],
+                                "scale": ["Combat", "Player", "scale"],
                                 "direction": ["Combat", "Player", "direction"],
-                                "src": ["Combat", "Player", "src"],
-                                "block_health": 10,
-                                "block": [
-                                    "block.png"
-                                ],
-                                "block_broken": [
-                                    "block_broken.png"
-                                ],
-                                "hitboxes": ["Combat", "Player", "hitboxes"]
+                                "width": ["Combat", "Player", "width"],
+                                "stunned": ["Combat", "Player", "stunned"],
+                                "in_shield": ["Combat", "Player", "in_shield"],
+                                "shield_position": ["Combat", "Player", "Attack", "position"],
+                                "shield_src": ["Combat", "Player", "Attack", "src_temp"],
+                                "shield_collider": ["Combat", "Player", "Attack", "Colliders", "attack_collider"],
+                                "spritesheet": ["Combat", "Spritesheet", "Combat"],
+                                "hitbox_left": ["Combat", "Player", "Attack", "Hitboxes", "shield_left"],
+                                "hitbox_right": ["Combat", "Player", "Attack", "Hitboxes", "shield_right"],
+                                "frame_active": "block.png",
+                                "frame_broken": "block_break.png",
+                                "shield_health": 75,
+                                "break_stun": 1.0
                             }
                         },
                         "air_ability_1": {
                             "Attack": {
-                                "spritesheet": ["Combat", "Spritesheet", "combat-spritesheet"],
+                                "position": ["Combat", "Player", "position"],
+                                "scale": ["Combat", "Player", "scale"],
                                 "direction": ["Combat", "Player", "direction"],
-                                "src": ["Combat", "Player", "src"],
-                                "attack": {
-                                    "left": [
-                                        "kick_left.png"
-                                    ],
-                                    "right": [
-                                        "kick_right.png"
-                                    ]
-                                },
-                                "hitboxes": ["Combat", "Player", "hitboxes"]
+                                "width": ["Combat", "Player", "width"],
+                                "attack_position": ["Combat", "Player", "Attack", "position"],
+                                "attack_src": ["Combat", "Player", "Attack", "src_temp"],
+                                "attack_collider": ["Combat", "Player", "Attack", "Colliders", "attack_collider"],
+                                "spritesheet": ["Combat", "Spritesheet", "Combat"],
+                                "duration": 0.22,
+                                "startup": 0.04,
+                                "damage": 10,
+                                "hitstun": 0.2,
+                                "knockback": { "x": 100, "y": 120 },
+                                "impulse": { "x": 50, "y": 20 },
+                                "hitbox_left": ["Combat", "Player", "Attack", "Hitboxes", "kick_left"],
+                                "hitbox_right": ["Combat", "Player", "Attack", "Hitboxes", "kick_right"],
+                                "frame_left": "kick_left.png",
+                                "frame_right": "kick_right.png"
                             }
                         }
                     }
@@ -165,12 +214,12 @@
                 {
                     "type" : "Direction",
                     "name" : "direction",
-                    "parameters": {"x": 0, "y": 0}
+                    "parameters": {"x": 1, "y": 0}
                 },
                 {
                     "type": "Direction",
                     "name": "prev_direction",
-                    "parameters": {"x": 0, "y": 1}
+                    "parameters": {"x": 1, "y": 0}
                 }
             ]
         }
@@ -190,7 +239,7 @@
                             "y": 32
                         }
                     },
-                    "kind": "physical",
+                    "mask": "physical",
                     "position": ["Combat", "Player", "position"],
                     "scale": ["Combat", "Player", "scale"]
                 }
@@ -263,6 +312,125 @@
                         "position": ["Combat", "Player", "position"],
                         "scale": ["Combat", "Player", "scale"],
                         "material" : [ "Spritesheet", "material" ]
+                    }
+                }
+            }
+        }
+    },
+    {
+        "CreateComponents": {
+            "path": ["Combat", "Player", "Attack"],
+            "components": [
+                {
+                    "type": "Position",
+                    "name": "position"
+                },
+                {
+                    "type": "Src::Transform",
+                    "name": "src_temp"
+                }
+            ]
+        }
+    },
+    {
+        "CreateComponents": {
+            "path": ["Combat", "Player", "Attack", "Colliders"],
+            "components": {
+                "type": "Collider",
+                "name": "attack_collider",
+                "parameters": {
+                    "add_collider": false,
+                    "shape": {
+                        "type": "GJK::Point",
+                        "parameters": {
+                            "distance": 0,
+                            "offset": { "x": 0, "y": 0 },
+                            "direction": ["Combat", "Player", "direction"]
+                        }
+                    },
+                    "position": ["Combat", "Player", "Attack", "position"],
+                    "scale": ["Combat", "Player", "scale"],
+                    "mask": "attack"
+                }
+            }
+        }
+    },
+    {
+        "CreateComponents": {
+            "path": ["Combat", "Player", "Attack", "Hitboxes"],
+            "components": [
+                {
+                    "type": "GJK::AABB",
+                    "name": "combo1_left",
+                    "parameters": { "x": -16, "y": 16, "w": 28, "h": 28 }
+                },
+                {
+                    "type": "GJK::AABB",
+                    "name": "combo1_right",
+                    "parameters": { "x": 52, "y": 16, "w": 28, "h": 28 }
+                },
+                {
+                    "type": "GJK::Circle",
+                    "name": "combo2_left",
+                    "parameters": { "radius": 22, "x": -8, "y": 24 }
+                },
+                {
+                    "type": "GJK::Circle",
+                    "name": "combo2_right",
+                    "parameters": { "radius": 22, "x": 72, "y": 24 }
+                },
+                {
+                    "type": "GJK::AABB",
+                    "name": "combo3_left",
+                    "parameters": { "x": -24, "y": 8, "w": 40, "h": 48 }
+                },
+                {
+                    "type": "GJK::AABB",
+                    "name": "combo3_right",
+                    "parameters": { "x": 48, "y": 8, "w": 40, "h": 48 }
+                },
+                {
+                    "type": "GJK::Circle",
+                    "name": "projectile",
+                    "parameters": { "radius": 10, "x": 10, "y": 10 }
+                },
+                {
+                    "type": "GJK::AABB",
+                    "name": "shield_left",
+                    "parameters": { "x": -8, "y": 4, "w": 18, "h": 52 }
+                },
+                {
+                    "type": "GJK::AABB",
+                    "name": "shield_right",
+                    "parameters": { "x": 54, "y": 4, "w": 18, "h": 52 }
+                },
+                {
+                    "type": "GJK::Circle",
+                    "name": "kick_left",
+                    "parameters": { "radius": 16, "x": -4, "y": 40 }
+                },
+                {
+                    "type": "GJK::Circle",
+                    "name": "kick_right",
+                    "parameters": { "radius": 16, "x": 68, "y": 40 }
+                }
+            ]
+        }
+    },
+    {
+        "DelayNext": {
+            "CreateComponents": {
+                "path": ["Combat", "Player", "Attack", "Render"],
+                "components": {
+                    "type": "System::ZoomCameraDraw",
+                    "name": "system-zoom_camera_draw_attack",
+                    "parameters": {
+                        "camera_position": ["Combat", "Camera", "position"],
+                        "camera_zoom": ["Combat", "Camera", "zoom"],
+                        "src": ["Combat", "Player", "Attack", "src_temp"],
+                        "position": ["Combat", "Player", "Attack", "position"],
+                        "scale": ["Combat", "Player", "scale"],
+                        "material" : [ "Combat", "Spritesheet", "Combat", "material" ]
                     }
                 }
             }

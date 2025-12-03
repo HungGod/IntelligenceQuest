@@ -13,7 +13,6 @@ namespace Component {
    class Collider : public IComponent  
    {    
    Rect min_rect;
-
    public:
        uint8_t kind{};
        std::vector<IGJK*> shapes{};
@@ -25,8 +24,15 @@ namespace Component {
        Component::Vector2D* position{};
        Component::ValTemplate<float>* scale{};
 
-       Rect get_rect() { 
-          return Rect {min_rect.x * scale->val + position->x, min_rect.y * scale->val + position->y, min_rect.w * scale->val, min_rect.h * scale->val};
+       Rect get_rect() {
+            if (shapes.size() == 1) {
+                glm::vec2 min = shapes[0]->get_min(*position, scale->val);
+                float w = shapes[0]->get_width(scale->val);
+                float h = shapes[0]->get_height(scale->val);
+
+                return Rect {min.x, min.y, w, h};
+            }
+            return Rect {min_rect.x * scale->val + position->x, min_rect.y * scale->val + position->y, min_rect.w * scale->val, min_rect.h * scale->val};
         }
 
        void init(nlohmann::json json, Entity* game) override;  
@@ -45,6 +51,8 @@ namespace Component {
                   get_rect().y < other->get_rect().y + other->get_rect().h &&
                   get_rect().y + get_rect().h > other->get_rect().y;
        }
+
+       void add_shape(nlohmann::json json, Entity* game);
 
        std::vector<std::pair<IGJK*, IGJK*>> gjk_collide(Component::Collider* other)
        {

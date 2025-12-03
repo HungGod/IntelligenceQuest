@@ -2,31 +2,17 @@
 #include "ec/component/gjk/component-gjk-circle.h"
 #include <sstream>
 #include <limits>
-#include "json_to.h"    
 #include "ec/component/component-quadtree.h"
 #include "ec/component/component-template.h"
+#include "json_to.h"
 
 void Component::Collider::init(nlohmann::json json, Entity* game)
 {
     Entity* collision = game->get_child("Collision");
     Component::ColliderMask* mask = collision->get_component<Component::ColliderMask>("mask");
 
-    auto add_shape = [&](const nlohmann::json& shape_json) {
-        std::string gjk_type = shape_json["type"];
-        std::string gjk_name = gjk_type + "-" + shape_json["parameters"].dump();
-        
-        if (!collision->has_component(gjk_name)) {
-            JsonTo json_to;
-            IComponent* gjk = json_to.component(shape_json, collision, game);
-            shapes.push_back(static_cast<IGJK*>(gjk));
-        }
-        else {
-            shapes.push_back(collision->get_component<IGJK>(gjk_name));
-        }
-    };
-
     if (json.contains("shape")) {
-        add_shape(json["shape"]);
+        add_shape(json["shape"], game);
         min_rect.x = shapes.back()->get_min({0.0f, 0.0f}, 1.0f).x;
         min_rect.y = shapes.back()->get_min({0.0f, 0.0f}, 1.0f).y;
         min_rect.w = shapes.back()->get_width(1.0f);
@@ -37,13 +23,13 @@ void Component::Collider::init(nlohmann::json json, Entity* game)
         float min_y = std::numeric_limits<float>::max();
         float max_x = std::numeric_limits<float>::lowest();
         float max_y = std::numeric_limits<float>::lowest();
-        
+
         for (const auto& shape : json["shapes"]) {
-            add_shape(shape);
+            add_shape(shape, game);
             glm::vec2 shape_min = shapes.back()->get_min({0.0f, 0.0f}, 1.0f);
             float shape_w = shapes.back()->get_width(1.0f);
             float shape_h = shapes.back()->get_height(1.0f);
-            
+
             min_x = std::min(min_x, shape_min.x);
             min_y = std::min(min_y, shape_min.y);
             max_x = std::max(max_x, shape_min.x + shape_w);
@@ -69,6 +55,22 @@ void Component::Collider::init(nlohmann::json json, Entity* game)
     else
         velocity = nullptr;
     add_collider = json.value("add_collider", true);
+}
+
+void Component::Collider::add_shape(nlohmann::json json, Entity* game)
+{
+    Entity* collision = game->get_child("Collision");
+    std::string gjk_type = json["type"];
+    std::string gjk_name = gjk_type + "-" + json["parameters"].dump();
+
+    JsonTo json_to;
+    if (!collision->has_component(gjk_name)) {
+        IComponent* gjk = json_to.component(json, collision, game);
+        shapes.push_back(static_cast<IGJK*>(gjk));
+    }
+    else {
+        shapes.push_back(collision->get_component<IGJK>(gjk_name));
+    }
 }
 
 void Component::Collider::collide_and_resolve(Component::Collider* other, Component::ColliderMask* mask, Component::Pathway* pathway, Component::ValTemplate<float>* delta_time) {  

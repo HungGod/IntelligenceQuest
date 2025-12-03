@@ -30,6 +30,9 @@
 #include "command/command-static_move.h"
 #include "command/command-zoom.h"
 #include "command/command-jump.h"
+#include "command/command-attack.h"
+#include "command/command-projectile.h"
+#include "command/command-shield.h"
 
 template <typename T>
 std::shared_ptr<Ring<ICommand>> create_command_ring()
@@ -73,4 +76,7 @@ void Factory::CommandMap::create()
 	(*this)["Zoom"] = create_command_ring<Command::Zoom>();
 	(*this)["StaticMove"] = create_command_ring<Command::StaticMove>();
 	(*this)["Jump"] = create_command_ring<Command::Jump>();
+	(*this)["Attack"] = create_command_ring<Command::Attack>();
+	(*this)["Projectile"] = create_command_ring<Command::Projectile>();
+	(*this)["Shield"] = (*this)["Block"] = create_command_ring<Command::Shield>();
 }

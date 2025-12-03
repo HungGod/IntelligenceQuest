@@ -2,11 +2,11 @@
 	"ParseJsonTemplate": {
         "filename": "res/data/save.json",
 		"args": {
-			"GAMESTATE": "res/data/gamestates/overworld/overworld.json",
+			"GAMESTATE": "res/data/gamestates/combat/combat.json",
 			"GAMESTATE_POS": 0,
 			"PLAYER_FLAGS": {},
 			"PLAYER_INT": {
-				"davids_blessing": 99,
+				"gods_blessing": 99,
 				"sign_house_appearing": 15,
 				"weak": 14
 			},

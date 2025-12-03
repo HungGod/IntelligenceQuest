@@ -38,6 +38,7 @@
                     "parameters": {
                         "position": ["House", "Girlfriend_1", "NPC", "Girlfriend", "position"],
                         "scale": ["House", "Girlfriend_1", "NPC", "Girlfriend", "scale"],
+                        "velocity": ["House", "Girlfriend_1", "NPC", "Girlfriend", "velocity"],
                         "shape": {
                             "type": "GJK::Circle",
                             "parameters": {
