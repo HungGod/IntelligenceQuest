@@ -93,7 +93,9 @@ namespace Src
 
 		void draw(glm::vec4 dest, IMaterial* material, Component::Renderer* renderer)
 		{
-			if (!src) return;
+			if (!src) 
+				Logger::error("src is null in draw", Logger::HIGH);
+			
 			glm::vec4 src = this->get_src();
 
 			if (rotation_angle_ != 0.0f) {

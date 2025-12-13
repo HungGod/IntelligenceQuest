@@ -13,9 +13,9 @@ namespace Command
 	class Attack : public ICommand
 	{
 		// Player references
-		Component::Vector2D* player_position_;
-		Component::ValTemplate<float>* player_scale_;
-		Component::ValTemplate<float>* player_width_;
+		Component::Vector2D* position_;
+		Component::ValTemplate<float>* scale_;
+		Component::ValTemplate<float>* width_;
 		Component::Vector2D* direction_;
 		
 		// Attack entity references
@@ -46,9 +46,9 @@ namespace Command
 
 		void update_attack_position()
 		{
-			if (!attack_position_ || !player_position_) return;
-			attack_position_->x = player_position_->x;
-			attack_position_->y = player_position_->y;
+			if (!attack_position_ || !position_) return;
+			attack_position_->x = position_->x;
+			attack_position_->y = position_->y;
 		}
 
 		void activate_hitbox(const ComboHit& hit)
@@ -83,15 +83,20 @@ namespace Command
 		{
 			if (!attack_src_) return;
 			ISrc* frame = (facing_direction_ >= 0) ? hit.frame_right : hit.frame_left;
-			attack_src_->src = frame;
+			if (frame)
+				{
+					attack_src_->src = frame;
+					glm::vec4 src_uv = attack_src_->src->get_src();
+					std::cout << "src UV: " << src_uv.x << " " << src_uv.y << " " << src_uv.z << " " << src_uv.w << std::endl;
+				}
 		}
 
 		void apply_impulse(const glm::vec2& impulse)
 		{
-			if (player_position_ && (impulse.x != 0.0f || impulse.y != 0.0f))
+			if (position_ && (impulse.x != 0.0f || impulse.y != 0.0f))
 			{
-				player_position_->x += impulse.x * facing_direction_;
-				player_position_->y += impulse.y;
+				position_->x += impulse.x * facing_direction_;
+				position_->y += impulse.y;
 			}
 		}
 
@@ -101,12 +106,10 @@ namespace Command
 		void load(nlohmann::json json, Entity* game, Component::Pathway* pathway) override
 		{
 			// Load player references
-			player_position_ = game->get_nested_component<Component::Vector2D>(json["position"]);
-			player_scale_ = game->get_nested_component<Component::ValTemplate<float>>(json["scale"]);
+			position_ = game->get_nested_component<Component::Vector2D>(json["position"]);
+			scale_ = game->get_nested_component<Component::ValTemplate<float>>(json["scale"]);
 			direction_ = game->get_nested_component<Component::Vector2D>(json["direction"]);
-			
-			if (json.contains("width"))
-				player_width_ = game->get_nested_component<Component::ValTemplate<float>>(json["width"]);
+			width_ = game->get_nested_component<Component::ValTemplate<float>>(json["width"]);
 			
 			// Load attack entity references
 			attack_position_ = game->get_nested_component<Component::Vector2D>(json["attack_position"]);
@@ -114,9 +117,7 @@ namespace Command
 			attack_collider_ = game->get_nested_component<Component::Collider>(json["attack_collider"]);
 			
 			// Get spritesheet for frames
-			Entity* spritesheet = nullptr;
-			if (json.contains("spritesheet"))
-				spritesheet = game->get_nested_child(json["spritesheet"]);
+			Entity* spritesheet = game->get_nested_child(json["spritesheet"]);
 			
 			// Load combo hits
 			combo_hits_.clear();
@@ -132,12 +133,12 @@ namespace Command
 					hit.hitstun = hit_json.value("hitstun", 0.2f);
 					
 					hit.knockback = {
-						hit_json.contains("knockback") ? hit_json["knockback"].value("x", 100.0f) : 100.0f,
-						hit_json.contains("knockback") ? hit_json["knockback"].value("y", 0.0f) : 0.0f
+						hit_json["knockback"].value("x", 100.0f),
+						hit_json["knockback"].value("y", 0.0f)
 					};
 					hit.impulse = {
-						hit_json.contains("impulse") ? hit_json["impulse"].value("x", 0.0f) : 0.0f,
-						hit_json.contains("impulse") ? hit_json["impulse"].value("y", 0.0f) : 0.0f
+						hit_json["impulse"].value("x", 0.0f),
+						hit_json["impulse"].value("y", 0.0f)
 					};
 					
 					// Load preloaded hitbox shapes
@@ -165,13 +166,14 @@ namespace Command
 				hit.hitstun = json.value("hitstun", 0.2f);
 				
 				hit.knockback = {
-					json.contains("knockback") ? json["knockback"].value("x", 100.0f) : 100.0f,
-					json.contains("knockback") ? json["knockback"].value("y", 0.0f) : 0.0f
+					json["knockback"].value("x", 100.0f),
+					json["knockback"].value("y", 0.0f)
 				};
 				hit.impulse = {
-					json.contains("impulse") ? json["impulse"].value("x", 0.0f) : 0.0f,
-					json.contains("impulse") ? json["impulse"].value("y", 0.0f) : 0.0f
+					json["impulse"].value("x", 0.0f),
+					json["impulse"].value("y", 0.0f)
 				};
+				
 				
 				hit.hitbox_left = json.contains("hitbox_left") ?
 					game->get_nested_component<IGJK>(json["hitbox_left"]) : nullptr;

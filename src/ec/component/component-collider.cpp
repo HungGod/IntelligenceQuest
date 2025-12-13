@@ -41,7 +41,6 @@ void Component::Collider::init(nlohmann::json json, Entity* game)
         min_rect.w = max_x - min_x;
         min_rect.h = max_y - min_y;
     }
-    else Logger::error("Collider JSON needs shape or shapes: " + json.dump(1, '\t'), Logger::HIGH);
 
     std::string mask_str = json.value("mask", "physical");
     kind = mask->get_kind_from_string(mask_str);
