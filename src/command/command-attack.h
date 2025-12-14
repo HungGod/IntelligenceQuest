@@ -86,8 +86,6 @@ namespace Command
 			if (frame)
 				{
 					attack_src_->src = frame;
-					glm::vec4 src_uv = attack_src_->src->get_src();
-					std::cout << "src UV: " << src_uv.x << " " << src_uv.y << " " << src_uv.z << " " << src_uv.w << std::endl;
 				}
 		}
 

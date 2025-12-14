@@ -16,7 +16,6 @@
                     "render" : [ 
                         ["Combat", "Background", "Wacky"],
                         ["Combat", "Player"],
-                        ["Combat", "Player", "Attack"],
                         ["Combat", "Weak"],
                         ["Combat", "Blocks", "Menu"]
                     ],
