@@ -42,7 +42,7 @@
                     "scale": ["Overworld", "Outside", "NPC", "Weak", "scale"],
                     "shape": {
                         "type": "GJK::AABB",
-                        "parameters": { "x": 0, "y": 64, "w": 64, "h": 80 }
+                        "parameters": { "x": 0, "y": 72, "w": 64, "h": 48 }
                     },
                     "velocity": ["Overworld", "Outside", "NPC", "Weak", "velocity"],
                     "mask": "both",

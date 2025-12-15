@@ -133,6 +133,10 @@ int main()
 
     GLfloat last_frame = 0.0f;
 
+    pathway.navigate(e_game, command_map);
+    pathway.navigate(e_game, command_map);
+    auto* renderer = e_game->get_component<Component::Renderer>("renderer");
+
     // game loop
     while (!glfwWindowShouldClose(window))
     {
@@ -148,8 +152,14 @@ int main()
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        // Begin render frame (clears render commands)
+        renderer->begin();
+
         for (auto r : render)
             r->execute();
+
+        // End render frame (sorts, batches, and renders all commands)
+        renderer->end();
 
         pathway.navigate(e_game, command_map);
         if (exit)

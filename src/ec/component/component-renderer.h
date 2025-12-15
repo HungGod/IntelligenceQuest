@@ -3,15 +3,110 @@
 #include <glad/glad.h>
 #include "ec/component/material/component-material.h"
 #include "rect.h"
+#include <variant>
+#include <algorithm>
 
 constexpr auto VERTICES = 4u;  // Only 4 vertices per quad when using an index buffer
 
 namespace Component {
+    // Render command structure for deferred batching
+    struct RenderCommand {
+        int layer;
+        float sort_y;  // Y position for sorting (lower Y = drawn first/behind)
+        glm::vec4 src;
+        std::variant<glm::vec4, std::array<glm::vec2, 4>> dest;  // Support both dest formats
+        IMaterial* material;
+        
+        // Comparison for sorting: first by layer, then by sort_y
+        bool operator<(const RenderCommand& other) const {
+            if (layer != other.layer) {
+                return layer < other.layer;
+            }
+            return sort_y < other.sort_y;
+        }
+    };
     class Renderer : public IComponent {
         GLuint vbo_, vao_, ebo_, att_size_, max_sprites_;
         std::vector<GLfloat> buffer_;
         std::vector<GLuint> indices_;
         IMaterial* current_mat_;
+        std::vector<RenderCommand> render_commands_;  // Deferred render commands
+        
+        // Helper method to submit a command's vertices to the buffer
+        void submit_command_to_buffer(const RenderCommand& cmd) {
+            // Check if buffer is over sprite limit or current material isn't set or is different
+            if ((this->buffer_.size() >= static_cast<std::size_t>(this->max_sprites_) * VERTICES * att_size_) || !this->current_mat_ || this->current_mat_->id != cmd.material->id) {
+                this->flush();  // Flush out current batch and start on the next one
+                this->current_mat_ = cmd.material;
+            }
+            
+            // Handle both dest formats
+            if (std::holds_alternative<glm::vec4>(cmd.dest)) {
+                glm::vec4 dest = std::get<glm::vec4>(cmd.dest);
+                // Bottom-left
+                buffer_.push_back(dest.x);
+                buffer_.push_back(dest.w);
+                buffer_.push_back(cmd.src.x);
+                buffer_.push_back(cmd.src.w);
+
+                // Bottom-right
+                buffer_.push_back(dest.z);
+                buffer_.push_back(dest.w);
+                buffer_.push_back(cmd.src.z);
+                buffer_.push_back(cmd.src.w);
+
+                // Top-left
+                buffer_.push_back(dest.x);
+                buffer_.push_back(dest.y);
+                buffer_.push_back(cmd.src.x);
+                buffer_.push_back(cmd.src.y);
+
+                // Top-right
+                buffer_.push_back(dest.z);
+                buffer_.push_back(dest.y);
+                buffer_.push_back(cmd.src.z);
+                buffer_.push_back(cmd.src.y);
+            } else {
+                std::array<glm::vec2, 4> dest = std::get<std::array<glm::vec2, 4>>(cmd.dest);
+                // Bottom-left
+                buffer_.push_back(dest[0].x);
+                buffer_.push_back(dest[0].y);
+                buffer_.push_back(cmd.src.x);
+                buffer_.push_back(cmd.src.w);
+
+                // Bottom-right
+                buffer_.push_back(dest[1].x);
+                buffer_.push_back(dest[1].y);
+                buffer_.push_back(cmd.src.z);
+                buffer_.push_back(cmd.src.w);
+
+                // Top-left
+                buffer_.push_back(dest[2].x);
+                buffer_.push_back(dest[2].y);
+                buffer_.push_back(cmd.src.x);
+                buffer_.push_back(cmd.src.y);
+
+                // Top-right
+                buffer_.push_back(dest[3].x);
+                buffer_.push_back(dest[3].y);
+                buffer_.push_back(cmd.src.z);
+                buffer_.push_back(cmd.src.y);
+            }
+        }
+        
+        // Sort commands by layer and Y position, then batch and render
+        void sort_and_batch() {
+            if (render_commands_.empty()) return;
+            
+            // Sort commands: first by layer (ascending), then by sort_y (ascending)
+            std::stable_sort(render_commands_.begin(), render_commands_.end());
+            
+            // Process sorted commands, batching by material
+            for (const auto& cmd : render_commands_) {
+                submit_command_to_buffer(cmd);
+            }
+        }
+        
     public:
         void init(nlohmann::json json, Entity* game) override {
             std::vector<unsigned> attributes = json["attributes"];
@@ -82,74 +177,43 @@ namespace Component {
         }
 
         void begin() {
+            // Clear render commands for a new frame
+            render_commands_.clear();
+            // Pre-allocate to avoid reallocations (estimate based on max_sprites_)
+            render_commands_.reserve(max_sprites_);
             // Ensure the current material is cleared for a new batch
             current_mat_ = nullptr;
         }
 
-        void draw(glm::vec4 src, std::array<glm::vec2, 4> dest, IMaterial* mat)
+        void draw(glm::vec4 src, std::array<glm::vec2, 4> dest, IMaterial* mat, int layer = 0)
         {
-            // Check if buffer is over sprite limit or current material isn't set or is different
-            if ((this->buffer_.size() >= static_cast<std::size_t>(this->max_sprites_) * VERTICES * att_size_) || !this->current_mat_ || this->current_mat_->id != mat->id) {
-                this->flush();  // Flush out current batch and start on the next one
-                this->current_mat_ = mat;
-            }
-
-            // Bottom-left
-            buffer_.push_back(dest[0].x);
-            buffer_.push_back(dest[0].y);
-            buffer_.push_back(src.x);
-            buffer_.push_back(src.w);
-
-            // Bottom-right
-            buffer_.push_back(dest[1].x);
-            buffer_.push_back(dest[1].y);
-            buffer_.push_back(src.z);
-            buffer_.push_back(src.w);
-
-            // Top-left
-            buffer_.push_back(dest[2].x);
-            buffer_.push_back(dest[2].y);
-            buffer_.push_back(src.x);
-            buffer_.push_back(src.y);
-
-            // Top-right
-            buffer_.push_back(dest[3].x);
-            buffer_.push_back(dest[3].y);
-            buffer_.push_back(src.z);
-            buffer_.push_back(src.y);
+            // Calculate sort_y from the highest Y coordinate (top of sprite)
+            float sort_y = std::max(std::max(dest[0].y, dest[1].y), std::max(dest[2].y, dest[3].y));
+            
+            // Create and store render command for deferred batching
+            RenderCommand cmd;
+            cmd.layer = layer;
+            cmd.sort_y = sort_y;
+            cmd.src = src;
+            cmd.dest = dest;
+            cmd.material = mat;
+            
+            render_commands_.push_back(cmd);
         }
 
-        void draw(glm::vec4 src, glm::vec4 dest, IMaterial* mat) {
-            // Check if buffer is over sprite limit or current material isn't set or is different
-            if ((this->buffer_.size() >= static_cast<std::size_t>(this->max_sprites_) * VERTICES * att_size_) || !this->current_mat_ || this->current_mat_->id != mat->id) {
-                this->flush();  // Flush out current batch and start on the next one
-                this->current_mat_ = mat;
-            }
-
-            // Bottom-left
-            buffer_.push_back(dest.x);
-            buffer_.push_back(dest.w);
-            buffer_.push_back(src.x);
-            buffer_.push_back(src.w);
-
-            // Bottom-right
-            buffer_.push_back(dest.z);
-            buffer_.push_back(dest.w);
-            buffer_.push_back(src.z);
-            buffer_.push_back(src.w);
-
-            // Top-left
-            buffer_.push_back(dest.x);
-            buffer_.push_back(dest.y);
-            buffer_.push_back(src.x);
-            buffer_.push_back(src.y);
-
-            // Top-right
-            buffer_.push_back(dest.z);
-            buffer_.push_back(dest.y);
-            buffer_.push_back(src.z);
-            buffer_.push_back(src.y);
-
+        void draw(glm::vec4 src, glm::vec4 dest, IMaterial* mat, int layer = 0) {
+            // Calculate sort_y from top Y coordinate (dest.y is top)
+            float sort_y = dest.w;
+            
+            // Create and store render command for deferred batching
+            RenderCommand cmd;
+            cmd.layer = layer;
+            cmd.sort_y = sort_y;
+            cmd.src = src;
+            cmd.dest = dest;
+            cmd.material = mat;
+            
+            render_commands_.push_back(cmd);
         }
 
         void flush() {
@@ -188,6 +252,8 @@ namespace Component {
         }
 
         void end() {
+            // Sort commands and batch them
+            sort_and_batch();
             // Flush any remaining sprites to be drawn
             this->flush();
         }

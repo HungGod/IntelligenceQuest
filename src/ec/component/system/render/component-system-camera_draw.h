@@ -33,7 +33,7 @@ namespace System
 
 		void execute() override
 		{
-			src_->draw(*position_ - *camera_, scale_->val, material_, renderer_);
+			src_->draw(*position_ - *camera_, scale_->val, material_, renderer_, 1);
 		}
 		std::string get_id() override { return "camera-draw"; }
 	};

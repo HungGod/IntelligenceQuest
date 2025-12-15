@@ -12,6 +12,6 @@ public:
 	virtual glm::vec4 get_src() = 0;
 	virtual float get_width() = 0;
 	virtual float get_height() = 0;
-	virtual void draw(glm::vec4 dest, IMaterial* material, Component::Renderer* renderer) { renderer->draw(get_src(), dest, material); };
-	virtual void draw(glm::vec2 position, float scale, IMaterial* material, Component::Renderer* renderer) { draw(get_dest(position, scale), material, renderer); }
+	virtual void draw(glm::vec4 dest, IMaterial* material, Component::Renderer* renderer, int layer = 0) { renderer->draw(get_src(), dest, material, layer); };
+	virtual void draw(glm::vec2 position, float scale, IMaterial* material, Component::Renderer* renderer, int layer = 0) { draw(get_dest(position, scale), material, renderer, layer); }
 };

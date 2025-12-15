@@ -84,9 +84,7 @@ namespace Command
 			if (!attack_src_) return;
 			ISrc* frame = (facing_direction_ >= 0) ? hit.frame_right : hit.frame_left;
 			if (frame)
-				{
 					attack_src_->src = frame;
-				}
 		}
 
 		void apply_impulse(const glm::vec2& impulse)
@@ -204,7 +202,8 @@ namespace Command
 		{
 			if (combo_hits_.empty() || current_hit_ >= static_cast<int>(combo_hits_.size()))
 			{
-				if (attack_src_) attack_src_->src = nullptr;
+				attack_position_->x = -9999;
+				attack_position_->y = -9999;
 				deactivate_hitbox();
 				return;
 			}
@@ -239,7 +238,8 @@ namespace Command
 				pathway->next(this);
 			else
 			{
-				if (attack_src_) attack_src_->src = nullptr;
+				attack_position_->x = -9999;
+				attack_position_->y = -9999;
 			}
 		}
 

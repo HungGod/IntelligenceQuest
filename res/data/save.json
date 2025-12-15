@@ -2,7 +2,7 @@
 	"ParseJsonTemplate": {
         "filename": "res/data/save.json",
 		"args": {
-			"GAMESTATE": "res/data/gamestates/combat/combat.json",
+			"GAMESTATE": "res/data/gamestates/overworld/overworld.json",
 			"GAMESTATE_POS": 0,
 			"PLAYER_FLAGS": {},
 			"PLAYER_INT": {
